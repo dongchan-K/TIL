@@ -42,7 +42,7 @@
   - #### absolute,fixed 속성은 nomal flow에서 벗어나 개별 layer가 된다
   - #### top,right,bottom,left,z-index 속성은 position 속성값이 static 일때는 사용 불가하다
 - ### position 속성값이 absolute,fixed,relative,sticky 일때는 블록 레이아웃을 지닌다
-
+- ### `position: absolute;` 는 변동될 일이 없는 콘텐츠에 최소한으로 사용할 것!
 
 
   
