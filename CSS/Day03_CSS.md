@@ -27,8 +27,8 @@
   - #### `display` : Flex Container를 정의
   - #### `flex-flow`(단축속성) : Flex Items의 주 축(flex- direction), 줄 바꿈(flex-wrap)을 설정
   - #### `justify-content` : 주 축의 정렬 방식을 선택
-  `aling-items` : 교차 축의 정렬 방식을 선택(Items가 1줄일 경우)
-  `align-content` : 교차 축의 정렬 방식을 선택(Items가 2줄 이상일 경우)
+  - #### `aling-items` : 교차 축의 정렬 방식을 선택(Items가 1줄일 경우)
+  - #### `align-content` : 교차 축의 정렬 방식을 선택(Items가 2줄 이상일 경우)
 - ### Items에서 사용 가능한 속성
   - #### `order` : Flex Items의 순서를 설정
   - #### `flex`(단축속성) : Flex Item의 증가 너비 비율(flex-grow), 감소 너비 비율(flex-shrink), 기본 너비 설정(flex-basis)
