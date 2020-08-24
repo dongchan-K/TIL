@@ -25,8 +25,6 @@ var result = 10 + 20;
 
 **예시**
 
-<img width="343" alt="메모리" src="https://user-images.githubusercontent.com/67866773/91003866-7f202d80-e60d-11ea-8d8c-b55f2eeedb40.png">
-
 - **메모리 셀** 하나의 크기는 1바이트(8비트)이며, 컴퓨터는 메모리 셀의 크기, 즉 1바이트 단위로 데이터를 저장(write)하거나 읽어(read)들인다
 
 - 각 셀은 고유의 **메모리 주소(memory address)** 를 갖는다. 이 메모리 주소는 공간의 위치를 나타내며, 0부터 시작해서 메모리의 크기만큼 정수로 표현된다
