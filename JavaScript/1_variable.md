@@ -94,7 +94,20 @@ const score;
 
 - 일반적으로 초기화(initialization)란 변수가 선언된 이후 최초로 값을 할당하는 것을 말한다. `var` 키워드로 선언한 변수는 `undefined`로 암묵적인 초기화가 자동 수행된다. 따라서 `var` 키워드로 선언한 변수는 어떠한 값도 할당하지 않아도 undefined라는 값을 갖는다. 즉, `var` 키워드는 선언과 초기화가 런타임 이전에 수행된다
 
+## 변수 호이스팅
+
 **예시**
+
+```js
+console.log(score); // undefined
+var score; // 변수 선언문
+```
+
+- **변수 선언은 소스코드가 한 줄씩 순차적으로 실행되는 시점인 런타임이 아니라 그 이전 단계에서 먼저 실행되기 때문에** 변수 선언이 소스코드의 어디에 있던 상관없이 다른 코드보다 먼저 실행한다
+
+- 이처럼 변수 선언문이 코드의 선두로 끌어 올려진 것처럼 동작하는 자바스크립트 고유의 특징을 **변수 호이스팅(variable hoisting)** 이라 한다
+
+**`let` `const` 변수 호이스팅 동작 예시**
 
 ```js
 var foo = 1;
@@ -115,27 +128,6 @@ let foo = 1;
   console.log(foo); // ReferenceError
   let foo = 2; // 변수 호이스팅 발생하여 참조 에러를 유발 -> 변수 선언만 되고 변수 초기화는 실행되지 않았기 때문
 }
-```
-
-## 변수 호이스팅
-
-**예시**
-
-```js
-console.log(score); // undefined
-var score; // 변수 선언문
-```
-
-- **변수 선언은 소스코드가 한 줄씩 순차적으로 실행되는 시점인 런타임이 아니라 그 이전 단계에서 먼저 실행되기 때문에** 변수 선언이 소스코드의 어디에 있던 상관없이 다른 코드보다 먼저 실행한다
-
-- 이처럼 변수 선언문이 코드의 선두로 끌어 올려진 것처럼 동작하는 자바스크립트 고유의 특징을 **변수 호이스팅(variable hoisting)** 이라 한다
-
-```js
-console.log(score); // ReferenceError
-let score;
-
-console.log(score); // ReferenceError
-const score;
 ```
 
 - 위와 같이 `let` , `const` 키워드로 선언한 변수의 경우 참조 에러(ReferenceError)가 발생하며, 호이스팅이 실제로는 발생하지만 동작은 호이스팅이 발생하지 않는 것처럼 동작한다
