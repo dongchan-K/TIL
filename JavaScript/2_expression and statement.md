@@ -155,3 +155,13 @@ console.log(foo); // 100
 **완료 값** : 개발자 도구에서 표현식이 아닌 문을 실행하면 언제나 `undefined`를 출력한다. 이를 완료 값이라 한다
 
 ![완료 값](https://user-images.githubusercontent.com/67866773/91011962-3887fe80-e620-11ea-8ee0-959f555a9411.png)
+
+**의문점**
+
+- 개발자 도구에서 표현식이 아닌 문을 실행하면 언제나 `undefined`를 출력한다고 했다.
+
+- 아래처럼 **변수 선언과 할당을 동시에 했을 때**, `undefined`를 출력하는 이유는..?
+
+![개발자 도구](https://user-images.githubusercontent.com/67866773/91060393-db16a080-e665-11ea-8184-fc96e252808c.PNG)
+
+
