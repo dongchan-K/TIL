@@ -118,6 +118,7 @@ var x = prompt('기수를 입력하세요.');
 alert(
   `${guro.name}씨(${guro.age})는${guro.academy}의 ${guro.class}의 ${x}기 입니다`
 );
+</script>
 ```
 
 ## 확인사항
