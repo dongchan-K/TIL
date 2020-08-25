@@ -102,6 +102,24 @@ var person = {
 delete person.name;
 ```
 
+## 예제풀이
+
+**1. guro 라는 객체를 만들어라. (프로퍼티 키와 값은 적절하다고 생각하는 것으로 사용) 이름, 기수(prompt 함수로 받아온 값을 읽어들일 것), 과목, 학원이름, 나이, 성별 각각의 프로퍼티 값을 템플릿 리터럴을 사용하여 alert 함수로 나타내시오
+
+```html
+<script>
+var guro = {
+  name: '김동찬',
+  age: 28,
+  academy: 'fast-campus',
+  class: 'front-end'
+};
+var x = prompt('기수를 입력하세요.');
+alert(
+  `${guro.name}씨(${guro.age})는${guro.academy}의 ${guro.class}의 ${x}기 입니다`
+);
+```
+
 ## 확인사항
 
 - 자바 스크립트는 객체 지향 언어이므로 객체에 대한 개념 확실히 할 것
