@@ -12,3 +12,5 @@
 
 ## JavaScript
 
+- ![variable](https://github.com/dongchan-K/TIL/blob/master/JavaScript/1_variable.md)
+
