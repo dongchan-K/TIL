@@ -221,7 +221,7 @@ let output = multiplyBetween(2, 5);
 console.log(output);
 ```
 
-## 확인사항
+## 요약
 - 이중 `for` 문 동작원리 이해할 것
 - 증감식 동작원리 이해할 것
 - `continue` 문 예제 만들고 학습 해볼것
