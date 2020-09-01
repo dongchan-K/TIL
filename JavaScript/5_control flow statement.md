@@ -44,7 +44,7 @@
   - `switch` 문은 표현식을 평가하여 일치하는 표현식을 갖는 `case` 문으로 실행 흐름을 옮긴다
   - `switch` 문의 표현식과 일치하는 `case` 문이 없다면 실행 순서는 default 문으로 이동한다
   - `default` 문은 사용 여부를 선택할 수 있고 `break` 문을 생략 가능하다
-  - **폴스루(fall through)** : `break`문을 생략해서 `switch` 문의 표현식과 일치하는 `case` 문의 표현식이 있어도 모든 `case` 문과 `default` 문을 실행하는 현상
+  - **폴스루(fall through)** : `break`문을 생략해서 `switch` 문의 표현식과 일치하는 `case` 문의 표현식이 있어도 이후의 모든 `case` 문과 `default` 문을 실행하는 현상
   - 폴스루를 활용해 여러 개의 `case` 문을 하나의 조건으로 사용도 가능하다
 
   **사용 예시**
