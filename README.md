@@ -12,6 +12,8 @@
 
 ## JavaScript
 
+- [예제풀이(example)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/example.md)
+
 - [변수(variable)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/1_variable.md)
 
 - [표현식과 문(expression and statement)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/2_expression%20and%20statement.md)
@@ -33,4 +35,7 @@
 - [스코프(scope)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/10_scope.md)
 
 - [전역 변수(global variable)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/11_global%20variable.md)
+
+- [블록 레벨 스코프(block-level scope)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/12_block-level%20scope.md)
+
 
