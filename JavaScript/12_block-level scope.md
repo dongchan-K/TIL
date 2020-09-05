@@ -175,7 +175,7 @@ foo = 2; // TypeError: Assignment to constant variable.
 
 - var 키워드는 함수 레벨 스코프를 따른다
 - let, const 키워드는 블록 레벨 스코프를 따른다
-- 모든 선언은 호이스팅 된다
+- 모든 선언은 스코프 내에서 호이스팅 된다
 - var 키워드는 선언과 초기화(undefined)가 동시에 진행된다
 - let, const 키워드는 선언과 초기화(undefined)가 분리되어 진행되기 때문에 호이스팅이 발생하지 않는 것처럼 보인다
 - const 키워드로 선언된 변수는 선언과 동시에 초기화 해야한다
