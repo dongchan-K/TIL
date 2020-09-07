@@ -12,7 +12,7 @@
 
 ## JavaScript
 
-- [예제풀이(example)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/example.md)
+- [예제풀이(example)](https://github.com/dongchan-K/TIL/tree/master/JavaScript/example)
 
 - [변수(variable)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/1_variable.md)
 
