@@ -12,8 +12,6 @@
 
 ## JavaScript
 
-- [예제풀이(example)](https://github.com/dongchan-K/TIL/tree/master/JavaScript/example)
-
 - [변수(variable)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/1_variable.md)
 
 - [표현식과 문(expression and statement)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/2_expression%20and%20statement.md)
