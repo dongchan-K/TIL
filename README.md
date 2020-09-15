@@ -37,4 +37,5 @@
 
 - [블록 레벨 스코프(block-level scope)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/12_block-level%20scope.md)
 
+- [프로퍼티 어트리뷰터(property attribute)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/13_property%20attribute.md)
 
