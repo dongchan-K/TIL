@@ -121,7 +121,7 @@ Object.getOwnPropertyDescriptor(function() {}, 'prototype');
 **프로퍼티 정의란 새로운 프로퍼티를 추가하면서 프로퍼티 어트리뷰트를 명시적으로 정의하거나, 기존 프로퍼티의 프로퍼티 어트리뷰트를 재정의하는 것을 말한다**
 
 - Object.defineProperty 메서드를 사용하면 프로퍼티의 어트리뷰트를 정의할 수 있다. 인수로는 객체의 참조와 데이터 프로퍼티의 키인 문자열, 프로퍼티 디스크립터 객체를 전달한다
-- Object.defineProperties 메서더를 사용하면 여러 개의 프로퍼티를 한번에 정의할 수 있다
+- Object.defineProperties 메서드를 사용하면 여러 개의 프로퍼티를 한번에 정의할 수 있다
 
 **Object.defineProperty 예시**
 ```js
