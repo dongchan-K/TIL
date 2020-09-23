@@ -389,7 +389,9 @@ console.log(person); // {name: "Kim", address: {city: "Seoul"}}
 - 내부 슬롯, 내부 메서드에서 내부는 자바스크립트 엔진 내부를 의미한다
 - 일부 자바스크립트 엔진 내부 슬롯, 내부 메서드에는 직접적인 접근이 아닌 참조로서 간접적인 접근이 가능하다
 - getter 함수는 반드시 내부에 return 문을 갖는다
+- [getter MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/get) 에서 자세히 알아볼 수 있다
 - setter 함수는 반드시 인수가 있어야 한다
+- [setter MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/set) 에서 자세히 알아볼 수 있다
 - Object.defineProperty 메서드로 데이터 프로퍼티의 어트리뷰트를 정의 시, Value는 필수이며 Writable, Enumerable, Configurable 은 생략할 경우 false로 정의된다
 
 
