@@ -324,3 +324,85 @@ f = Function('x', 'return x ** x');
 console.log(f); // ƒ anonymous(x) { return x ** x }
 ```
 - 하지만 String, Number, Boolean 생성자 함수는 new 연산자와 함께 호출했을 때 String, Number, Boolean 객체를 생성하여 반환하지만 new 연산자 없이 호출하면 명시적 타입 변환에 의해 문자열, 숫자, 불리언 값을 반환한다
+
+## 강의 내용 요약
+
+- 생성자 함수는 따로 문법이 있는 것이 아니라 일반 함수와 구분하기 위해 생성자 함수 이름을 대문자로 시작한다(파스칼 케이스)
+- 함수 내부는 문이기 때문에 세미콜론(;) 으로 각 문을 구분한다
+- 객체 리터럴 생성 방식의 단점은 동일한 프로퍼티를 갖는 객체를 여러 개 생성할 경우 비효율적이다
+- 아래 예시를 통해 호출 방식에 따른 동작을 이해할 것
+```js
+function foo(){
+  console.log(this);
+}
+
+foo(); // 일반 함수로서 호출 , this는 전역 객체 window를 가리킨다
+console.log(foo()); // undefined를 반환
+
+new foo(); // 생성자 함수로서 호출, this는 생성자 함수가 생성할 인스턴스를 가리킴
+console.log(new foo()); // 빈 객체(foo {})를 반환
+
+const o = {x: foo}; // 메서드로서 호출, this는 메서드를 호출한 객체 o를 가리킴
+console.log(o); // {x: [Function: foo]}를 반환
+```
+- 일반 함수로서 호출하게 되면 [[Call]] 내부 메서드가 호출된다
+- 생성자 함수로서 호출하게 되면 [[Construct]] 내부 메서드가 호출된다
+- 메서드 축약 표현 사용시 [[Call]] 만 존재하고 [[Construct]] 는 존재하지 않는다
+
+**1. 면적을 계산할 수 있는 사각형 객체 생성 예시**
+```js
+function Rectangle(width, height){
+  // 생성자 함수로 호출되었기 때문에 this 는 생성자 함수가 생성할 Rectangle 인스턴스(객체)를 가리킨다
+  this.width = width; // 프로퍼티(상태)
+  this.height = height; // 프로퍼티(상태)
+  // 메서드(동작)
+  this.getArea = function(){
+    return this.width * this.height;
+  };
+}
+
+const r = new Rectangle(2, 4); // 생성자 함수로서 호출
+const area = r.getArea(); // 생성자 함수로 생성된 인스턴스 Rectangle 의 메서드로서 호출
+console.log('면적 : ', area); // 면적 : 8
+```
+**2. 생성자 함수로서 호출하지 않아도 생성자 함수처럼 동작하기 위한 예시**
+```js
+function Circle(radius){
+  // Circle을 일반 함수로서(new를 생략하고) 호출 했을 경우 실행될 재귀함수
+  if(!new.target){
+    return new Circle(radius); // 생성자 함수로서 호출
+  }
+  // 생성자 함수로 호출 되었기 때문에 this는 생성자 함수가 생성할 인스턴스(객체) Circle을 가리킨다
+  this.radius = radius;
+  this.getDiameter = function(){
+    return 2 * this.radius;
+  };
+}
+
+const circle = Circle(10); // 일반 함수로서 호출
+const diameter = circle.getDiameter(); // 생성자 함수로 생성된 Circle 인스턴스의 메서드로서 호출
+console.log(diameter); // 20
+```
+**3. 생성자 함수로서 호출했을때의 자바스크립트 엔진의 암묵적인 동작 예시**
+```js
+function Circle(radius){
+  // this = {}
+  console.log(this); // Circle {}
+
+  this.radius = radius;
+  console.log(this); // Circle {radius: 5}
+
+  this.getDiameter = function(){
+    return 2 * this.radius;
+  };
+  console.log(this); // Circle {radius: 5, getDiameter: f}
+
+  // return this; -> 생성자'함수' 이기 때문에 반환문이 필요하지만 생략되어도 암묵적으로 this가 반환된다
+}
+
+const circle = new Circle(5); // 생성자 함수로서 호출, 빈 객체를 생성
+console.log('circle: ', circle); // circle: Circle {radius: 5, getDiameter: f}
+
+const radius = circle.getDiameter(); // 메서드로서 호출
+console.log(radius); // 10
+```
