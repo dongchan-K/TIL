@@ -125,7 +125,7 @@ function Person(name) {
   this.name = name;
 }
 
-const me = new Person('Kim');
+const me = new Person('Lee');
 
 // 결국 Person.prototype과 me.__proto__는 동일한 프로토타입을 가리킨다
 console.log(Person.prototype === me.__proto__)
@@ -140,7 +140,7 @@ function Person(name) {
   this.name = name;
 }
 
-const me = new Person('Kim');
+const me = new Person('Lee');
 
 // me 객체의 생성자 함수는 Person 이다
 console.log(me.constructor === Person); // true
@@ -212,3 +212,72 @@ function Person(name) {
 전역 객체는 표준 빌트인 객체(Object, String, Number, Function, Array 등)들과 환경에 따른 호스트 객체(클라이언트 web API 또는 Node.js의 호스트 API), 그리고 var 키워드로 선언한 전역 변수와 전역 함수를 프로퍼티로 갖는다. Math, Reflect, JSON을 제외한 표준 빌트인 객체는 모두 생성자 함수이다
 
 - **객체가 생성되기 이전에 생성자 함수와 프로토타입은 이미 객체화되어 존재한다. 이후 생성자 함수 또는 리터럴 표기법으로 객체를 생성하면 프로토타입은 생성된 객체의 [[Prototype]] 내부 슬롯에 할당된다**
+
+## 6. 객체 생성 방식과 프로토타입의 결정
+- 객체는 다양한 방식으로 생성할 수 있으며 추상 연산 OrdinaryObjectCreate에 의해 생성된다는 공통점이 있다
+- 추상 연산 OrdinaryObjectCreate는 자신이 생성할 객체의 프로토타입을 인수로 전달받는다. 즉, 프로토타입은 추상 연산 OrdinaryObjectCreate에 전달되는 인수에 의해 결정된다. 이 인수는 객체가 생성되는 시점에 객체 생성 방식에 의해 결정된다
+
+### 6-1. 객체 리터럴에 의해 생성된 객체의 프로토타입
+```js
+const obj = { x: 1};
+```
+![객체 리터럴에 의해 생성된 객체의 프로토타입](https://user-images.githubusercontent.com/67866773/94450171-e8382980-01e7-11eb-80ce-5d959bf0c162.png)
+- 이처럼 obj 객체는 constructor 프로퍼티와 hasOwnProperty 메서드 등을 소유하지 않지만 자신의 프로토타입인 Object.prototype의 constructor 프로퍼티와 hasOwnProperty 메서드를 자신의 자산인 것처럼 자유롭게 사용할 수 있다
+- obj 객체가 자신의 프로토타입인 Object.prototype 객체를 상속받았기 때문이다
+```js
+const obj = { x: 1 };
+
+// 객체 리터럴에 의해 생성된 obj 객체는 Object.prototype을 상속받는다
+console.log(obj.constructor === Object); // true
+console.log(obj.hasOwnProperty('x')); // true
+```
+
+### 6-2. Object 생성자 함수에 의해 생성된 객체의 프로토타입
+- Object 생성자 함수를 인수 없이 호출하면 빈 객체가 생성된다
+- 추상 연산 OrdinaryObjectCreate 에 전달되는 프로토타입은 Object.prototype 이다
+- 객체 리터럴과 Object 생성자 함수에 의한 생성 방식의 차이는 프로퍼티를 추가하는 방식에 있다
+```js
+const obj = new Object();
+obj.x = 1;
+```
+![Object 생성자 함수에 의해 생성된 객체의 프로토타입](https://user-images.githubusercontent.com/67866773/94450983-df942300-01e8-11eb-962d-4a58b4efa103.png)
+```js
+const obj = new Object();
+obj.x = 1;
+
+// Object 생성자 함수에 의해 생성된 obj 객체는 Object.prototype을 상속받는다
+console.log(obj.constructor === Object); // true
+console.log(obj.hasOwnProperty('x'));    // true
+```
+
+### 6-3. 생성자 함수에 의해 생성된 객체의 프로토타입
+- new 연산자와 함께 생성자 함수를 호출하여 인스턴스를 생성하면 추상 연산 OrdinaryObjectCreate가 호출된다 
+- 추상 연산 OrdinaryObjectCreate에 전달되는 프로토타입은 생성자 함수의 prototype 프로퍼티에 바인딩되어있는 객체다
+```js
+function Person(name) {
+  this.name = name;
+}
+
+const me = new Person('Lee');
+```
+![생성자 함수에 의해 생성된 객체의 프로토타입](https://user-images.githubusercontent.com/67866773/94451497-6ea13b00-01e9-11eb-9d70-a22097a0e33c.png)
+- 사용자 정의 생성자 함수 Person과 더불어 생성된 프로토타입은 Person.prototype의 프로퍼티는 constructor 뿐이다
+- **일반 객체와 같이 프로토타입에도 프로퍼티를 추가/삭제할 수 있다. 이렇게 추가/삭제된 프로퍼티는 프로토타입 체인에 즉각 반영된다**
+```js
+function Person(name) {
+  this.name = name;
+}
+
+// 프로토타입 메서드
+Person.prototype.sayHello = function () {
+  console.log(`Hi! My name is ${this.name}`);
+};
+
+const me = new Person('Lee');
+const you = new Person('Kim');
+
+me.sayHello();  // Hi! My name is Lee
+you.sayHello(); // Hi! My name is Kim
+```
+- Person 생성자 함수를 통해 생성된 모든 객체는 프로토타입에 추가된 sayHello 메서드를 상속받아 자신의 메서드처럼 사용할 수 있다
+![프로토타입의 확장과 상속](https://user-images.githubusercontent.com/67866773/94452446-80371280-01ea-11eb-868a-83d3e9221c31.png)
