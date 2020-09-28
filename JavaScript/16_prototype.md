@@ -315,3 +315,42 @@ me.hasOwnProperty('name');
 
 위 예제의 경우 먼저 스코프 체인에서 me 식별자를 검색한다. me 식별자는 전역에서 선언되었으므로 전역 스코프에서 검색된다 me 식별자를 검색한 다음 ->  me 객체의 프로토타입 체인에서 hasOwnProperty 메서드를 검색한다
 - **스코프 체인과 프로토타입 체인은 서로 연관없이 별도로 동작하는 것이 아니라 서로 협력하여 식별자와 프로퍼티를 검색하는 데 사용된다**
+
+## 8. 오버라이딩과 프로퍼티 새도잉
+예시로 살펴보자
+```js
+const Person = (function () {
+  // 생성자 함수
+  function Person(name) {
+    this.name = name;
+  }
+
+  // 프로토타입 메서드
+  Person.prototype.sayHello = function () {
+    console.log(`Hi! My name is ${this.name}`);
+  };
+
+  // 생성자 함수를 반환
+  return Person;
+}());
+
+const me = new Person('Lee');
+
+// 인스턴스 메서드
+me.sayHello = function () {
+  console.log(`Hey! My name is ${this.name}`);
+};
+
+// 인스턴스 메서드가 호출된다. 프로토타입 메서드는 인스턴스 메서드에 의해 가려진다.
+me.sayHello(); // Hey! My name is Lee
+```
+<img width="675" alt="오버라이딩과 프로퍼티 새도잉" src="https://user-images.githubusercontent.com/67866773/94456883-caba8e00-01ee-11eb-999c-ff3384541522.png">
+
+- 프로토타입이 소유한 프로퍼티(메서드 포함)을 프로토타입 프로퍼티, 인스턴스가 소유한 프로퍼티(메서드 포함)을 인스턴스 프로퍼티라 한다
+- 인스턴스 메서드 sayHello는 프로토타입 메서드 sayHello를 오버라이딩 했고 프로토타입 메서드 sayHello는 가려진다
+
+프로퍼티 새도잉(property shadowing) : 상속 관계에 의해 프로퍼티가 가려지는 현상
+오버라이딩(overriding) : 상위 클래스가 가지고 있는 메서드를 하위 클래스가 재정의하여 사용하는 방식
+
+- 하위 객체를 통해 프로토타입의 프로퍼티를 삭제/변경 하는 것은 불가능하다. 즉 하위 객체를 통해 프로토타입에 get은 허용되나 set은 허용되지 않는다
+- 프로토타입 프로퍼티를 삭제/변경 하려면 프로토타입 체인으로 접근하는 것이 아니라 프로토타입에 직접 접근해야 한다
