@@ -23,3 +23,30 @@ const circle = {
 
 console.log(circle.getDiameter()); // 10
 ```
+
+## 2. 상속과 프로토타입
+- **상속(inheritance)은 어떤 객체의 프로퍼티나 메서드를 다른 객체가 상속받아 그대로 사용할 수 있는것을 말하며 자바스크립트는 프로토타입을 기반으로 상속을 구현하여 중복을 제거한다**
+- 생성자 함수가 생성할 모든 인스턴스가 공통적으로 사용할 프로퍼티나 메서드를 프로토타입에 미리 구현해두면 생성자 함수가 생성할 모든 인스턴스는 별도이 구현 없이 상위(부모) 객체인 프로토타입의 자산을 공유하여 사용할 수 있다
+
+아래는 상속에 의한 메서드 공유 예시
+```js
+// 생성자 함수
+function Circle(radius) {
+  this.radius = radius;
+}
+
+// Circle 생성자 함수가 생성한 모든 인스턴스가 getArea 메서드를 공유해서 사용할 수 있도록 프로토타입에 추가한다
+// 프로토타입은 CircLe 생성자 함수의 prototype 프로퍼티에 바인딩되어 있다
+Circle.prototype.getArea = function() {
+  return Math.PI * this.radius ** 2;
+};
+
+// 인스턴스 생성
+const circle1 = new Circle(1);
+const circle2 = new Circle(2);
+
+// Circle 생성자 함수가 생성한 모든 인스터느는 부모 객체 역할을 하는 Circle.prototype 프로토타입 객체로부터 getArea 메서드를 상속받는다
+// 즉, Circle 생성자 함수가 생성하는 모든 인스턴스는 하나의 getArea 메서드를 공유한다
+console.log(circle1.getArea === circle2.getArea); // true
+```
+![상속에 의한 메서드 공유](https://user-images.githubusercontent.com/67866773/94434813-4b6c9080-01d5-11eb-9313-fc459be48125.png)
