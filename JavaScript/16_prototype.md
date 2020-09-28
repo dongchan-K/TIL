@@ -280,4 +280,38 @@ me.sayHello();  // Hi! My name is Lee
 you.sayHello(); // Hi! My name is Kim
 ```
 - Person 생성자 함수를 통해 생성된 모든 객체는 프로토타입에 추가된 sayHello 메서드를 상속받아 자신의 메서드처럼 사용할 수 있다
+
 ![프로토타입의 확장과 상속](https://user-images.githubusercontent.com/67866773/94452446-80371280-01ea-11eb-868a-83d3e9221c31.png)
+
+## 7. 프로토타입 체인
+```js
+function Person(name) {
+  this.name = name;
+}
+
+// 프로토타입 메서드
+Person.prototype.sayHello = function () {
+  console.log(`Hi! My name is ${this.name}`);
+};
+
+const me = new Person('Lee');
+
+// hasOwnProperty는 Object.prototype의 메서드다.
+console.log(me.hasOwnProperty('name')); // true
+```
+- 위 예제를 살펴보면 me 객체가 Person.prototype 뿐 아니라 Object.prototype 도 상속 받았다는것을 알 수 있다
+- 아래와 같은 예시로 표현할 수 있다
+![프로토타입 체인](https://user-images.githubusercontent.com/67866773/94454005-51ba3700-01ec-11eb-91f5-1310320bf140.png)
+- **자바스크립트는 객체의 프로퍼티(메서드 포함)에 접근하려고 할 때 해당 객체에 접근하려는 프로퍼티가 없다면 [[Prototype]] 내부 슬롯의 참조를 따라 자신의 부모 역할을 하는 프로토타입의 프로퍼티를 순차적으로 검색한다. 이를 프로토타입 체인이라 한다**
+- 프로토타입 체인의 최상위에 위치하는 객체는 언제나 Object.prototype 이다. 따라서 모든 객체는 Object.prototype을 상속받는다
+- **Object.prototype을 프로토타입 체인의 종점(end of prototype chain)이라 한다**
+- 프로토타입 체인의 종점에서도 프로퍼티를 검색할 수 없을 경우, undefined를 반환한다 -> 에러가 아님을 주의할 것
+- **프로토타입 체인은 상속과 프로퍼티 검색을 위한 매커니즘**이라 할 수 있다
+- **스코프 체인은 식별자 검색을 위한 매커니즘**이라 할 수 있다
+
+```js
+me.hasOwnProperty('name');
+```
+
+위 예제의 경우 먼저 스코프 체인에서 me 식별자를 검색한다. me 식별자는 전역에서 선언되었으므로 전역 스코프에서 검색된다 me 식별자를 검색한 다음 ->  me 객체의 프로토타입 체인에서 hasOwnProperty 메서드를 검색한다
+- **스코프 체인과 프로토타입 체인은 서로 연관없이 별도로 동작하는 것이 아니라 서로 협력하여 식별자와 프로퍼티를 검색하는 데 사용된다**
