@@ -494,3 +494,77 @@ console.log(Person.prototype === Object.getPrototypeOf(me)); // true
 
 - 프로토타입 교체를 통해 객체 간의 상속 관계를 동적으로 변경하는것은 번거롭기 때문에 직접 교체하지 않는것이 좋다. 직접 상속 또는 ES6에서 도입된 클래스를 사용하면 간편하고 직관적으로 변경할 수 있다
 
+## 10. instanceof 연산자
+- instanceof 연산자는 좌변에 객체를 가리키는 식별자, 우변에 생성자 함수를 가리키는 식별자를 피연산자로 받는다. 우변의 피연산자가 함수가 아닌경우 TypeError가 발생한다
+- **우변의 생성자 함수의 prototype에 바인딩된 객체가 좌변 객체의 프로토타입 체인 상에 존재하면 true, 그렇지 않으면 false로 평가된다**
+
+```js
+function Person(name){
+  this.name = name;
+}
+
+const me = new Person('Lee');
+
+// Person.prototype이 me 객체의 프로토타입 체인 상에 존재하므로 true
+console.log(me instanceof Person); // true
+
+// Object.prototype이 me 객체의 프로토타입 체인 상에 존재하므로 true
+console.log(me instanceof Object); // true
+``` 
+
+아래 예시처럼 인스턴스에 의해 프로토타입을 교체하면 me 객체의 프로토타입 체인상에  Person.prototype이 존재하지 않기 때문에 false로 평가된다
+```js
+// 생성자 함수
+function Person(name) {
+  this.name = name;
+}
+
+const me = new Person('Lee');
+
+// 프로토타입으로 교체할 객체
+const parent = {};
+
+// 프로토타입의 교체
+Object.setPrototypeOf(me, parent);
+
+// Person 생성자 함수와 parent 객체는 연결되어 있지 않다.
+console.log(Person.prototype === parent); // false
+console.log(parent.constructor === Person); // false
+
+// Person.prototype이 me 객체의 프로토타입 체인 상에 존재하지 않기 때문에 false로 평가된다.
+console.log(me instanceof Person); // false
+
+// Object.prototype이 me 객체의 프로토타입 체인 상에 존재하므로 true로 평가된다.
+console.log(me instanceof Object); // true
+```
+
+아래 예시처럼 프로토타입으로 교체한 객체 parent를 Person 생성자 함수의 prototype 프로퍼티에 바인딩하면 true로 평가된다
+```js
+// 생성자 함수
+function Person(name) {
+  this.name = name;
+}
+
+const me = new Person('Lee');
+
+// 프로토타입으로 교체할 객체
+const parent = {};
+
+// 프로토타입의 교체
+Object.setPrototypeOf(me, parent);
+
+// Person 생성자 함수와 parent 객체는 연결되어 있지 않다.
+console.log(Person.prototype === parent); // false
+console.log(parent.constructor === Person); // false
+
+// parent 객체를 Person 생성자 함수의 prototype 프로퍼티에 바인딩한다.
+Person.prototype = parent;
+
+// Person.prototype이 me 객체의 프로토타입 체인 상에 존재하므로 true로 평가된다.
+console.log(me instanceof Person); // true
+
+// Object.prototype이 me 객체의 프로토타입 체인 상에 존재하므로 true로 평가된다.
+console.log(me instanceof Object); // true
+```
+
+**아래 예시처럼 instanceof 연산자는 생성자 함수의 prototype 프로퍼티에 바인딩 된 객체가 프로토타입 체인 상에 존재하는지 확인한다**
