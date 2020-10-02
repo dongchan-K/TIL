@@ -568,3 +568,111 @@ console.log(me instanceof Object); // true
 ```
 
 **아래 예시처럼 instanceof 연산자는 생성자 함수의 prototype 프로퍼티에 바인딩 된 객체가 프로토타입 체인 상에 존재하는지 확인한다**
+
+![instanceof 연산자](https://user-images.githubusercontent.com/67866773/94773328-800b6280-03f6-11eb-90b2-2718abe0b324.png)
+
+- 따라서 instanceof 연산자는 
+  - **생성자 함수에 의해 프로토타입이 교체** 되어 constructor 프로퍼티와 생성자 함수 간의 연결이 파괴되어도 생성자 함수의 prototype 프로퍼티와 프로토타입 간의 연결은 파괴되지 않기 때문에 영향을 받지 않는다 
+  - **인스턴스에 의해 프로토타입이 교체** 되면 생성자 함수의 prototype 프로퍼티와 프로토타입 간의 연결이 파괴되기 때문에 false로 평가된다
+
+## 11. 직접 상속
+
+### 11-1. Object.create에 의한 직접 상속
+- Object.creat 메서드는 명시적으로 프로토타입을 지정하여 새로운 객체를 생성한다
+- Object.creat 메서드도 다른 객체 생성 방식과 동일하게 추상 연산 OrdinaryObjectCreat를 호출한다
+- Object.creat 메서드의 첫번째 매개변수에는 생성할 객체의 프로토타입으로 지정할 객체를 전달하고 두번째 매개변수에는 생성할 객체의 프로퍼티 키와 프로퍼티 디스크립터 객체로 이루어진 객체를 전달한다. 이때 두번째 인수는 옵션이다
+
+```js
+// 프로토타입이 null인 객체를 생성한다. 생성된 객체는 프로토타입 체인의 종점에 위치한다
+// obj -> null
+let obj = Object.creat(null)
+console.log(Object.getPrototypeOf(obj) === null); // true
+// Object.prototype을 상속받지 못한다
+console.log(obj.toString()); // TypeError : obj.toString is not a function
+
+// obj -> Object.prototype -> null
+// obj = {}; 와 동일하다
+obj = Object.creat(Object.prototype);
+console.log(Object.getPrototypeOf(obj) === Object.prototype); // true
+
+// obj -> Object.prototype -> null
+// obj = { x: 1 }; 와 동일하다
+obj = Object.creat(Object.prototype, {x: {value:1, writable: true, enumerable: true, configurable: true}});
+// 위 코드는 다음과 동일하다
+// obj = Object.creat(Object.prototype);
+// obj.x = 1;
+console.log(obj.x); // 1
+console.log(Object.getPrototypeOf(obj) === Object.prototype); // true
+
+const myProto = { x: 10 };
+// 임의의 객체를 직접 상속받는다
+obj = Object.creat(myProto);
+console.log(obj.x); // 10
+console.log(Object.getPrototypeOf(obj) === myProto); // true
+
+// 생성자 함수
+function Person(name){
+  this.name = name;
+}
+
+// obj -> Person.prototype -> Object.prototype -> null
+// obj = new Person('Lee')와 동일하다
+obj = Object.creat(Person.prototype);
+obj.name = 'Lee';
+console.log(obj.name); // Lee
+console.log(Object.getPrototypeOf(obj) === Person.prototype) // true
+```
+- 즉 Object.creat 메서드는 첫번째 매개변수에 전달한 객체의 프로토타입 체인에 속하는 객체를 생성하면서 직접적으로 상속을 구현한다
+
+Object.creat 메서드의 장점
+- new 연산자가 없이도 객체를 생성할 수 있다
+- 프로토타입을 지정하면서 객체를 생성할 수 있다
+- 객체 리터럴에 의해 생성된 객체도 상속받을 수 있다
+
+Object.creat 메서드를 통해 프로토타입 체인의 종점에 위치하는 객체를 생성하게 되면 Object.prototype의 빌트인 메서드를 사용할 수 없기 때문에 Object.prototype의 빌트인 메서드를 객체가 직접 호출하는 것을 권장하지 않는다
+
+```js
+// 프로토타입이 null인 객체, 즉 프로토타입 체인의 종점에 위치하는 객체를 생성한다
+const obj = Object.creat(null);
+obj.a = 1;
+
+console.log(Object.getPrototypeOf(obj) === null); // true
+
+// obj는 Object.prototype의 빌트인 메서드를 사용할 수 없다
+console.log(obj.hasOwnProperty('a')); // TypeError: obj.hasOwnProperty is not a function
+```
+
+따라서 Object.prototype 빌트인 메서드는 아래 예시와 같이 간접적으로 호출하는 것이 좋다
+
+```js
+// 프로토타입이 null인 객체를 생성한다
+const obj = Object.creat(null);
+obj.a = 1;
+
+// Object.prototype의 빌트인 메서드는 객체로 직접 호출하지 않는다
+console.log(Object.prototype.hasOwnProperty.call(obj, 'a')); // true
+```
+
+### 11-2. 객체 리티럴 내부에서 `__proto__`에 의한 직접 상속
+- ES6에서는 객체 리터럴 내부에서 `__proto__` 접근자 프로퍼티를 사용하여 직접 상속을 구현할 수 있다
+
+```js
+const myProto = { x: 10 };
+
+//객체 리터럴에 의해 객체를 생성하면서 프로토타입을 지정하여 직접 상속받을 수 있다
+const obj = {
+  y: 20,
+  // 객체를 직접 상속받는다
+  // obj -> myProto -> Object.prototype -> null
+  __proto__: myProto
+};
+
+/* 위 코드는 아래와 동일하다
+const obj = Object.creat(myProto, { y: {value: 20, writable: true, enumerable: true, configurable: true}});
+*/
+
+console.log(obj.x, obj.y); // 10 20
+console.log(Object.getPrototypeOf(obj) === myProto); // true
+```
+
+
