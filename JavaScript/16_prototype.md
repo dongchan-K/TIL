@@ -675,4 +675,119 @@ console.log(obj.x, obj.y); // 10 20
 console.log(Object.getPrototypeOf(obj) === myProto); // true
 ```
 
+## 12. 정적 프로퍼티/메서드
+- 정적(static) 프로퍼티/메서드는 생성자 함수로 인스턴스를 생성하지 않아도 참조/호출할 수 있는 프로퍼티/메서드 이다
+```js
+// 생성자 함수
+function Person(name){
+  this.name = name;
+}
+
+// 프로토타입 메서드
+Person.prototype.sayHello = function(){
+  console.log(`Hi! My name is ${this.name}`);
+};
+
+// 정적 프로퍼티
+Person.staticProp = 'static prop';
+
+// 정적 메서드
+Person.staticMethod = function(){
+  console.log('staticMethod');
+};
+
+const me = new Person('Lee');
+
+// 생성자 함수에 추가한 정적 프로퍼티/메서드는 생성자 함수로 참조/호출한다
+Person.staticMethod(); // staticMethod
+
+// 정적 프로퍼티/메서드는 생성자 함수가 생성한 인스턴스로 참조/호출할 수 없다
+// 인스턴스로 참조/호출할 수 있는 프로퍼티/메서드는 프로토타입 체인 상에 존재해야 한다
+me.staticMethod(); // TypeError: me.staticMethod is not a function
+```
+
+<img width="678" alt="정적 프로퍼티,메서드" src="https://user-images.githubusercontent.com/67866773/94885643-b525bc80-04ab-11eb-8089-7f1934744a23.png">
+
+- 위 예시와 같이 생성자 함수가 생성한 인스턴스는 자신의 프로토타입 체인에 속한 객체의 프로퍼티/메서드에 접근할 수 있지만 정적 프로퍼티/메서드는 프로토타입 체인에 속하지 않으므로 접근할 수 없다
+
+```js
+// Object.creat는 정적 메서드다
+const obj = Object.creat({ name: 'Lee' });
+
+// Object.prototype.hasOwnProperty는 프로토타입 메서드다
+obj.hasOwnProperty('name'); // false
+```
+
+- 인스턴스/프로토타입 메서드 내에서 this를 사용하지 않는다면 그 메서드는 정적 메서드로 변경할 수 있다. 인스턴스가 호출한 인스턴스/프로토타입 메서드 내에서 this는 인스턴스를 가리킨다
+- 프로토타입 메서드를 호출하려면 인스턴스를 생성해야 하지만 정적 메서드는 인스턴스를 생성하지 않아도 호출할 수 있다
+
+```js
+// 생성자 함수
+function Foo(){}
+
+// 프로토타입 메서드
+// this를 참조하지 않는 프로토타입 메서드는 정적 메서드로 변경해도 동일한 효과를 얻을 수 있다
+Foo.prototype.x = function(){
+  console.log('x');
+}
+
+const foo = new Foo();
+// 프로토타입 메서드를 호출하려면 인스턴스를 생성해야 한다
+foo.x(); // x
+
+// 정적 메서드
+Foo.x = function(){
+  console.log('x');
+};
+
+// 정적 메서드는 인스턴스를 생성자히 않아도 호출할 수 있다
+Foo.x(); // x
+```
+
+[MDN](https://developer.mozilla.org/ko/) 에서는 다음과 같이 소개하고 있다
+
+<img width="515" alt="MDN" src="https://user-images.githubusercontent.com/67866773/94886005-c7542a80-04ac-11eb-9634-3b7453885c2d.png">
+
+## 13. 프로퍼티 존재 확인
+
+### 13-1. in 연산자
+- in 연산자는 객체 내에 특정 프로퍼티가 존재하는지 확인한다
+- in 연산자는 객체의 프로퍼티 뿐 아니라 상속받은 모든 프로퍼티를 확인한다(프로토 타입 체인의 모든 프로퍼티를 확인)
+```js
+/* in 연산자 사용법
+  key : 프로퍼티 키를 나타내는 문자열
+  object : 객체로 평가되는 표현식
+*/
+key in object
+```
+
+```js
+const person = {
+  name: 'Lee',
+  address: 'Seoul'
+};
+
+console.log('name' in person); // true
+console.log('address' in person); // true
+console.log('age' in person); // false
+console.log('toString' in person); // true
+```
+
+### 13-2. Object.prototype.hasOwnProperty 메서드
+- Object.prototype.hasOwnProperty 메서드는 인수로 전달받은 프로퍼티 키가 객체 고유한 프로퍼티 키인 경우에만 true를 반환하고 상속받은 프로토타입의 프로퍼티 키인 경우 false를 반환한다
+
+```js
+const person = {
+  name: 'Kim',
+  address: 'Seoul'
+};
+
+console.log(person.hasOwnProperty('name')); // true
+console.log(person.hasOwnProperty('address')); // true
+console.log(person.hasOwnProperty('age')); // false
+console.log(person.hasOwnProperty('toString')) // false
+```
+
+
+
 
