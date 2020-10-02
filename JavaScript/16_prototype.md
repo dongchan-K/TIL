@@ -788,6 +788,126 @@ console.log(person.hasOwnProperty('age')); // false
 console.log(person.hasOwnProperty('toString')) // false
 ```
 
+## 14. 프로퍼티 열거
+
+### 14-1. for...in 문
+- 객체의 모든 프로퍼티를 순회하며 열거(enumerable)하려면 for...in 문을 사용한다
+- **for…in 문은 대상 객체의 프로토타입 체인 상에 존재하는 모든 프로토타입의 프로퍼티 중에서 프로퍼티 어트리뷰트 [[Enumerable]]의 값이 ture인 프로퍼티를 순회하며 열거(enumeration)한다**
+```js
+/* for...in 문 사용법
+for (변수선언문 in 객체){...}
+*/
+
+const person = {
+  name: 'Kim',
+  address: 'Seoul'
+};
+
+// for...in 문의 변수 key에 person 객체의 프로퍼티 키가 할당된다
+for (const key in person) {
+  console.log(key + ': ' + person[key]);
+}
+// name: Kim
+// address: Seoul
+```
+- for...in 문은 객체의 프로퍼티 개수만큼 순회하며 for...in 문의 변수 선언문에서 선언한 변수에 프로퍼티 키를 할당한다. 위 예시의 경우는 person 객체에 2개의 프로퍼티가 있으므로 2번 순회하면서 프로퍼티 키를 key 변수에 할당한 후 코드 블록을 실행한다. 첫번째 순환은 'name'을 key에 할당, 두번째 순환은 'address'를 key에 할당
+
+```js
+const person = {
+  name: 'Kim',
+  address: 'Seoul',
+  __proto__: { age: 20 }
+};
+
+for (const key in person){
+  console.log(key + ': ' + person[key]);
+}
+// name: Kim
+// address: Seoul
+// age: 20
+```
+
+- for...in 문은 프로퍼티 키가 심벌인 프로퍼티는 열거하지 않는다
+```js
+const sym = Symbol();
+const obj = {
+  a: 1,
+  [sym]: 10
+};
+
+for (const key in obj){
+  console.log(key + ': ' + obj[key]);
+}
+// a: 1
+```
+
+- 상속받은 프로퍼티를 제외한 대상 객체 자신의 프로퍼티만을 열거하려면 Object.prototype.hasOwnProperty 메서드를 사용하여 객체 자신의 프로퍼티인지 확인해야 한다
+```js
+const person = {
+  name: 'Kim',
+  address: 'Seoul',
+  __proto__: { age: 20 }
+};
+
+for (const key in person) {
+  // 객체 자신의 프로퍼티인지 확인
+  if(!person.hasOwnProperty(key)) continue;
+  console.log(key + ': ' + person[key]);
+}
+// name: Kim
+// address: Seoul
+```
+
+- 배열에는 for...in 문이 아닌 일반적인 for 문이나 for...of 문 또는 Array.prototype.forEach 메서드를 사용하는 것이 좋다
+```js
+const arr = [1, 2, 3];
+arr.x = 10; // 배열도 객체이므로 프로퍼티 키를 가질 수 있다
+
+for (const i in arr) {
+  // 프로퍼티 x도 출력된다
+  console.log(arr[i]); // 1 2 3 10
+};
+
+// arr.length는 3이다
+for (let i = 0; i < arr.length; i++){
+  console.log(arr[i]); // 1 2 3
+}
+```
+
+### 14-2. Object.keys/values/entries 메서드
+- 객체 자신의 고유 프로퍼티만을 열거하기 위해서는 for...in 문을 사용하는 것보다 Object.keys/values/entries 메서드는 사용하는 것이 좋다
+
+Object.keys 메서드는 객체 자신의 열거 가능한(enumerable) 프로퍼티 키를 배열로 반환한다
+```js
+const person = {
+  name: 'Kim',
+  address: 'Seoul'
+  __proto__: { age: 20 }
+};
+
+console.log(Object.keys(person)); // ['name', 'address']
+```
+
+ES8에서 도입된 Object.values 메서드는 객체 자신의 열거 가능한(enumerable) 프로퍼티 값을 배열로 반환한다
+```js
+const person = {
+  name: 'Kim',
+  address: 'Seoul'
+  __proto__: { age: 20 }
+};
+console.log(Object.values(person)); // ['Kim', 'Seoul']
+```
+
+ES8에서 도입된 Object.entries 메서드는 객체 자신의 열거 가능한(enumerable) 프로퍼티 키와 값을 쌍을 배열로 반환한다
+```js
+const person = {
+  name: 'Kim',
+  address: 'Seoul'
+  __proto__: { age: 20 }
+};
+console.log(Object.entries(person)); // [['name', 'Kim'], ['address', 'Seoul']]
+```
+
 
 
 
