@@ -42,3 +42,7 @@
 - [생성자 함수에 의한 객체 생성(constructor)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/14_constructor.md)
 
 - [함수와 일급 객체(first-class object)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/15_first-class%20object.md)
+
+- [프로토타입(prototype)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/16_prototype.md)
+
+- [엄격 모드(strict mode)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/17_strict%20mode.md)
