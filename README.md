@@ -49,4 +49,4 @@
 
 - [빌트인 객체(built-in object)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/18_built-in%20object.md)
 
-- [this 키워드(this)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/19_this.md)
+- [this (this 키워드)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/19_this.md)
