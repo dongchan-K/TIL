@@ -46,3 +46,7 @@
 - [프로토타입(prototype)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/16_prototype.md)
 
 - [엄격 모드(strict mode)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/17_strict%20mode.md)
+
+- [빌트인 객체(built-in object)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/18_built-in%20object.md)
+
+- [this 키워드(this)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/19_this.md)
