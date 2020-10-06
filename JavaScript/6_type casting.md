@@ -78,6 +78,8 @@ Boolean(1); // true Boolean 생성자 함수 사용
 ## 단축 평가
 
 ### 1. 논리 연산자 단축 평가
+- 논리합 `||`, 논리곱 `&&` 연산자는 표현식의 평가 결과는 항상 불리언 값이 아니라 2개의 피연산자 중 어느 한쪽으로 평가되는 것이다
+- **논리 연산자는 결과를 결정하는 피연산자를 타입 변환하지 않고 그대로 반환하는 것을 단축 평가(short-circuit evalutation)이라 한다. 단축 평가는 표현식을 평가하는 도중 평가 결과가 확정될 경우 나머지 평가 과정을 생략한다**
 
 **예시**
 
@@ -91,7 +93,30 @@ false || '2' // '2'
 '1' || false // '1'
 ```
 
+### 2. 옵셔널 체이닝 연산자
+- ES11에서 도입된 옵셔널 체이닝 연산자 `?.` 는 좌항의 피연산자가 null 또는 undefined인 경우 undefined를 반환하고 그렇지 않은 경우 우항의 프로퍼티 참조를 이어간다
+```js
+var elem = null;
+// elem이 null 이기 때문에 undefined를 반환
+var value = elem?.value;
+console.log(value); // undefined 
+
+
+var str = '';
+// 좌항의 피연산자 str이 null 또는 undefined가 아니기 때문에 우항의 프로퍼티를 참조
+var length = str?.length;
+console.log(length); // 0
+```
+
+### 3. null 병합 연산자
+- ES11에서 도입된 null 병합 연산자 `??`는 좌항의 피연산자가 null 또는 undefined인 경우 우항의 피연산자를 반환하고 그렇지 않으면 좌항의 피연산자를 반환한다
+```js
+var foo = null ?? 'default string';
+console.log(foo); // 'defalut string';
+```
+
 ## 요약 
 - 자바스크립트 엔진의 암묵적 타입 변환을 이해하고 예측할 것
 - 논리 연산자는 결과 값으로 모든 값을 만들어 낼 수 있다
 - 조건문은 일반 흐름을 깨기 때문에 단축평가, 삼항조건연산자를 자주 사용한다
+- 옵셔널 체이닝 연산자와 null 병합 연산자는 좌항의 피연산자가 Falsy 값이더라도 null 또는 undefined가 아니면 동작을 수행한다
