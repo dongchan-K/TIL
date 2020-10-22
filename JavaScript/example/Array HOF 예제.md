@@ -164,8 +164,7 @@ const todos = [
 ];
 
 function sortBy(key) {
-    return todos.sort((todo1, todo2) =>
-        todo1[key] > todo2[key] ? 1 : todo1[key] < todo2[key] ? -1 : 0
+    return todos.sort((todo1, todo2) => todo1[key] > todo2[key] ? 1 : todo1[key] < todo2[key] ? -1 : 0
     );
 }
 
@@ -299,6 +298,141 @@ console.log(todos);
 */
 ```
 
+## 6. 특정 요소의 값 반전
+
+**Question**
+todos에서 대상 요소의 id를 인수로 전달하면 해당 요소의 completed 프로퍼티 값을 반전하는 함수를 작성하라.
+
+hint) 기존 객체의 프로퍼티를 변경/추가하여 새로운 객체를 생성하려면 Object.assign 또는 스프레드 문법을 사용한다.
+
+```js
+let todos = [
+    { id: 3, content: 'HTML', completed: false },
+    { id: 2, content: 'CSS', completed: true },
+    { id: 1, content: 'Javascript', completed: false },
+];
+
+function toggleCompletedById(id) {}
+
+toggleCompletedById(2);
+
+console.log(todos);
+/*
+[
+  { id: 3, content: 'HTML', completed: false },
+  { id: 2, content: 'CSS', completed: false },
+  { id: 1, content: 'Javascript', completed: false }
+]
+*/
+```
+
+**Answer**
+
+```js
+// 1. 스프레드 문법을 사용한 풀이
+
+let todos = [
+    { id: 3, content: 'HTML', completed: false },
+    { id: 2, content: 'CSS', completed: true },
+    { id: 1, content: 'Javascript', completed: false },
+];
+
+function toggleCompletedById(id) {
+    todos = todos.map((todo) => todo.id === id ? (todo = { ...todo, completed: !todo.completed }) : (todo = todo)
+    );
+}
+
+toggleCompletedById(2);
+
+console.log(todos);
+/*
+[
+  { id: 3, content: 'HTML', completed: false },
+  { id: 2, content: 'CSS', completed: false },
+  { id: 1, content: 'Javascript', completed: false }
+]
+*/
+
+// 2. 스프레드 문법을 사용하지 않은 풀이
+let todos = [
+    { id: 3, content: 'HTML', completed: false },
+    { id: 2, content: 'CSS', completed: true },
+    { id: 1, content: 'Javascript', completed: false },
+];
+
+function toggleCompletedById(id) {
+    todos.map((todo) => todo.id === id ? (todo.completed = !todo.completed) : (todo.completed = todo.completed)
+    );
+}
+
+toggleCompletedById(2);
+
+console.log(todos);
+/*
+[
+  { id: 3, content: 'HTML', completed: false },
+  { id: 2, content: 'CSS', completed: false },
+  { id: 1, content: 'Javascript', completed: false }
+]
+*/
+```
+
+## 7. 모든 요소의 complted 프로퍼티 값을 true로 설정
+
+**Question**
+
+todos 모든 요소의 completed 프로퍼티 값을 true로 설정하는 함수를 작성하라.
+
+hint) 기존 객체의 특정 프로퍼티를 변경/추가하여 새로운 객체를 생성하려면 Object.assing 또는 스프레드 문법을 사용한다.
+
+```js
+let todos = [
+  { id: 3, content: 'HTML', completed: false },
+  { id: 2, content: 'CSS', completed: true },
+  { id: 1, content: 'Javascript', completed: false }
+];
+
+function toggleCompletedAll() {
+
+}
+
+toggleCompletedAll();
+
+console.log(todos);
+/*
+[
+  { id: 3, content: 'HTML', completed: true },
+  { id: 2, content: 'CSS', completed: true },
+  { id: 1, content: 'Javascript', completed: true }
+]
+*/
+```
+
+**Answer**
+
+```js
+let todos = [
+  { id: 3, content: 'HTML', completed: false },
+  { id: 2, content: 'CSS', completed: true },
+  { id: 1, content: 'Javascript', completed: false }
+];
+
+function toggleCompletedAll() {
+    todos = todos.map(todo => todo = {...todo, completed: true});
+}
+
+toggleCompletedAll();
+
+console.log(todos);
+/*
+[
+  { id: 3, content: 'HTML', completed: true },
+  { id: 2, content: 'CSS', completed: true },
+  { id: 1, content: 'Javascript', completed: true }
+]
+*/
+```
+
 ## 8. completed 프로퍼티의 값이 true인 요소의 갯수 구하기
 
 **Question**
@@ -342,11 +476,7 @@ let todos = [
 ];
 
 function countCompletedTodos() {
-    return todos.reduce(
-        (initialValue, todo) =>
-            todo.completed === true ? ++initialValue : initialValue,
-        0
-    );
+    return todos.reduce((initialValue, todo) => todo.completed === true ? ++initialValue : initialValue, 0);
 }
 
 console.log(countCompletedTodos()); // 1
@@ -396,11 +526,7 @@ let todos = [
 ];
 
 function getMaxId() {
-    return todos.reduce(
-        (initialValue, todo) =>
-            todo.id > initialValue ? todo.id : initialValue,
-        0
-    );
+    return todos.reduce((initialValue, todo) => todo.id > initialValue ? todo.id : initialValue, 0);
 }
 
 console.log(getMaxId()); // 3
