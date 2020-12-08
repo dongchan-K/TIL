@@ -43,6 +43,6 @@
 
 위와 같이 Virtual DOM은 부모 요소가 변경될 때 자식 요소도 변경될 수 있다는 것을 전제하지만, 자식 요소가 변경되지 않는 경우를 찾아 최적화 할 필요성이 있다.
 
-[Virtual DOM 참고자료](https://www.youtube.com/watch?v=BYbgopx44vo)
+🎯 [Virtual DOM 참고자료](https://www.youtube.com/watch?v=BYbgopx44vo)
 
 
