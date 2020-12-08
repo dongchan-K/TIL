@@ -19,3 +19,13 @@
 ![HTTP2](https://user-images.githubusercontent.com/67866773/100821159-22959f80-3493-11eb-97d0-55704476f60f.PNG)
 
 - HTTP/2는 다중 요청/응답이 가능하다
+
+## HTTPS 란?
+
+- HTTPS(HyperText Transfer Protocol over Secure Socket Layer)는 HTTP의 보안이 강화된 버전이다. HTTPS는 소켓 통신에서 일반 텍스트를 이용하는 대신에, [SSL](https://ko.wikipedia.org/wiki/SSL)이나 [TSL](https://ko.wikipedia.org/wiki/%EC%A0%84%EC%86%A1_%EA%B3%84%EC%B8%B5_%EB%B3%B4%EC%95%88) 프로토콜을 통해 세션 데이터를 암호화한다. 
+
+- 따라서 데이터의 적절한 보호를 보장한다.
+
+🎯 [HTTPS 관련자료](https://opentutorials.org/course/1334/4894)
+
+
