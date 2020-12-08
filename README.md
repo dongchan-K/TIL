@@ -70,6 +70,28 @@
 
 - [실행 컨텍스트(excution context)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/20_excution%20context.md)
 
+- [클로저(closure)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/21_closure.md)
+
+
+
+- [배열(array)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/24_array.md)
+
+
+
+- [스프레드 문법(spread syntax)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/32_spread%20syntax.md)
+
+- [디스트럭처링 할당(destructuring)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/33_destructuring.md)
+
+
+
+- [DOM](https://github.com/dongchan-K/TIL/blob/master/JavaScript/36_dom.md)
+
+- [이벤트(event)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/37_event.md)
+
+- [타이머(timer)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/38_timer.md)
+
+- [비동기 프로그래밍(asynchronous)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/39_asynchronous.md)
+
 ## React 
 
 - [리액트 기초(React Basic)](https://github.com/dongchan-K/TIL/blob/master/React/React%20Basic.md)
