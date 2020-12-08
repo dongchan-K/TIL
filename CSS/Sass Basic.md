@@ -1,5 +1,8 @@
 # Sass Basic
 
+
+## Why Sass? 
+
 Sass(Syntactically Awesome StyleSheets)는 CSS pre-processor로서 프로젝트의 규모가 커지고 수정이 번번히 발생함에 따라 쉽게 지저분해지고 유지보수도 어려워지는 CSS의 단점을 보완하여 보다 가독성이 높고 코드의 재사용에 유리한 CSS를 생성하기 위한 CSS 확장이다.
 
 Sass는 다음과 같은 추가 기능과 유용한 도구들을 제공한다
