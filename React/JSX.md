@@ -1,4 +1,8 @@
-# JSX(Javascript XML)
+# JSX
+
+JSX는 Babel에 의해 JavaScript로 트랜스파일링(브라우저가 이해하기 쉬운 언어로 변환하는 행위)된다.
+
+⚠ Templete 언어는 HTML로 트랜스파일링 된다
 
 ## JSX란 ?
 
@@ -60,7 +64,7 @@ const element = <img src={user.avatarUrl}></img>;
 const element = <img src={user.avatarUrl} />;
 ```
 
-JSX 태그는 자식을 포함할 수 있다.
+JSX 태그는 자식(children)을 포함할 수 있다.
 ```JSX
 const element = (
   <div>
