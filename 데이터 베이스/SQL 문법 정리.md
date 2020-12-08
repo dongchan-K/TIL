@@ -150,7 +150,7 @@ LIMIT 5, 3
 
 **COUNT, MAX, MIN, AVG, VAR_SAMP, STDDEV 그룹함수 존재**
 
-- COUNT
+- **COUNT**
 ```SQL
 # city 테이블의 CountryCode를 묶고 각 코드마다 몇개의 데이터가 있는지 확인
 SELECT CountryCode, COUNT(CountryCode)
@@ -163,7 +163,7 @@ SELECT COUNT(DISTINCT(Language)) as language_count
 FROM countrylanguage
 ```
 
-- MAX
+- **MAX**
 ```SQL
 # 대륙별 인구수와 GNP 최대 값을 조회
 SELECT continent, MAX(Population) as Population, MAX(GNP) as GNP
@@ -171,7 +171,7 @@ FROM country
 GROUP BY continent
 ```
 
-- MIN
+- **MIN**
 ```SQL
 # 대륙별 인구수와 GNP 최소 값을 조회 (GNP와 인구수가 0이 아닌 데이터 중에서)
 SELECT continent, MIN(Population) as Population, MIN(GNP) as GNP
@@ -180,7 +180,7 @@ WHERE GNP != 0 AND Population != 0
 GROUP BY continent
 ```
 
-- SUM
+- **SUM**
 ```SQL
 # 대륙별 총 인구수와 총 GNP
 SELECT continent, SUM(Population) as Population, SUM(GNP) as GNP
@@ -189,7 +189,7 @@ WHERE GNP != 0 AND Population != 0
 GROUP BY continent
 ```
 
-- AVG
+- **AVG**
 ```SQL
 # 대륙별 평균 인구수와 평균 GNP 결과를 인구수로 내림차순 정렬
 SELECT continent, AVG(Population) as Population, AVG(GNP) as GNP
@@ -224,7 +224,7 @@ WITH ROLLUP
 
 ## CREATE USE ALTER DROP
 
-- CREATE
+- **CREATE**
 ```SQL
 # 데이터 베이스 생성
 CREATE DATABASE <database_name>;
@@ -237,7 +237,7 @@ CREATE TABLE <table_name> (
 )
 ```
 
-- USE
+- **USE**
 ```SQL
 # test 데이터 베이스 선택
 USE test;
@@ -246,7 +246,7 @@ USE test;
 SELECT DATABASE()
 ```
 
-- ALTER
+- **ALTER**
 ```SQL
 # 사용중인 데이터베이스의 인코딩 방식 확인
 SHOW VARIABLES LIKE "character_set_database"
@@ -264,7 +264,7 @@ ALTER TABLE user2 MODIFY COLUMN tmp INT
 ALTER TABLE user2 DROP tmp
 ```
 
-- DROP
+- **DROP**
 ```SQL
 # tmp 데이터 베이스 삭제
 DROP DATABASE tmp;
@@ -348,6 +348,55 @@ TRUNCATE FROM user1
 
 # 테이블 전체를 모두 삭제 (DLL)
 DROP FROM user1
+```
+
+## CONCAT, CEIL, ROUND, TRUNCATE, DATE_FORMAT
+
+- **CEIL**
+
+실수 데이터를 올림할 때 사용 -> 자리수 설정 불가하며 소수 첫째 자리 기준으로 올림
+
+```SQL
+# 12.345를 올림
+SELECT CEIL(12.345)
+```
+
+- **ROUND**
+
+실수 데이터를 반올림 할 때 사용 -> 두 번째 인수로 나타낼 자리수 지정 가능
+
+```SQL
+# 12.345를 소수 둘째자리까지 나타내고 소수 셋째자리에서 반올림
+SELECT ROUND(12.345, 2)
+```
+
+- **TRUNCATE**
+
+실수 데이터를 버림 할 때 사용 -> 두 번째 인수로 나타낼 자리수 지정 가능
+
+```SQL
+# 12.345를 소수 둘째자리까지 나타내고 소수 셋째자리에서 버림
+SELECT TRUNCATE(12.345, 2)
+```
+
+- **DATE_FORMAT**
+
+날짜 데이터에 대한 포맷 변경
+
+```SQL
+# 월별 총 수입
+SELECT DATE_FORMAT(payment_date, "%Y-%m") as monthly, SUM(amount) as amount
+FROM payment
+GROUP BY monthly
+```
+
+# IF, IFNULL, CASE
+
+- **IF**
+```SQL
+# 도시의 인구가 100만이 넘으면 "big city" 그렇지 않으면 "small city"를 출력하는 city_scale 컬럼을 추가
+SELECT FROM name, population, IF(population > 1000000, "big city", "small city") as city_scale
+FROM city
 ```
 
 
