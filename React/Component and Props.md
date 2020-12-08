@@ -12,7 +12,7 @@ function Welcome(props) {
 ```
 위 함수는 데이터를 가진 하나의 'props' 객체 인자를 받은 후 React 엘리먼트를 반환하므로 유효한 React 컴포넌트이다.
 
-props : 속성을 나타내는 데이터
+**props : 속성을 나타내는 데이터로서 prop, children 등을 포함한 객체이다 -> props를 조작하여 컴포넌트를 구현하는 것이 개발자가 하는 일이라고 볼 수 있다**
 
 2. ES6 class를 사용하여 컴포넌트를 정의할 수도 있다.
 ```JSX
