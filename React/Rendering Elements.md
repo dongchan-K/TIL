@@ -53,8 +53,8 @@ React DOM은 해당 엘리먼트와 그 자식 엘리먼트를 이전의 엘리�
 
 위의 시계 예시에서 매초 마다 전체 UI를 다시 그리도록 엘리먼트를 만들었지만 React DOM은 내용이 변경된 텍스트 노드만 업데이트한다.
 
-**Virtual DOM** : 실제 DOM이 아닌 가상의 DOM
+**Virtual DOM** : 실제 DOM이 아닌 가상의 DOM4
 
 **React는 실제로 DOM을 제어하는 것이 아닌 중간에 Virtual DOM을 두어 개발의 편의성(DOM을 직접 제어하지 않음)과 성능(배치 처리로 DOM을 변경)을 개선한다. -> React에서 적절하게 Virtual DOM을 실제 DOM에 반영하는 작업을 한다.**
 
-
+🎯 [Virtual DOM 참고 자료](https://www.youtube.com/watch?v=BYbgopx44vo)
