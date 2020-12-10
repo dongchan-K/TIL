@@ -2,6 +2,12 @@
 
 React는 컴포넌트를 통해 UI를 재사용 가능한 개별적인 여러 조각으로 나누고, 각 조각을 개별적으로 살펴볼 수 있다.
 
+React 컴포넌트가 렌더링을 수행하는 시점은 다음과 같다.
+- props가 변경되었을 때
+- state가 변경되었을 때
+- [forceUpdate()](https://ko.reactjs.org/docs/react-component.html#forceupdate)가 실행되었을 때
+- 부모 컴포넌트가 렌더링되었을 때
+
 ## 함수 컴포넌트와 클래스 컴포넌트
 
 1. 컴포넌트를 정의하는 가장 간단한 방법은 JavaScript 함수를 작성하는 것이다.
@@ -11,6 +17,8 @@ function Welcome(props) {
 }
 ```
 위 함수는 데이터를 가진 하나의 'props' 객체 인자를 받은 후 React 엘리먼트를 반환하므로 유효한 React 컴포넌트이다.
+
+**함수 컴포넌트는 Lifecycle이 존재하지 않는다. -> 이를 가능하게 하는 것이 Hook 이다.**
 
 **props : 속성을 나타내는 데이터로서 prop, children 등을 포함한 객체이다 -> props를 조작하여 컴포넌트를 구현하는 것이 개발자가 하는 일이라고 볼 수 있다**
 
@@ -22,6 +30,7 @@ class Welcome extends React.Component {
   }
 }
 ```
+**클래스로 컴포넌트 정의 시, render() 함수는 필수이며, React Element를 반환해야 한다.**
 
 ## 컴포넌트 렌더링
 
@@ -152,7 +161,7 @@ function Comment(props) {
   );
 }
 ```
-UI 일부가 여러 번 사용되거나  자체적으로 복잡한 경우에는 별도의 컴포넌트로 만드는게 좋다.
+UI 일부가 여러 번 사용되거나 자체적으로 복잡한 경우에는 별도의 컴포넌트로 만드는게 좋다.
 
 ### props는 읽기 전용이다
 
