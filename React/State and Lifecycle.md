@@ -131,6 +131,51 @@ ReactDOM.render(
 또한 컴포넌트에 의해 생성된 DOM이 삭제될 때마다 타이머를 해제하려고 한다. 이것을 **언마운트** 라고 한다.
 
 컴포넌트 클래스에서 특별한 메서드를 선언하여 컴포넌트가 마운트되거나 언마운트 될 때 일부 코드를 작동할 수 있는데 이를 **생명주기 메서드** 라 부른다.
+
+### v16.3 이전 생명주기 메서드
+
+**1. Component 생성 및 마운트**
+- constructor
+- componentWillMount
+- render()
+- componentDidMount
+
+**2. Component props, state 변경**
+- componentWillReceiveProps
+- shouldComponentUpdate
+- componentWillUpdate
+- render()
+- componentDidUpdate
+
+**3. Component 언마운트**
+- componentWillUnmount
+
+![16 3 이전 생명주기 메서드](https://user-images.githubusercontent.com/67866773/101789918-33a27880-3b45-11eb-996a-114366996f8b.PNG)
+
+### v16.3 생명주기 메서드
+
+**1. Component 생성 및 마운트**
+- constructor
+- static getDerivedStateFromProps
+- render()
+- componentDidMount
+
+**2. Component props, state 변경**
+- static getDerivedStateFromProps (props 변경)
+- shouldComponentUpdate (state 변경)
+- render()
+- getSnapshotBeforeUpdate (DOM에 적용)
+- componentDidUpdate
+
+**3. Component 언마운트**
+- componentWillUnmount
+
+**4. Component 에러캐치**
+- componentDidCatch
+
+![v16 3 생명주기 메서드](https://user-images.githubusercontent.com/67866773/101789921-34d3a580-3b45-11eb-8b02-af16c8cf64f5.PNG)
+
+코드를 통해 알아보자.
 ```JSX
 class Clock extends React.Component {
   constructor(props) {
