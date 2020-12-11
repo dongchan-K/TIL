@@ -109,3 +109,5 @@ const element = {
 ```
 
 위와 같은 객체를 **React 엘리먼트** 라고 한다.
+
+🎯 출처 : https://ko.reactjs.org/docs/introducing-jsx.html

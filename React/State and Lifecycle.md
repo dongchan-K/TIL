@@ -367,3 +367,17 @@ ReactDOM.render(
 ```
 위 코드의 각 Clock은 자신만의 타이머를 설정하고 독립적으로 업데이트 한다.
 
+### setState() 사용
+
+1. 이전 state를 사용 시, state 객체를 반환하는 함수를 할당하자.
+```JSX
+
+```
+
+
+2. 이전 state를 사용하지 않을 경우, state 객체를 할당하자.
+```JSX
+
+```
+
+출처 : https://ko.reactjs.org/docs/state-and-lifecycle.html

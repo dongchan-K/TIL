@@ -120,3 +120,5 @@ class LoginButton extends React.Component {
 ```
 
 위 두 코드는 동일하며 두 경우 모두 React 이벤트를 나타내는 e 인자가 ID 뒤에 두 번째 인자로 전달된다. 화살표 함수를 사용하면 명시적으로 인자를 전달해야 하지만 bind를 사용할 경우 추가 인자가 자동으로 전달된다.
+
+🎯 출처 : https://ko.reactjs.org/docs/handling-events.html

@@ -179,3 +179,5 @@ ReactDOM.render(
 ```
 
 컴포넌트의 render 메서드로부터 null을 반환하는 것은 생명주기 메서드 호출에 영향을 주지 않는다.
+
+🎯 출처 : https://ko.reactjs.org/docs/conditional-rendering.html

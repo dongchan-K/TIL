@@ -236,3 +236,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
+
+🎯 출처 : https://ko.reactjs.org/docs/components-and-props.html

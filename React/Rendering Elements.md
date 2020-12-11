@@ -58,3 +58,5 @@ React DOM은 해당 엘리먼트와 그 자식 엘리먼트를 이전의 엘리�
 **React는 실제로 DOM을 제어하는 것이 아닌 중간에 Virtual DOM을 두어 개발의 편의성(DOM을 직접 제어하지 않음)과 성능(배치 처리로 DOM을 변경)을 개선한다. -> React에서 적절하게 Virtual DOM을 실제 DOM에 반영하는 작업을 한다.**
 
 🎯 [Virtual DOM 참고 자료](https://www.youtube.com/watch?v=BYbgopx44vo)
+
+🎯 출처 : https://ko.reactjs.org/docs/rendering-elements.html
