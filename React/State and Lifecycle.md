@@ -276,6 +276,8 @@ this.state를 지정할 수 있는 유일한 공간은 constructor 이다.
 React는 성능을 위해 여러 setState() 호출을 단일 업데이트로 한번에 처리할 수 있다.
 
 this.props와 this.state 가 비동기적으로 업데이트될 수 있기 때문에 다음 state를 계산할 때 해당 값에 의존해서는 안 된다.
+
+**이전 state를 사용할 경우 setState() 인수로 함수를 전달하고, 이전 state를 사용하지 않을 경우 객체를 전달하는 것이 일반적이다.**
 ```JSX
 // X
 this.setState({
@@ -366,18 +368,5 @@ ReactDOM.render(
 );
 ```
 위 코드의 각 Clock은 자신만의 타이머를 설정하고 독립적으로 업데이트 한다.
-
-### setState() 사용
-
-1. 이전 state를 사용 시, state 객체를 반환하는 함수를 할당하자.
-```JSX
-
-```
-
-
-2. 이전 state를 사용하지 않을 경우, state 객체를 할당하자.
-```JSX
-
-```
 
 출처 : https://ko.reactjs.org/docs/state-and-lifecycle.html
