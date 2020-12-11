@@ -187,3 +187,52 @@ UI 일부가 여러 번 사용되거나 자체적으로 복잡한 경우에는 �
 함수 컴포넌트나 클래스 컴포넌트 모두 컴포넌트의 자체 props를 수정해서는 안 된다.
 
 **모든 React 컴포넌트는 자신의 props를 다룰 때 반드시 순수 함수처럼 동작해야 한다.**
+
+## props 초기값 설정
+
+1. 클래스 컴포넌트
+```JSX
+class ClassComponent extends React.Component {
+  render() {
+    // props 디스트럭처링 할당
+    const { children, name } = this.props;
+    return (
+      <div>
+        <p>{children}! {name}</p>
+      </div>
+    )
+  }
+
+  // defaultProps 정적 메서드로 props 초기(default)값 설정
+  static defaultProps = {
+    name: 'Dongchan',
+    children: 'Hello'
+  }
+}
+
+ReactDOM.render(
+  <ClassComponent />,
+  document.getElementById('root')
+);
+```
+
+2. 함수 컴포넌트
+```JSX 
+function FunctionComponent({ name, children }) {
+  return (
+    <div>
+      <p>{children}! {name}</p>
+    </div>
+  )
+}
+// 컴포넌트이름.defaultProps 으로 props 초기(default)값 설정
+FunctionComponent.defaultProps = {
+  name: 'Dongchan',
+  children: 'Hi'
+}
+
+ReactDOM.render(
+  <FunctionComponent />,
+  document.getElementById('root')
+);
+```
