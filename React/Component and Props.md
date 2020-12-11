@@ -32,6 +32,25 @@ class Welcome extends React.Component {
 ```
 **클래스로 컴포넌트 정의 시, render() 함수는 필수이며, React Element를 반환해야 한다.**
 
+```JSX
+class Component extends React.Component {
+  render() {
+    console.log(this);
+  }
+}
+
+ReactDOM.render(
+  <Component />,
+  document.getElementById('root')
+);
+```
+
+위 코드를 실행하면 다음과 같다.
+
+![render 함수 내부의 this](https://user-images.githubusercontent.com/67866773/101848292-75104380-3b98-11eb-9f3f-44f888ada763.PNG)
+
+**클래스의 프로토타입 메서드, 즉 render 메서드 내부의 this는 메서드를 호출한 객체(인스턴스)를 가리키는데 React에서 암묵적으로 동일한 이름의 인스턴스를 생성 즉, `const Component = new Component()`를 수행한다고 볼 수 있다.**
+
 ## 컴포넌트 렌더링
 
 React 엘리먼트는 DOM 태그 또는 사용자 정의 컴포넌트로도 나타낼 수 있다
