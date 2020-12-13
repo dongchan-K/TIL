@@ -2,15 +2,17 @@
 
 React는 컴포넌트를 통해 UI를 재사용 가능한 개별적인 여러 조각으로 나누고, 각 조각을 개별적으로 살펴볼 수 있다.
 
-React 컴포넌트가 렌더링을 수행하는 시점은 다음과 같다.
+**React 컴포넌트가 렌더링을 수행하는 시점은 다음과 같다.**
 - props가 변경되었을 때
-- state가 변경되었을 때
+- state가 변경되었을 때 -> setState()가 실행되었을때도 마찬가지
 - [forceUpdate()](https://ko.reactjs.org/docs/react-component.html#forceupdate)가 실행되었을 때
 - 부모 컴포넌트가 렌더링되었을 때
 
 ## 함수 컴포넌트와 클래스 컴포넌트
 
-1. 컴포넌트를 정의하는 가장 간단한 방법은 JavaScript 함수를 작성하는 것이다.
+컴포넌트는 함수, 클래스로 정의할 수 있다.
+
+### 1. 함수 컴포넌트
 ```JSX
 function Welcome(props) {
   return <h1>Hello, {props.name}</h1>;
@@ -20,9 +22,9 @@ function Welcome(props) {
 
 **함수 컴포넌트는 Lifecycle이 존재하지 않는다. -> 이를 가능하게 하는 것이 Hook 이다.**
 
-**props : 속성을 나타내는 데이터로서 prop, children 등을 포함한 객체이다 -> props를 조작하여 컴포넌트를 구현하는 것이 개발자가 하는 일이라고 볼 수 있다**
+**props : 속성을 나타내는 데이터로서 prop, children 등을 포함한 '객체'이다.**
 
-2. ES6 class를 사용하여 컴포넌트를 정의할 수도 있다.
+### 2. 클래스 컴포넌트
 ```JSX
 class Welcome extends React.Component {
   render() {
@@ -45,7 +47,7 @@ ReactDOM.render(
 );
 ```
 
-위 코드를 실행하면 다음과 같다.
+위 코드를 실행하여 개발자도구로 확인하면 다음과 같다.
 
 ![render 함수 내부의 this](https://user-images.githubusercontent.com/67866773/101848292-75104380-3b98-11eb-9f3f-44f888ada763.PNG)
 
@@ -148,7 +150,7 @@ function Avatar(props) {
 ```
 Avatar는 자신이 Comment 내에서 렌더링 된다는 것을 알 필요가 없기 때문에 props의 이름을 author에서 더욱 일반화된 user로 변경
 
-**props의 이름은 사용될 context가 아닌 컴포넌트 자체의 관점에서 짓는 것을 권장**
+props의 이름은 사용될 context가 아닌 컴포넌트 자체의 관점에서 짓는 것을 권장
 
 다음으로 UserInfo 컴포넌트 추출
 ```JSX
