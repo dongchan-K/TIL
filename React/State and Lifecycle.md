@@ -369,4 +369,12 @@ ReactDOM.render(
 ```
 위 코드의 각 Clock은 자신만의 타이머를 설정하고 독립적으로 업데이트 한다.
 
+### props와 state의 차이
+
+컴포넌트에서는 props와 state 두개의 데이터를 다룬다.
+
+**props는 부모 컴포넌트가 자식 컴포넌트에게 전달하는 값이며 자식 컴포넌트에서는 props를 받아올 뿐 수정할 수는 없다.**
+
+**state는 컴포넌트 내부에서 선언하며 내부에서 값을 변경할 수 있다.**
+
 출처 : https://ko.reactjs.org/docs/state-and-lifecycle.html
