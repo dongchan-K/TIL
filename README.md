@@ -4,20 +4,6 @@
 
 ---
 
-## ETC
-
-- [아스키와 유니코드(ASCII and Unicode)](https://github.com/dongchan-K/TIL/blob/master/ETC/ASCII%20and%20Unicode.md)
-
-- [애자일 개발방법론(Agile)](https://github.com/dongchan-K/TIL/blob/master/ETC/%EC%95%A0%EC%9E%90%EC%9D%BC%20%EA%B0%9C%EB%B0%9C%EB%B0%A9%EB%B2%95%EB%A1%A0.md)
-
-## Web
-
-- [Web 기본(Web Basic)](https://github.com/dongchan-K/TIL/blob/master/Web/Web%20%EA%B8%B0%EB%B3%B8.md)
-
-- [HTTP](https://github.com/dongchan-K/TIL/blob/master/Web/HTTP.md)
-
-- [쿠키와 세션(Cookie and Session)](https://github.com/dongchan-K/TIL/blob/master/Web/%EC%BF%A0%ED%82%A4%EC%99%80%20%EC%84%B8%EC%85%98.md)
-
 ## HTML
 
 ## CSS
@@ -72,17 +58,15 @@
 
 - [클로저(closure)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/21_closure.md)
 
-
+- [클래스(class)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/22_class.md)
 
 - [배열(array)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/24_array.md)
-
-
 
 - [스프레드 문법(spread syntax)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/32_spread%20syntax.md)
 
 - [디스트럭처링 할당(destructuring)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/33_destructuring.md)
 
-
+- [브라우저 렌더링(browser rendering)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/35_browser%20rendering.md)
 
 - [DOM](https://github.com/dongchan-K/TIL/blob/master/JavaScript/36_dom.md)
 
@@ -92,7 +76,7 @@
 
 - [비동기 프로그래밍(asynchronous)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/39_asynchronous.md)
 
-## React 
+## React
 
 - [리액트 기초(React Basic)](https://github.com/dongchan-K/TIL/blob/master/React/React%20Basic.md)
 
@@ -105,6 +89,26 @@
 - [State와 생명주기(State and Lifecycle)](https://github.com/dongchan-K/TIL/blob/master/React/State%20and%20Lifecycle.md)
 
 - [이벤트 처리하기(Handling Events)](https://github.com/dongchan-K/TIL/blob/master/React/Handling%20Events.md)
+
+- [조건부 렌더링(Conditional Rendering)](https://github.com/dongchan-K/TIL/blob/master/React/Conditional%20Rendering.md)
+
+- [리스트와 키(Lists and Keys)](https://github.com/dongchan-K/TIL/blob/master/React/Lists%20and%20Keys.md)
+
+- [폼(Forms)](https://github.com/dongchan-K/TIL/blob/master/React/Forms.md)
+
+## ETC
+
+- [아스키와 유니코드(ASCII and Unicode)](https://github.com/dongchan-K/TIL/blob/master/ETC/ASCII%20and%20Unicode.md)
+
+- [애자일 개발방법론(Agile)](https://github.com/dongchan-K/TIL/blob/master/ETC/%EC%95%A0%EC%9E%90%EC%9D%BC%20%EA%B0%9C%EB%B0%9C%EB%B0%A9%EB%B2%95%EB%A1%A0.md)
+
+## Web
+
+- [Web 기본(Web Basic)](https://github.com/dongchan-K/TIL/blob/master/Web/Web%20%EA%B8%B0%EB%B3%B8.md)
+
+- [HTTP](https://github.com/dongchan-K/TIL/blob/master/Web/HTTP.md)
+
+- [쿠키와 세션(Cookie and Session)](https://github.com/dongchan-K/TIL/blob/master/Web/%EC%BF%A0%ED%82%A4%EC%99%80%20%EC%84%B8%EC%85%98.md)
 
 ## Algorithm
 
