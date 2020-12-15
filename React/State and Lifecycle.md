@@ -317,9 +317,17 @@ React는 성능을 위해 여러 setState() 호출을 단일 업데이트로 한
 
 this.props와 this.state 가 비동기적으로 업데이트될 수 있기 때문에 다음 state를 계산할 때 해당 값에 의존해서는 안 된다.
 
-**이전 state를 사용할 경우 setState() 인수로 함수를 전달하고, 이전 state를 사용하지 않을 경우 객체를 전달하는 것이 일반적이다.**
+**이전 state를 사용할 경우 setState() 인자로 함수를 전달하고, 이전 state를 사용하지 않을 경우 객체를 전달하는 것이 일반적이다.**
 
-setState를 사용해 값을 업데이트하고 난 다음 특정 작업을 하고 싶다면 `setState()` 의 두 번째 인수로 콜백 함수를 등록하여 처리할 수 있다.
+인자로 함수를 전달할 경우 다음과 같이 사용할 수 있다. props가 필요하지 않다면 생략 가능하다.
+
+```JSX
+  setState((prevState, props) => {
+    return {
+      // 내용
+    }
+  })
+```
 
 ```JSX
 // X
@@ -328,9 +336,22 @@ this.setState({
 });
 
 // O
-this.setState((state, props) => ({
+this.setState((prevState, props) => ({
   counter: state.counter + props.increment
 }));
+```
+
+setState를 사용해 값을 업데이트하고 난 다음 특정 작업을 하고 싶다면 `setState()` 의 두 번째 인자로 콜백 함수를 등록하여 처리할 수 있다.
+
+```JSX
+ this.setState(
+  {
+    number: number + 1;
+  },
+  () => {
+    console.log('hello');
+  }
+);
 ```
 
 ### 3. State 업데이트는 병합된다
@@ -351,6 +372,8 @@ constructor(props) {
 
 별도의 setState() 호출로 변수를 독립적으로 업데이트 할 수 있다.
 
+병합은 얕게 이루어진다.
+
 ```JSX
 componentDidMount() {
   fetchPosts().then(reponse => {
@@ -367,9 +390,25 @@ componentDidMount() {
 }
 ```
 
-병합은 얕게 이루어진다.
+### 4. 배열과 객체 state 업데이트
 
-## 데이터는 아래로 흐른다
+배열이나 객체의 state를 업데이트 해야 한다면 사본을 만들고 그 사본에 값을 업데이트한 후, 그 사본의 상태를 setState 또는 useState 함수를 통해 업데이트한다.
+
+```JSX
+// 객체 복사
+const object = { a: 1, b: 2, c: 3 };
+const nextObject = { ...object, b: 2 }; // 사본 생성 후 b 값 변경
+
+// 배열 복사
+const array = [
+  { id: 1, value: true },
+  { id: 2, value: false },
+  { id: 3, value: true },
+];
+let nextArray = array.concat({ id: 4 }); // 사본 생성 후 새 항목 추가
+```
+
+## 데이터의 흐름
 
 부모 컴포넌트나 자식 컴포넌트 모두 특정 컴포넌트가 유상태인지 또는 무상태인지 알 수 없고, 함수나 클래스 어떤 것으로 정의되었는지 관심을 가질 필요가 없다.
 
@@ -428,18 +467,18 @@ ReactDOM.render(
 
 ### 함수형 컴포넌트의 state
 
-함수형 컴포넌트에서는 `useState` 함수를 사용하여 state를 사용할 수 있다.
+**함수형 컴포넌트에서는 `useState` 함수를 사용하여 state를 사용할 수 있다.**
 
 useState 함수의 인자에는 상태의 초기값을 넣어주어야 하며, 값의 형태는 자유이다.
 
-useState 함수를 호출하면 배열이 반환되는데, 첫 번째 원소는 현재 상태이고 두 번째 원소는 상태를 바꾸어 주는 함수이다.
+**useState 함수를 호출하면 배열이 반환되는데, 첫 번째 원소는 현재 상태이고 두 번째 원소는 상태를 바꾸어 주는 함수이다.**
 
 ```JSX
   const Say = () => {
     // 디스트럭처링 할당
     const [message, setMessage] = useState('');
-    const onClickEnter = () => setMessage('안녕하세요!');
-    const onClickLeave = () => setMessage('안녕히 가세요!);
+    const onClickEnter = () => setMessage('hello!');
+    const onClickLeave = () => setMessage('good bye!);
 
     return (
       <div>
