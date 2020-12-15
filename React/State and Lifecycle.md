@@ -3,6 +3,7 @@
 이번에는 Clock 컴포넌트를 완전히 재사용하고 캡슐화 하는 방법을 알아보자.
 
 스스로 타이머를 설정하고 매초 스스로 업데이트 하는 컴포넌트를 만들어보자
+
 ```JSX
 function Clock(props) {
   return (
@@ -22,6 +23,7 @@ function tick() {
 
 setInterval(tick, 1000);
 ```
+
 위 예시에는 Clock이 타이머를 설정하고 매초 UI를 업데이트하는 것이 누락되어있다.
 
 이상적으로 한 번만 코드를 작성하고 Clock이 스스로 업데이트하도록 만들기 위해서 Clock 컴포넌트에 'state'를 추가해야 한다.
@@ -50,13 +52,15 @@ class Clock extends React.Component {
   }
 }
 ```
-render 메서드는 업데이트가 발생할 때마다 호출되지만, 같은 DOM노드로 `<Clock />`을 렌더링 하는경우 Clock 클래스의 단일 인스턴스만을 사용한다. 
+
+render 메서드는 업데이트가 발생할 때마다 호출되지만, 같은 DOM노드로 `<Clock />`을 렌더링 하는경우 Clock 클래스의 단일 인스턴스만을 사용한다.
 
 이는 로컬 state와 생명주기 메서드와 같은 부가적인 기능을 사용할 수 있게 해준다.
 
 ## 클래스에 로컬 State 추가하기
 
 1. render() 메서드 안에 있는 this.props.date를 this.state.date로 변경
+
 ```JSX
 class Clock extends React.Component {
   render() {
@@ -71,11 +75,12 @@ class Clock extends React.Component {
 ```
 
 2. 초기 this.state를 지정하는 class constructor를 추가
+
 ```JSX
 class Clock extends React.Component {
   construnctor(props) {
     super(props);
-    this.state = {dae: new Date()};
+    this.state = {date: new Date()};
   }
 
   render() {
@@ -85,12 +90,33 @@ class Clock extends React.Component {
         <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
       </div>
     );
-  }  
+  }
 }
 ```
+
 클래스 컴포넌트는 항상 props로 기본 constructor를 호출해야 한다.
 
+클래스 필드에 state를 설정할 수도 있다.
+
+```JSX
+class Clock extends React.Component {
+  state = {
+    date: new Date()
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Hello, world!</h1>
+        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+      </div>
+    );
+  }
+}
+```
+
 3. <Clock /> 요소에서 date prop을 삭제
+
 ```JSX
 ReactDOM.render(
   <Clock />,
@@ -99,6 +125,7 @@ ReactDOM.render(
 ```
 
 state를 추가한 코드는 다음과 같다
+
 ```JSX
 class Clock extends React.Component {
   constructor(props) {
@@ -135,12 +162,14 @@ ReactDOM.render(
 ### v16.3 이전 생명주기 메서드
 
 **1. Component 생성 및 마운트**
+
 - constructor
 - componentWillMount
 - render()
 - componentDidMount
 
 **2. Component props, state 변경**
+
 - componentWillReceiveProps
 - shouldComponentUpdate
 - componentWillUpdate
@@ -148,6 +177,7 @@ ReactDOM.render(
 - componentDidUpdate
 
 **3. Component 언마운트**
+
 - componentWillUnmount
 
 ![16 3 이전 생명주기 메서드](https://user-images.githubusercontent.com/67866773/101789918-33a27880-3b45-11eb-996a-114366996f8b.PNG)
@@ -155,12 +185,14 @@ ReactDOM.render(
 ### v16.3 생명주기 메서드
 
 **1. Component 생성 및 마운트**
+
 - constructor
 - static getDerivedStateFromProps
 - render()
 - componentDidMount
 
 **2. Component props, state 변경**
+
 - static getDerivedStateFromProps (props 변경)
 - shouldComponentUpdate (state 변경)
 - render()
@@ -168,14 +200,17 @@ ReactDOM.render(
 - componentDidUpdate
 
 **3. Component 언마운트**
+
 - componentWillUnmount
 
 **4. Component 에러캐치**
+
 - componentDidCatch
 
 ![v16 3 생명주기 메서드](https://user-images.githubusercontent.com/67866773/101789921-34d3a580-3b45-11eb-8b02-af16c8cf64f5.PNG)
 
 코드를 통해 알아보자.
+
 ```JSX
 class Clock extends React.Component {
   constructor(props) {
@@ -202,15 +237,17 @@ class Clock extends React.Component {
 ```
 
 componentDidMount() 메서드는 컴포넌트 출력물이 DOM에 렌더링 된 후에 실행된다. 때문에 타이머를 설정하기 좋다
+
 ```JSX
 componentDidMount() {
-  this.timerID = setInterval(() => this.tick(), 
+  this.timerID = setInterval(() => this.tick(),
   1000
   );
 }
 ```
 
 componentWillUnmount() 메서드를 통해 타이머를 분해해 보자
+
 ```JSX
 componentWillUnmount() {
   clearInterval(this.timerID);
@@ -218,6 +255,7 @@ componentWillUnmount() {
 ```
 
 마지막으로 tick() 메서드를 구현해 시계를 완성해보자
+
 ```JSX
 class Clock extends React.Component {
   constructor(props) {
@@ -262,6 +300,7 @@ ReactDOM.render(
 setState() 메서드는 세가지 주의점이 있다.
 
 ### 1. 직접 State를 수정하지 말 것
+
 ```JSX
 // X
 this.state.comment = 'Hello';
@@ -269,6 +308,7 @@ this.state.comment = 'Hello';
 // O
 this.setState({comment: 'Hello'});
 ```
+
 this.state를 지정할 수 있는 유일한 공간은 constructor 이다.
 
 ### 2. State 업데이트는 비동기일 수도 있다.
@@ -278,6 +318,9 @@ React는 성능을 위해 여러 setState() 호출을 단일 업데이트로 한
 this.props와 this.state 가 비동기적으로 업데이트될 수 있기 때문에 다음 state를 계산할 때 해당 값에 의존해서는 안 된다.
 
 **이전 state를 사용할 경우 setState() 인수로 함수를 전달하고, 이전 state를 사용하지 않을 경우 객체를 전달하는 것이 일반적이다.**
+
+setState를 사용해 값을 업데이트하고 난 다음 특정 작업을 하고 싶다면 `setState()` 의 두 번째 인수로 콜백 함수를 등록하여 처리할 수 있다.
+
 ```JSX
 // X
 this.setState({
@@ -295,6 +338,7 @@ this.setState((state, props) => ({
 setState()를 호출할 때 React는 제공한 객체를 현재 state로 병합한다.
 
 예를 들어, state는 다양한 독립적인 변수를 포함할 수 있다.
+
 ```JSX
 constructor(props) {
   super(props);
@@ -306,6 +350,7 @@ constructor(props) {
 ```
 
 별도의 setState() 호출로 변수를 독립적으로 업데이트 할 수 있다.
+
 ```JSX
 componentDidMount() {
   fetchPosts().then(reponse => {
@@ -321,6 +366,7 @@ componentDidMount() {
   });
 }
 ```
+
 병합은 얕게 이루어진다.
 
 ## 데이터는 아래로 흐른다
@@ -336,11 +382,13 @@ componentDidMount() {
 state가 소유하고 설정한 컴포넌트 이외에는 어떠한 컴포넌트에도 접근할 수 없다.
 
 컴포넌트는 자신의 state를 자식 컴포넌트에 props로 전달할 수 있다.
+
 ```JSX
 <FormattedDate date={this.state.date} />
 ```
 
 FormattedDate 컴포넌트는 date를 자신의 props로 받을 것이고 이것이 Clock의 state로부터 왔는지, Clock의 props에서 왔는지, 수동으로 입력한 것인지 알지 못한다.
+
 ```JSX
 function FormattedDate(props) {
   return <h2>It is {props.date.toLocaleTimeString()}.</h2>;
@@ -367,6 +415,7 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
+
 위 코드의 각 Clock은 자신만의 타이머를 설정하고 독립적으로 업데이트 한다.
 
 ### props와 state의 차이
@@ -377,4 +426,29 @@ ReactDOM.render(
 
 **state는 컴포넌트 내부에서 선언하며 내부에서 값을 변경할 수 있다.**
 
-출처 : https://ko.reactjs.org/docs/state-and-lifecycle.html
+### 함수형 컴포넌트의 state
+
+함수형 컴포넌트에서는 `useState` 함수를 사용하여 state를 사용할 수 있다.
+
+useState 함수의 인자에는 상태의 초기값을 넣어주어야 하며, 값의 형태는 자유이다.
+
+useState 함수를 호출하면 배열이 반환되는데, 첫 번째 원소는 현재 상태이고 두 번째 원소는 상태를 바꾸어 주는 함수이다.
+
+```JSX
+  const Say = () => {
+    // 디스트럭처링 할당
+    const [message, setMessage] = useState('');
+    const onClickEnter = () => setMessage('안녕하세요!');
+    const onClickLeave = () => setMessage('안녕히 가세요!);
+
+    return (
+      <div>
+        <button onClick={onClickEnter}>입장</button>
+        <button onClick={onClickLeave}>퇴장</button>
+        <h1>{message}</h1>
+      </div>
+    );
+  };
+```
+
+🎯 출처 : https://ko.reactjs.org/docs/state-and-lifecycle.html
