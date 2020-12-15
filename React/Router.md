@@ -25,13 +25,15 @@
 npm i react-router-dom
 ```
 
-### 라우터 적용
+## 라우터 적용
 
 **`<BrowserRouter>` 컴포넌트는 history API를 활용하여 UI를 업데이트 하며 `<Route>` 컴포넌트들을 감싼다.**
 
-**`<Route>` 컴포넌트에 path(경로) 와 component(컴포넌트) 를 설정하여 브라우저에서 요청한 경로에 Route의 path가 포함되어있다면 component 를 보여준다**
+**`<Route>` 컴포넌트에 path="경로" 와 component="{컴포넌트}" 를 설정하여 브라우저에서 요청한 경로에 Route의 path가 포함되어있다면 component 를 보여준다.**
 
-### 정적 라우팅(Static Routing)
+**`<Route>` 컴포넌트는 location, history, match 라는 props 객체를 component의 컴포넌트에 전달한다.**
+
+## 정적 라우팅(Static Routing)
 
 설치가 완료되었다면 특정 경로에서 보여줄 컴포넌트를 준비한다.
 
@@ -127,3 +129,136 @@ export default App;
 ![exact about](https://user-images.githubusercontent.com/67866773/102238794-84491580-3f39-11eb-8fe2-8adf7ed10f56.PNG)
 
 위와 같은 결과를 얻을 수 있다.
+
+## 동적 라우팅(Dynamic Routing)
+
+### URL 파라미터(params)
+
+**`/profile:id` 규칙으로 경로를 지정하면 Route 컴포넌트에서 받아오는 props의 match 객체 안의 params 값을 참조하여 id를 조회할 수 있다.**
+
+-> 꼭 id어야 하는 것은 아니고 : 규칙 뒤에 지정한 경로에 따라 다르게 params에 저장된다. 단적인 예시일 뿐이다.
+
+이때 params의 type은 string 형태이다.
+
+App.js 파일을 다음과 같이 수정하자.
+
+```JSX
+import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+
+import Home from './pages/Home';
+import Profile from './pages/Profile';
+import About from './pages/About';
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Route exact path="/" component={Home} />
+      <Route path="/profile" component={Profile} />
+      <Route path="/profile:id" component={Profile} />
+      <Route path="/about" component={About} />
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+Profile.jsx 파일을 다음과 같이 수정하자.
+
+```JSX
+import React from 'react';
+
+export default function Profile(props) {
+  const id = props.match.params.id;
+  return (
+    <div>
+      <h1>Profile</h1>
+      {/* id가 존재한다면 출력 */}
+      {id && <p>id는 {id}입니다.</p>}
+    </div>
+  );
+};
+```
+
+![profile id1](https://user-images.githubusercontent.com/67866773/102244516-bd848400-3f3f-11eb-9e27-218f39ed5a85.PNG)
+
+### URL 쿼리
+
+**쿼리는 Route 컴포넌트에서 받아오는 props의 location 객체 안의 search 값을 참조하여 조회할 수 있다.**
+
+쿼리는 문자열에 여러 가지 값을 설정할 수 있기 때문에 searh 값에서 특정 값을 읽어오기 위해서는 문자열을 객체로 변환해야한다.
+
+#### 1. URLSearchParams 내장 객체를 이용한 쿼리 값 조회
+
+🎯 URLSearchParams MDN : https://developer.mozilla.org/ko/docs/Web/API/URLSearchParams
+
+App.js 파일은 수정하지 않는다.
+
+```JSX
+import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+
+import Home from './pages/Home';
+import Profile from './pages/Profile';
+import About from './pages/About';
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Route exact path="/" component={Home} />
+      <Route path="/profile" component={Profile} />
+      <Route path="/profile:id" component={Profile} />
+      <Route path="/about" component={About} />
+    </BrowserRouter>
+  );
+}
+
+export default App;
+
+```
+
+About.jsx 파일을 다음과 같이 수정하자.
+
+```JSX
+import React from 'react';
+
+export default function About(props) {
+  const searchParams = new URLSearchParams(props.location.search);
+  const name = searchParams.get('name');
+  return (
+    <div>
+      <h1>About</h1>
+      {/* name이 존재한다면 출력 */}
+      {name && <p>이름은 {name}입니다.</p>}
+    </div>
+  );
+};
+```
+
+#### 2. 외부 라이브러리를 이용한 쿼리 값 조회
+
+🎯 query-string 라이브러리 : https://www.npmjs.com/package/query-string
+
+`npm install query-string` 명령어를 통해 라이브러리 설치
+
+About.jsx 파일을 다음과 같이 수정하자.
+
+```JSX
+import React from 'react';
+import queryString from 'query-string';
+
+export default function About(props) {
+  const query = queryString.parse(props.location.search);
+  // 디스트럭처링 할당
+  const { name } = query;
+  return (
+    <div>
+      <h1>About</h1>
+      {name && <p>이름은 {name}입니다.</p>}
+    </div>
+  );
+};
+```
+
+![about name](https://user-images.githubusercontent.com/67866773/102247078-d04c8800-3f42-11eb-834f-91f046539fd2.PNG)
