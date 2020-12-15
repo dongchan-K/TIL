@@ -31,6 +31,8 @@ npm i react-router-dom
 
 **`<Route>` 컴포넌트에 path="경로" 와 component="{컴포넌트}" 를 설정하여 브라우저에서 요청한 경로에 Route의 path가 포함되어있다면 component 를 보여준다.**
 
+`Route` 컴포넌트에 path 생략 시, 모든 상황에 렌더링된다.
+
 **`<Route>` 컴포넌트는 location, history, match 라는 props 객체를 component의 컴포넌트에 전달한다.**
 
 ## 정적 라우팅(Static Routing)
@@ -262,3 +264,49 @@ export default function About(props) {
 ```
 
 ![about name](https://user-images.githubusercontent.com/67866773/102247078-d04c8800-3f42-11eb-834f-91f046539fd2.PNG)
+
+## Switch와 Not Found
+
+**Switch 컴포넌트**
+
+- `<Route>` 컴포넌트들을 감싼다. -> `<BrowserRouter>` 보다는 아래 위치
+- **여러 Route 중 가장 먼저 일치하는 하나만을 렌더링한다.**
+- 위 특성을 이용하여 exact 없는 로직을 만들 수 있다.
+- 루트 경로 '/' 는 exact를 생략하지 않는다. -> 생략 시 모든 규칙이 루트 경로에 일치하기 때문
+- 가장 마지막에 path를 생략하여 모든 규칙과 일치하지 않을 때 보여줄 Not Found 페이지를 구현할 수 있다.
+
+App.js 파일을 다음과 같이 수정하자.
+
+```JSX
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+import Home from './pages/Home';
+import Profile from './pages/Profile';
+import About from './pages/About';
+// 모든 규칙과 일치하지 않을 때 보여줄 Not Found 페이지
+import NotFound from './pages/NotFound';
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route path="/profile:id" component={Profile} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/about" component={About} />
+        <Route exact path="/" component={Home} />
+        {/* path를 생략하여 규칙에 맞지 않을 때 모든 상황에 Not Found 렌더링 */}
+        <Route component={NotFound} />
+      </Switch>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+위 예시에서 루트 경로를 제외하고는 exact를 생략하였다. 이때 about 경로와 profile 경로는 순서가 상관 없지만, profile 간에는 profile:id 경로가 항상 위에 위치해야 한다. -> 집합 관계에서 생각하자
+
+**유효하지 않은 url 입력 시 다음과 같이 NotFound 컴포넌트를 렌더링한다.**
+
+![not found](https://user-images.githubusercontent.com/67866773/102252931-0b05ee80-3f4a-11eb-9a43-60e3ab931f08.PNG)
