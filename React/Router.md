@@ -21,9 +21,7 @@
 - cra(create-react-app)에 내장되어 있지 않다.
 - facebook의 공식 패키지는 아니다.
 
-```
-npm i react-router-dom
-```
+`npm i react-router-dom` 명령어를 통해 react-router 라이브러리 설치
 
 ## 라우터 적용
 
