@@ -310,3 +310,250 @@ export default App;
 **유효하지 않은 url 입력 시 다음과 같이 NotFound 컴포넌트를 렌더링한다.**
 
 ![not found](https://user-images.githubusercontent.com/67866773/102252931-0b05ee80-3f4a-11eb-9a43-60e3ab931f08.PNG)
+
+## Link
+
+기존 웹 애플리케이션에서는 `<a>` 태그 또는 `window.location.assign`메서드 등을 사용하여 페이지를 전환했다.
+
+위 방식은 페이지를 전환하는 과정에서 페이지를 새로 불러오기 때문에 SPA 방식에 적합하지 않다.
+
+**`<Link>` 컴포넌트는 history API 를 활용하여 페이지를 새로 불러오지 않고 주소창을 변경하고 해당 url에 맞는 컴포넌트를 렌더링한다.**
+
+`<Link>` 컴포넌트 자체는 `<a>` 태그로 이루어져 있지만, 페이지 전환을 방지하는 기능이 내장되어 있다.
+
+`<Link to="경로">`와 같이 사용한다.
+
+App.js 파일을 다음과 같이 수정하자.
+
+```JSX
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+import Home from './pages/Home';
+import Profile from './pages/Profile';
+import About from './pages/About';
+import NotFound from './pages/NotFound';
+import Links from './components/Links';
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Links />
+      <Switch>
+        <Route path="/profile:id" component={Profile} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/about" component={About} />
+        <Route exact path="/" component={Home} />
+        <Route component={NotFound} />
+      </Switch>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+Link.jsx 파일을 다음과 같이 작성해보자.
+
+```JSX
+// src/components/Link.jsx
+import React from 'react';
+// Link 컴포넌트 사용
+import { Link } from 'react-router-dom';
+
+function Links() {
+  return(
+    <ul>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/profile">Profile</Link>
+      </li>
+      <li>
+        <Link to="/profile/1">Profile/1</Link>
+      </li>
+      <li>
+        <Link to="/about">About</Link>
+      </li>
+      <li>
+        <Link to="/about?name=chan">About?name=chan</Link>
+      </li>
+    </ul>
+  );
+}
+
+export default Links;
+```
+
+각 링크를 클릭하면 해당 경로에 일치하는 컴포넌트를 렌더링한다.
+
+![link](https://user-images.githubusercontent.com/67866773/102293066-b3877300-3f89-11eb-9e5c-527cfd54e4d5.PNG)
+
+## histroy 와 withRouter
+
+### history
+
+**Route 컴포넌트에서 받아오는 props의 history 객체를 통해 컴포넌트 내에 구현하는 메서드에서 라우터 API(`goBack()`, `push()` 등...)를 호출할 수 있다.**
+
+App.js 파일을 다음과 같이 수정하자.
+
+```JSX
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+import Home from './pages/Home';
+import Profile from './pages/Profile';
+import About from './pages/About';
+import NotFound from './pages/NotFound';
+import Links from './components/Links';
+import Login from './pages/Login';
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Links />
+      <Switch>
+        <Route path="/profile:id" component={Profile} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/about" component={About} />
+        <Route path="/login" component={Login} />
+        <Route exact path="/" component={Home} />
+        <Route component={NotFound} />
+      </Switch>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+Login.jsx 파일을 다음과 같이 작성해보자.
+
+```JSX
+// src/pages/Login.jsx
+import React from 'react';
+
+export default function Login(props) {
+  console.log(props);
+  function login() {
+    setTimeout(() => {
+      // 경로를 루트로 변경
+      props.history.push('/');
+    }, 2000);
+  }
+  return (
+    <div>
+      <h1>Login</h1>
+      {/* 로그인 하기 버튼 클릭 시 2초 후 루트 경로로 이동 */}
+      <button onClick={login}>로그인 하기</button>
+    </div>
+  );
+}
+```
+
+![login](https://user-images.githubusercontent.com/67866773/102294737-4d9cea80-3f8d-11eb-8bc8-28ba5b865799.PNG)
+
+### withRouter
+
+**withRouter 함수는 HOC(Higher-order Component, 고차 컴포넌트)로서 라우터로 사용된 컴포넌트가 아니어도 match, location, history 객체에 접근할 수 있게 해준다.**
+
+**withRouter 사용 시, 컴포넌트를 내보내 줄 때 함수로 감싸준다. `export default withRouter(내보낼 컴포넌트)`**
+
+App.js 파일은 수정하지 않는다.
+
+```JSX
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+import Home from './pages/Home';
+import Profile from './pages/Profile';
+import About from './pages/About';
+import NotFound from './pages/NotFound';
+import Links from './components/Links';
+import Login from './pages/Login';
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Links />
+      <Switch>
+        <Route path="/profile:id" component={Profile} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/about" component={About} />
+        <Route path="/login" component={Login} />
+        <Route exact path="/" component={Home} />
+        <Route component={NotFound} />
+      </Switch>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+Login.jsx 파일을 다음과 같이 수정하자.
+
+```JSX
+import React from 'react';
+import LoginButton from '../components/LoginButton'
+
+
+export default function Login(props) {
+  return (
+    <div>
+      <h1>Login</h1>
+      <LoginButton />
+    </div>
+  );
+}
+```
+
+LoginButton.jsx 파일을 다음과 같이 작성해보자.
+
+```JSX
+// src/components/LoginButton.jsx
+import React from 'react';
+
+export default function LoginButton(props) {
+  function login() {
+    setTimeout(() => {
+      // props 확인
+      console.log(props);
+      props.history.push('/');
+    }, 2000);
+  }
+  return <button onClick={login}>로그인 하기</button>
+}
+```
+
+**위 LoginButton 컴포넌트는 라우트로 사용되지 앟고 있기 때문에 props를 전달받아 match, location, history 객체에 접근할 수 없다.**
+
+로그인하기 버튼 클릭 시, 2초 후 다음과 같이 동작한다.
+
+![loginbutton](https://user-images.githubusercontent.com/67866773/102297129-14b34480-3f92-11eb-8eaf-b58308bb78cc.PNG)
+
+LoginButton.jsx 파일을 다음과 같이 수정해보자.
+
+```JSX
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+
+function LoginButton(props) {
+  function login() {
+    setTimeout(() => {
+      console.log(props);
+      props.history.push('/');
+    }, 2000);
+  }
+  return <button onClick={login}>로그인 하기</button>
+}
+
+export default withRouter(LoginButton);
+```
+
+로그인 하기 버튼 클릭 시, 2초 후 다음과 같이 동작한다.
+
+**withRouter를 사용해 라우트로 사용되지 않은 컴포넌트 LoginButton에서도 match, location, history props에 접근이 가능하다.**
+
+![loginbutton withrouter](https://user-images.githubusercontent.com/67866773/102297670-ff8ae580-3f92-11eb-9cc8-5322d5d7b260.PNG)
