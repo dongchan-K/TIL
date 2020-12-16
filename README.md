@@ -100,6 +100,10 @@
 
 - [에러 바운더리(Error Boundary)](https://github.com/dongchan-K/TIL/blob/master/React/Error%20Boundary.md)
 
+- [State 끌어올리기(Lifting State Up)](https://github.com/dongchan-K/TIL/blob/master/React/Lifting%20State%20Up.md)
+
+- [합성(Composition)](https://github.com/dongchan-K/TIL/blob/master/React/Composition.md)
+
 ## Node.js
 
 - [NVM(Node Version Manager)](https://github.com/dongchan-K/TIL/blob/master/Nodejs/NVM.md)
