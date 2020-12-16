@@ -205,7 +205,7 @@ ReactDOM.render(
 
 **4. Component 에러캐치**
 
-- componentDidCatch
+- componentDidCatch -> [ErrorBoundary 참고](https://github.com/dongchan-K/TIL/blob/master/React/Error%20Boundary.md#error-boundary)
 
 ![v16 3 생명주기 메서드](https://user-images.githubusercontent.com/67866773/101789921-34d3a580-3b45-11eb-8b02-af16c8cf64f5.PNG)
 
