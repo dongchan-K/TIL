@@ -98,6 +98,8 @@
 
 - [라우터(Router)](https://github.com/dongchan-K/TIL/blob/master/React/Router.md)
 
+- [에러 바운더리(Error Boundary)](https://github.com/dongchan-K/TIL/blob/master/React/Error%20Boundary.md)
+
 ## ETC
 
 - [아스키와 유니코드(ASCII and Unicode)](https://github.com/dongchan-K/TIL/blob/master/ETC/ASCII%20and%20Unicode.md)
