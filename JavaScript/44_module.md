@@ -15,3 +15,190 @@
 ![import와 export](https://user-images.githubusercontent.com/67866773/102681137-577b5380-4202-11eb-8a3f-66e23754d836.PNG)
 
 이처럼 모듈은 애플리케이션과 분리되어 존재하다가 필요에 따라 다른 모듈에 의해 재사용된다. 따라서 코드의 단위를 명확히 분리하여 애플리케이션을 구성할 수 있고, 재사용성이 좋아 개발 효율성과 유지보수성을 높일 수 있다.
+
+## 2. 자바스크립트와 모듈
+
+자바스크립트는 웹페이지의 단순한 보조 기능을 처리하기 위한 제한적인 용도를 목적으로 태어났다. 이러한 이유로 모듈 시스템을 지원하지 않는다. 즉, 자바스크립트는 모듈이 성립하기 위해 필요한 파일 스코프와 import, export를 지원하지 않았다.
+
+자바스크립트 파일은 하나의 전역을 공유한다. 따라서 분리된 자바스크립트 파일들의 전역 변수가 중복되는 등의 문제가 발생할 수 있기 때문에 이것으로 모듈을 구현할 수 없다.
+
+자바스크립트의 모듈 시스템은 크게 [CommonJS](http://www.commonjs.org/)와 [AMD(Asynchronous Module Definition)](https://github.com/amdjs/amdjs-api/wiki/AMD) 진영으로 나뉘게 되었고 브라우저 환경에서 모듈을 사용하기 위해서는 CommonJS 또는 AMD를 구현한 모듈 로더 라이브러리를 사용해야 하는 상황이 되었다.
+
+자바스크립트 런타임 환경인 Node.js는 모듈 시스템의 사실상 표준인 CommonJS를 채택하여 해당 사양을 따르고 있다. Node.js는 ECMAScript 표준 사양은 아니지만 [모듈 시스템](https://nodejs.org/dist/latest/docs/api/modules.html)을 지원한다.
+
+따라서 Node.js 환경에서는 파일별로 독립적인 파일 스코프(모듈 스코프)를 갖는다.
+
+## 3. ES6 모듈(ESM)
+
+ES6에서는 클라이언트 사이드 자바스크립트에서도 동작하는 모듈 기능을 추가했다.
+
+ES6 모듈의 사용법은 script태그에 `type="module"`어트리뷰트를 추가하면 로드된 자바스크립트 파일은 모듈로서 동작한다.
+
+일반적이 자바스크립트 파일이 아닌 ESM임을 명확히 하기 위해 ESM의 파일 확장자는 mjs를 사용할 것을 권장한다.
+
+ESM에는 strict mode가 기본적으로 적용된다.
+
+```HTML
+<script type="module" src="app.mjs"></script>
+```
+
+### 3-1. 모듈 스코프
+
+ESM은 독자적인 모듈 스코프를 갖는다. ESM이 아닌 일반적인 자바스크립트 파일은 script 태그로 분리해서 로드해도 독자적인 모듈 스코프를 갖지 않는다.
+
+```JS
+// foo.js
+var x = 'foo';
+console.log(window.x); // foo
+```
+
+```JS
+// bar.js
+// foo.js에서 선언한 전역 변수 x와 중복된 선언이다.
+var x = 'bar';
+
+// foo.js에서 선언한 전역 변수 x의 값이 재할당 되었다.
+console.log(window.x); // bar
+```
+
+```HTML
+<!DOCTYPE html>
+<html>
+<body>
+  <script src="foo.js"></script>
+  <script src="bar.js"></script>
+</body>
+</html>
+```
+
+위 예제의 HTML에서 foo.js와 bar.js는 하나의 전역을 공유한다.
+
+ESM은 파일 자체의 독자적인 모듈 스코프를 제공하기 때문에 모듈 내에서 var 키워드로 선언한 변수는 전역 변수가 아니며 window 객체의 프로퍼티도 아니다.
+
+```JS
+// foo.mjs
+var x = 'foo';
+console.log(x); // foo
+console.log(window.x) // undefined
+```
+
+```JS
+// bar.mjs
+// foo.mjs에서 선언한 변수 x와 스코프가 다르다.
+var x = 'bar';
+console.log(x); // bar
+console.log(window.x) // undefined
+```
+
+```HTML
+<!DOCTYPE html>
+<html>
+<body>
+  <script type="module" src="foo.mjs"></script>
+  <script type="module" src="bar.mjs"></script>
+</body>
+</html>
+```
+
+모듈 내에서 선언한 식별자는 모듈 외부에서 참조할 수 없다. 모듈 스코프가 다르기 때문이다.
+
+```JS
+// foo.mjs
+console.log(x); // foo
+```
+
+```JS
+// bar.mjs
+console.log(x); // ReferenceError: x is not defined
+```
+
+### 3-2. export 키워드
+
+**모듈은 독자적인 모듈 스코프를 갖기 때문에 모듈 내부에서 선언한 모든 식별자는 기본적으로 해당 모듈 내부에서만 참조할 수 있다.**
+
+**모듈 내부에서 선언한 식별자를 외부에 공개하여 다른 모듈들이 재사용할 수 있게 하려면 export 키워드를 사용한다.**
+
+**export 키워드는 선언문 앞에 사용한다. 이로써 변수, 함수, 클래스 등 모든 식별자를 export할 수 있다.**
+
+```JS
+// lib.mjs
+// 변수의 공개
+export const pi = Math.PI;
+
+// 함수의 공개
+export function square(x) {
+  return x * x;
+}
+
+// 클래스의 공개
+export class Person {
+  constructor(name) {
+    this.name = name;
+  }
+}
+```
+
+### 3-3. import 키워드
+
+**다른 모듈에서 공개(export)한 식별자를 자신의 모듈 스코프 내부로 로드하려면 import 키워드를 사용한다.**
+
+**다른 모듈이 export한 식별자 이름으로 import 해야 하며** ESM의 경우 파일 확장자를 생략할 수 없다.
+
+```JS
+// app.mjs
+// 같은 폴더 내의 lib.mjs 모듈이 export한 식별자 이름으로 import 한다.
+import { pi, square, Person } from './lib.mjs';
+
+console.log(pi); // 3.141592653589793
+console.log(square(10)); // 100
+console.log(new Person('Lee')); // Person { name: 'Lee' }
+```
+
+```HTML
+<!DOCTYPE html>
+<html>
+<body>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>
+```
+
+위 예제의 app.mjs는 애플리케이션의 진입점(entry point)이므로 반드시 script 태그로 로드해야 한다.
+
+하지만 lib.mjs는 app.mjs의 import문에 의해 로드되는 의존성(dependency)이다. 따라서 script 태그로 로드하지 않아도 된다.
+
+모듈이 export한 식별자 이름을 일일히 지정하지 않고 하나의 이름으로 한번에 import 할 수 도있다. 이때 import되는 식별자는 as 뒤에 지정한 이름의 객체에 프로퍼티로 할당된다.
+
+```JS
+// lib.mjs 모듈이 export한 모든 식별자를 lib객체의 프로퍼티로 모아 import한다.
+import * as lib from './lib.mjs';
+
+console.log(lib.pi);         // 3.141592653589793
+console.log(lib.square(10)); // 100
+console.log(new lib.Person('Lee')); // Person { name: 'Lee' }
+```
+
+**모듈에서 하나의 값만 export 한다면 default 키워드를 사용할 수 있다.**
+
+```JS
+// lib.mjs
+export default x => x * x;
+```
+
+default 키워드를 사용하는 경우, var, let, const 키워드는 사용할 수 없다.
+
+```JS
+// lib.mjs
+export default const foo => {};
+// => SyntaxError: Unexpected token 'const'
+// export default () => {};
+```
+
+**default 키워드와 함께 export한 모듈은 {} 없이 임의의 이름으로 import 한다.**
+
+```JS
+// app.mjs
+import square from './lib.mjs';
+
+console.log(square(3)); // 9
+```
