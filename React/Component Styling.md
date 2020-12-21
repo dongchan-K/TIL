@@ -262,3 +262,72 @@ export default class Button extends React.Component {
   }
 }
 ```
+
+### SASS Module
+
+SASS Module을 사용할 때도 확장자를 .module.scss 설정해 주어야 한다는 점을 제외하면 CSS Module과 동일하다.
+
+## Style Components
+
+**컴포넌트 스타일의 또 다른 방법은 자바스크립트 파일 안에 스타일을 선언하는 방식이 있다.**
+
+이 방식을 'CSS-in-JS'라고 부른다.
+
+대표적인 'CSS-in-JS' 방식의 라이브러리인 [styled-components](https://github.com/styled-components/styled-components)와 [emotion](https://github.com/emotion-js/emotion) 중 styled-components를 사용해보자.
+
+styled-components를 설치해보자.
+
+`npm i styled-components`
+
+styled-components를 사용하면 자바스크립트 파일 하나에 스타일까지 작성할 수 있기 때문에 별도의 css 파일을 만들지 않아도 된다는 장점이 있다.
+
+styled-components의 여러가지 기능들에 대해 알아보자.
+
+### 스타일링된 엘리먼트 만들기
+
+컴포넌트 상단에서 styled를 불러오고, styled.`태그명`을 사용하면 엘리먼트를 만들 수 있다.
+
+`(백틱)으로 감싼 문법을 Tagged 템플릿 리터럴이라고 부른다.
+
+styled.div 뒤에 Tagged 템플릿 리터럴 문법을 통해 스타일을 넣어주면 해당 스타일이 적용된 div 리액트 컴포넌트가 생성된다.
+
+```JSX
+// components/StyleButton.jsx
+import styled from 'styled-components';
+
+const StyleButton = styled.button`
+background: transparent;
+border-radius: 3px;
+border: 2px solid palevioletred;
+color: palevioletred;
+margin: 0 1em;
+padding: 0.25em 1em;
+`;
+
+export default StyledButton;
+```
+
+```JSX
+// App.js
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+import StyledButton from './components/StyledButton';
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          <StyledButton>버튼</StyledButton>
+        </p>
+      </header>
+    </div>
+  );
+}
+
+export default App;
+```
+
+![styled 태그`스타일`](https://user-images.githubusercontent.com/67866773/102793736-aa652e80-43ed-11eb-9037-6a75be7dc6e6.PNG)
