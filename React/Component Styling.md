@@ -104,3 +104,161 @@ SASS를 CSS로 컴파일 해주는 [node-sass](https://www.npmjs.com/package/nod
 ![scss html](https://user-images.githubusercontent.com/67866773/102738319-15324d80-438d-11eb-8f07-e15e22076625.PNG)
 
 ![scss css](https://user-images.githubusercontent.com/67866773/102738321-15cae400-438d-11eb-8874-1f253eea26ea.PNG)
+
+## CSS Module & SASS Module
+
+### CSS Module
+
+**CSS Module은 CSS를 불러와서 사용할 때 클래스 이름을 고유한 값인 [파일이름]\_[클래스 이름]\_\_[해시값]** 형태로 자동으로 만들어 클래스 이름의 중첩을 방지해 주는 기술이다.
+
+CSS Module은 확장자를 .module.css로 설정해 주어야 한다.
+
+CSS Module 사용시 클래스 이름을 지을 때 고유성에 대해 고민하지 않아도 된다는 장점이 있다.
+
+- 아래는 CSS Module 예시
+
+![module css html](https://user-images.githubusercontent.com/67866773/102739423-7e679000-4390-11eb-91a8-8e3cd307c2e4.PNG)
+
+![module css css](https://user-images.githubusercontent.com/67866773/102739424-7f002680-4390-11eb-9524-e358e029f848.PNG)
+
+CSS Module이 적용된 스타일 파일을 불러오면 CSS Module에서 사용한 클래스 이름과 해당 이름을 고유화한 값이 key-value 형태를 갖는 객체를 전달한다.
+
+아래와 같이 확인해보자.
+
+![object css module](https://user-images.githubusercontent.com/67866773/102739629-fc2b9b80-4390-11eb-86ea-fc2f04ab6361.PNG)
+
+![object css module2](https://user-images.githubusercontent.com/67866773/102739631-fcc43200-4390-11eb-8896-999385901597.PNG)
+
+고유한 클래스 이름을 사용하려면 JSX 엘리먼트에 className={styles.[클래스 이름]} 형태로 전달해 주면 된다.
+
+```JSX
+<div className={styles.App}></div>
+```
+
+:global을 사용하여 전역으로 선언한 클래스는 그냥 문자열로 전달하면 된다.
+
+```JSX
+<div className="App"></div>
+```
+
+CSS Module을 사용한 클래스 이름을 두 개 이상 적용할 때는 템플릿 리터럴을 이용하면 된다.
+
+```JSX
+<div className={`${styles.App} ${styles.logo}`}></div>
+```
+
+### Classnames
+
+**[classnames](https://www.npmjs.com/package/classnames)는 css 클래스를 조건부로 설정하거나 여러 클래스를 적용할 때 매우 유용한 라이브러리이다.**
+
+classnames 라이브러리를 설치하자.
+` npm i classnames`
+
+설치가 완료되었다면 classnames의 기본적인 사용법을 알아보자.
+
+```JSX
+import classNames from 'classnames';
+
+console.log(classNames('one', 'two')); // 'one two'
+
+console.log(classNames('one', { two: true })); // 'one two'
+
+console.log(classNames('one', { two: false })); // 'one'
+
+console.log(classNames('one', ['two', 'three'])); // 'one two three'
+
+const myClass = 'hello';
+
+console.log(classNames('one', myClass, { myCondition: true })); // 'one hello myCondition'
+```
+
+여러 파라미터를 조합해 CSS 클래스를 설정할 수 있기 때문에 조건부로 클래스를 설정할 때 매우 편리하다.
+
+**클래스를 입력받아 truthy 값만 추출한다.**
+
+```JSX
+import classNames from 'classnames';
+
+console.log(classNames('foo', 'bar')); // "foo bar"
+console.log(classNames('foo', 'bar', 'baz')); // "foo bar baz"
+
+console.log(classNames({ foo: true }, { bar: true })); // "foo bar"
+console.log(classNames({ foo: true }, { bar: false })); // "foo"
+console.log(classNames(null, false, 'bar', undefined, 0, 1, { baz: null }, '')); // "bar 1"
+console.log(classNames(styles.button, styles.loading)); // Button_button__2Ce79 Button_loading__XEngF
+```
+
+```JSX
+// Button.jsx
+import React from 'react';
+import styles from './Button.module.css';
+import classNames from 'classnames';
+
+export default class Button extends React.Component {
+  state = {
+    loading: false
+  };
+
+  startLoading = () => {
+    this.setState({ loading: true });
+    setTimeout(() => {
+      this.setState({ loading: false });
+    }, 1000);
+  };
+
+  render() {
+    const { loading } = this.state;
+    retrun (
+      <button
+        className={
+          loading ? className(styles.button, styles.loading) : styles.button
+        }
+        onClick={this.startLoading}
+      />
+    );
+  }
+}
+```
+
+**classnames에 내장되어 있는 bind 함수를 사용하면 작성한 클래스 이름으로 바인딩 해준다.**
+
+```JSX
+import classNames from 'classnames/bind';
+
+const cx = classNames.bind(styles);
+
+console.log(cx('button', 'loading')); // Button_button__2Ce79 Button_loading__XEngF
+console.log(cx('button', { loading: false })); // Button_button__2Ce79
+```
+
+```JSX
+import React from 'react';
+import styles from './Button.module.css';
+import classNames from 'classnames/bind';
+
+const cx = classNames.bind(styles);
+
+export default class Button extends React.Component {
+  state = {
+    loading: false,
+  };
+
+  startLoading = () => {
+    console.log('start');
+    this.setState({ loading: true });
+    setTimeout(() => {
+      this.setState({ loading: false });
+    }, 1000);
+  };
+
+  render() {
+    const { loading } = this.state;
+    return (
+      <button
+        className={cx('button', { loading })}
+        onClick={this.startLoading}
+      />
+    );
+  }
+}
+```
