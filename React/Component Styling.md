@@ -518,3 +518,51 @@ export default App;
 ```
 
 ![as를 활용한 컴포넌트](https://user-images.githubusercontent.com/67866773/102841007-6c94f400-4447-11eb-8667-df138e6fac93.PNG)
+
+## React Shadow
+
+[Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components)을 이용한 리액트 스타일링으로서 개별 스코핑을 지원하는 라이브러리이다.
+
+[React Shadow](https://www.npmjs.com/package/react-shadow)
+
+설치 명령어는 다음과 같다.
+`npm i react-shadow`
+
+설치가 완료되었다면 라이브러리를 활용해보자.
+
+```JSX
+// App.js
+import React from "react";
+import logo from "./logo.svg";
+import root from "react-shadow";
+
+const styles = `...`;
+
+function App() {
+  return (
+    <root.div>
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            Edit <code>src/App.js</code> and save to reload.
+          </p>
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+        </header>
+      </div>
+      <style type="text/css">{styles}</style>
+    </root.div>
+  );
+}
+
+export default App;
+```
+
+![shadow dom](https://user-images.githubusercontent.com/67866773/102842729-fbefd680-444a-11eb-9f63-fcc0e610a0b4.PNG)
