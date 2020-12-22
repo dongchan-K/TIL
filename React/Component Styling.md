@@ -281,6 +281,8 @@ styled-components를 설치해보자.
 
 styled-components를 사용하면 자바스크립트 파일 하나에 스타일까지 작성할 수 있기 때문에 별도의 css 파일을 만들지 않아도 된다는 장점이 있다.
 
+`import styled from 'styled-component`
+
 styled-components의 여러가지 기능들에 대해 알아보자.
 
 ### 스타일링된 엘리먼트 만들기
@@ -331,3 +333,188 @@ export default App;
 ```
 
 ![styled 태그`스타일`](https://user-images.githubusercontent.com/67866773/102793736-aa652e80-43ed-11eb-9037-6a75be7dc6e6.PNG)
+
+### 스타일에서 props 조회
+
+styled-components를 사용하면 스타일 쪽에서 컴포넌트에게 전달된 props 값을 참조할 수 있다.
+
+```JSX
+// components/StyledButton
+import styled from 'styled-components';
+
+const StyledButton = styled.button`
+  background: transparent;
+  border-radius: 3px;
+  border: 2px solid ${props => props.color || 'palevioletred'};
+  color: ${props => props.color || 'palevioletred'};
+  margin: 0 1em;
+  padding: 0.25em 1em;
+  font-size: 1em;
+`;
+
+export default StyledButton;
+```
+
+```JSX
+// App.js
+import React from 'react';
+import StyledButton from './components/StyledButton';
+
+function App() {
+  return (
+    <div className="App">
+      <p>
+        <StyledButton>button</StyledButton>
+        <StyledButton color="red">red button</StyledButton>
+        <StyledButton color="green">green button</StyledButton>
+      </p>
+    </div>
+  );
+}
+
+export default App;
+```
+
+![스타일에서 props 조회](https://user-images.githubusercontent.com/67866773/102841717-d366dd00-4448-11eb-93f7-340a19687d83.PNG)
+
+### props에 따른 조건부 스타일링
+
+스타일 코드 여러 줄을 props에 따라 넣어 주어야 할 때는 css 를 styled-components에서 불러와야 한다.
+
+`import styled, { css } from 'styled-component';`
+
+```JSX
+// components/StyledButton.jsx
+import styled, { css } from 'styled-components';
+
+const StyledButton = styled.button`
+  background: transparent;
+  border-radius: 3px;
+  border: 2px solid palevioletred;
+  color: palevioletred;
+  margin: 0 1em;
+  padding: 0.25em 1em;
+
+  ${props =>
+    props.primary &&
+    css`
+      background: palevioletred;
+      color: white;
+    `};
+`;
+
+export default StyledButton;
+```
+
+```JSX
+// App.js
+import React from 'react';
+import StyledButton from './components/StyledButton';
+
+function App() {
+  return(
+    <div className="App">
+    <p>
+        <StyledButton>버튼</StyledButton>
+        <StyledButton primary>Primary 버튼</StyledButton>
+      </p>
+    </div>
+  );
+}
+
+export default App;
+```
+
+![styled-components props](https://user-images.githubusercontent.com/67866773/102838769-559fd300-4442-11eb-883a-5bf9cbc6cf66.PNG)
+
+### as="태그" as={컴포넌트} 활용
+
+as="태그" 를 사용하면 styled-components로 생성된 컴포넌트의 태그를 변경할 수 있다.
+
+```JSX
+// components/StyledButton.jsx
+import styled from 'styled-components';
+
+const StyledButton = styled.button`
+  background: transparent;
+  border-radius: 3px;
+  border: 2px solid palevioletred;
+  color: palevioletred;
+  margin: 0 1em;
+  padding: 0.25em 1em;
+  font-size: 1em;
+  display: inline-block;
+
+  text-decoration: none;
+`;
+
+export default StyledButton;
+```
+
+```JSX
+// App.js
+import React from 'react';
+import StyledButton from './components/StyledButton';
+
+function App() {
+  return (
+    <div className="App">
+      <p>
+        <StyledButton as="a" href="/">
+          a 태그 버튼
+        </StyledButton>
+        <StyledButton>버튼</StyledButton>
+      </p>
+    </div>
+  );
+}
+
+export default App;
+```
+
+![as 를 활용한 태그 변경](https://user-images.githubusercontent.com/67866773/102840284-d90ef380-4445-11eb-8c81-326f08d9c491.PNG)
+
+as={컴포넌트} 를 사용하면 styled-components로 생성된 컴포넌트에 특정 기능을 넣을 수 있다.
+
+```JSX
+// components/StyledButton.jsx
+import styled from 'styled-components';
+
+const StyledButton = styled.button`
+  background: transparent;
+  border-radius: 3px;
+  border: 2px solid palevioletred;
+  color: palevioletred;
+  margin: 0 1em;
+  padding: 0.25em 1em;
+  font-size: 1em;
+  display: inline-block;
+`;
+
+export default StyledButton;
+```
+
+```JSX
+// App.js
+import React from 'react';
+import StyledButton from './components/StyledButton';
+
+const UppercaseButton = props => (
+  <button {...props} children={props.children.toUpperCase()} />
+);
+
+function App() {
+  return (
+    <div className="App">
+      <p>
+        <StyledButton as={UppercaseButton}>button</StyledButton>
+        <StyledButton>button</StyledButton>
+      </p>
+    </div>
+  );
+}
+
+export default App;
+```
+
+![as를 활용한 컴포넌트](https://user-images.githubusercontent.com/67866773/102841007-6c94f400-4447-11eb-8667-df138e6fac93.PNG)
