@@ -555,3 +555,45 @@ export default withRouter(LoginButton);
 **withRouter를 사용해 라우트로 사용되지 않은 컴포넌트 LoginButton에서도 match, location, history props에 접근이 가능하다.**
 
 ![loginbutton withrouter](https://user-images.githubusercontent.com/67866773/102297670-ff8ae580-3f92-11eb-9cc8-5322d5d7b260.PNG)
+
+## Redirect
+
+요청 경로를 다른 경로로(지정 위치로)우회할 수 있다.
+
+컴포넌트가 렌더되면 이동한다.
+
+```JSX
+// App.js
+import React from "react";
+import {
+  BrowserRouter,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom";
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+import About from "./pages/About";
+import Login from "./pages/Login";
+
+const isLogin = true;
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route path="/profile/:id" component={Profile} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/about" component={About} />
+        <Route
+          path="/login"
+          render={() => (isLogin ? <Redirect to="/" /> : <Login />)}
+        />
+        <Route path="/" component={Home} />
+      </Switch>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
