@@ -526,6 +526,7 @@ export default App;
 [React Shadow](https://www.npmjs.com/package/react-shadow)
 
 설치 명령어는 다음과 같다.
+
 `npm i react-shadow`
 
 설치가 완료되었다면 라이브러리를 활용해보자.
@@ -566,3 +567,113 @@ export default App;
 ```
 
 ![shadow dom](https://user-images.githubusercontent.com/67866773/102842729-fbefd680-444a-11eb-9f63-fcc0e610a0b4.PNG)
+
+## Ant Design
+
+[Ant Design](https://ant.design/)은 CSS 스타일 라이브러리이다.
+
+Ant Design 설치 명령어는 다음과 같다.
+
+`npm i antd`
+
+우선 index.js 파일에 전역 스타일을 추가하자.
+
+```JSX
+import React from 'react';
+import ReactDOM from 'react-dom';
+import 'antd/dist/antd.css'; // 전역 스타일 추가
+import "./index.css';
+import App from './App';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+  document.getElementById('root')
+);
+```
+
+1. Ant Design을 활용해서 그리드 레이아웃을 구성해보자.
+
+`<Col span={24 중에 어느정도 차지할 지 정수} />`
+
+`<Row gutter={16 + 8n의 정수} />`
+
+`<Col offset={24중 건너띄고 싶은 정수} />`
+
+```JSX
+// App.js
+import React from 'react';
+import { Row, Col } from 'antd'; // Row, Col 컴포넌트 추가
+
+const colStyle = () => ({
+  height: 50,
+  backgroundColor: 'red',
+  opacity: Math.round(Math.random() * 100) / 100
+});
+
+export default function App() {
+  return(
+    <div className="App">
+      <Row>
+        <Col span={12} style={colStyle()} />
+        <Col span={12} style={colStyle()} />
+      </Row>
+      <Row>
+        <Col span={8} style={colStyle()} />
+        <Col span={8} style={colStyle()} />
+        <Col span={8} style={colStyle()} />
+      </Row>
+      <Row>
+        <Col span={6} style={colStyle()} />
+        <Col span={6} style={colStyle()} />
+        <Col span={6} style={colStyle()} />
+        <Col span={6} style={colStyle()} />
+      </Row>
+    </div>
+  );
+}
+```
+
+![antd Row Col span](https://user-images.githubusercontent.com/67866773/102951854-24da9f00-4511-11eb-9bc2-0aea67c3f1d6.PNG)
+
+2. Ant Design을 활용해서 flex 레이아웃을 구성해보자.
+
+`<Row type="flex" justify="좌우정렬" align="위아래정렬" />`
+
+```JSX
+// App.js
+import React from 'react';
+import { Row, Col } from 'antd';
+
+function MyCol({ span, offset }) {
+  const opacity = Math.round(Math.random() * 10) / 10;
+  return (
+    <Col span={span} offset={offset}>
+      <div style={{ height: 50, backgroundColor: 'red', opacity }} />
+    </Col>
+  );
+}
+
+export default function App() {
+  return (
+    <div className="App">
+      <Row
+        style={{
+          height: 300,
+        }}
+        type="flex"
+        justify="center"
+        align="middle"
+      >
+        <MyCol span={4} />
+        <MyCol span={4} />
+        <MyCol span={4} />
+        <MyCol span={4} />
+      </Row>
+    </div>
+  );
+}
+```
+
+![Row Col flex](https://user-images.githubusercontent.com/67866773/102952579-c2829e00-4512-11eb-91a0-fb20b89ea8ea.PNG)
