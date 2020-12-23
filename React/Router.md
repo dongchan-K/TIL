@@ -562,6 +562,8 @@ export default withRouter(LoginButton);
 
 컴포넌트가 렌더되면 이동한다.
 
+[Redirection](https://ko.wikipedia.org/wiki/%EB%A6%AC%EB%8B%A4%EC%9D%B4%EB%A0%89%EC%85%98)
+
 ```JSX
 // App.js
 import React from "react";
