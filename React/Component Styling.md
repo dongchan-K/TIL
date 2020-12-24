@@ -523,6 +523,10 @@ export default App;
 
 [Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components)을 이용한 리액트 스타일링으로서 개별 스코핑을 지원하는 라이브러리이다.
 
+`root.div` 내부에서만 style이 적용된다.
+
+스타일을 문자열로 작성해야 한다는 단점이 있다.
+
 [React Shadow](https://www.npmjs.com/package/react-shadow)
 
 설치 명령어는 다음과 같다.
