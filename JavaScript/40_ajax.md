@@ -1,6 +1,6 @@
 # Ajax
 
-## Ajax 란?
+## 1. Ajax 란?
 
 Ajax(Asynchronous Javascript And XML)란 자바스크립트를 사용하여 브라우저가 서버에게 비동기 방식으로 데이터를 요청하고, 서버가 응답한 데이터를 수신하여 웹페이지를 동적으로 갱신하는 프로그래밍 방식을 말한다.
 
@@ -27,3 +27,281 @@ Ajax는 전통적인 방식과 비교했을 때 다음과 같은 장점이 있�
 1. 변경할 부분을 갱신하는 데 필요한 데이터만 서버로부터 전송받기 때문에 불필요한 데이터 통신이 발생하지 않는다.
 2. 변경할 필요가 없는 부분은 다시 렌더링하지 않는다. 따라서 화면이 순간적으로 깜박이는 현상이 발생하지 않는다.
 3. 클라이언트와 서버와의 통신이 비동기 방식으로 동작하기 때문에 서버에게 요청을 보낸 이후 블로킹이 발생하지 않는다.
+
+## 2. JSON
+
+JSON(JavaScript Object Notation)은 클라이언트와 서버 간의 HTTP 통신을 위한 텍스트 데이터 포맷이다.
+
+### 2-1. JSON 표기 방식
+
+JSON은 자바스크립트의 객체 리터럴과 유사하게 키와 값으로 구성된 순수한 텍스트다.
+
+JSON의 키는 반드시 큰따옴표로 묶어야 한다. 값은 리터럴과 같은 표기법을 그대로 사용할 수 있지만 문자열은 반드시 큰따옴표로 묶어야 한다.
+
+```JS
+{
+  "name": "Kim",
+  "age": 20,
+  "alive":true
+  "hobby": ["traveling", "tennis"]
+}
+```
+
+### 2-2. JSON.stringfy
+
+JSON.stringfy 메서드는 객체를 JSON 포맷의 문자열로 변환한다.
+
+클라이언트가 서버로 객체를 전송하려면 객체를 문자열화해야 하는데 이를 **'직렬화(serializing)'** 라 한다.
+
+```JS
+const obj = {
+  name: 'Lee',
+  age: 20,
+  alive: true,
+  hobby: ['traveling', 'tennis']
+};
+
+// 객체를 JSON 포맷의 문자열로 변환한다.
+const json = JSON.stringify(obj);
+console.log(typeof json, json);
+// string {"name":"Lee","age":20,"alive":true,"hobby":["traveling","tennis"]}
+```
+
+JSON.stringfy 메서드는 배열도 JSON 포맷의 문자열로 변환한다.
+
+```JS
+const todos = [
+  { id: 1, content: 'HTML', completed: false },
+  { id: 2, content: 'CSS', completed: true },
+  { id: 3, content: 'Javascript', completed: false }
+];
+
+// 배열을 JSON 포맷의 문자열로 변환한다.
+const json = JSON.stringify(todos, null, 2);
+console.log(typeof json, json);
+/*
+string [
+  {
+    "id": 1,
+    "content": "HTML",
+    "completed": false
+  },
+  {
+    "id": 2,
+    "content": "CSS",
+    "completed": true
+  },
+  {
+    "id": 3,
+    "content": "Javascript",
+    "completed": false
+  }
+]
+*/
+```
+
+### 2-3. JSON.parse
+
+JSON.parse 메서드는 JSON 포맷의 문자열을 객체로 변환한다.
+
+서버로부터 클라이언트에게 전송된 JSON 데이터는 문자열이다. 이 문자열을 객체로서 사용하려면 JSON 포맷의 문자열을 객체화해야 하는데 이를 **'역직렬화(deserializing)'** 라 한다.
+
+배열이 JSON 포맷의 문자열로 문자열로 변환되어 있는 경우 JSON.parse는 문자열을 배열 객체로 변환한다. 배열의 요소가 객체인 경우 배열의 요소까지 객체로 변환한다.
+
+```JS
+const todos = [
+  { id: 1, content: 'HTML', completed: false },
+  { id: 2, content: 'CSS', completed: true },
+  { id: 3, content: 'Javascript', completed: false }
+];
+
+// 배열을 JSON 포맷의 문자열로 변환한다.
+const json = JSON.stringify(todos);
+
+// JSON 포맷의 문자열을 배열로 변환한다. 배열의 요소까지 객체로 변환된다.
+const parsed = JSON.parse(json);
+console.log(typeof parsed, parsed);
+/*
+ object [
+  { id: 1, content: 'HTML', completed: false },
+  { id: 2, content: 'CSS', completed: true },
+  { id: 3, content: 'Javascript', completed: false }
+]
+*/
+```
+
+## XMLHttpRequest
+
+자바스크립트를 사용하여 HTTP 요청을 전송하려면 XMLHttpRequest 객체를 사용한다.
+
+Web API인 XMLHttpRequest 객체는 HTTP 요청 전송과 HTTP 응답 수신을 위한 다양한 메서드와 프로퍼티를 제공한다.
+
+### 3-1. XMLHttpRequest 객체 생성
+
+XMLHttpRequest 객체는 [XMLHttpRequest 생성자 함수](https://developer.mozilla.org/ko/docs/Web/API/XMLHttpRequest)를 호출하여 생성한다.
+
+Web API이므로 브라우저 환경에서만 정상적으로 실행된다.
+
+```JS
+const xhr = new XMLHttpRequest();
+```
+
+### 3-2. XMLHttpRequest 객체의 프로퍼티와 메서드
+
+#### 3-2-1. XMLHttpRequest 객체의 프로토타입 프로퍼티
+
+![XMLHttpRequest 프로토타입 프로퍼티](https://user-images.githubusercontent.com/67866773/103152398-dbb57400-47ca-11eb-98bc-4458ef013f3a.PNG)
+
+#### 3-2-2. XMLHttpRequest 객체의 이벤트 핸들러 프로퍼티
+
+![XMLHttpRequest 이벤트 핸들러](https://user-images.githubusercontent.com/67866773/103152401-ea9c2680-47ca-11eb-82fd-61be15524c7e.PNG)
+
+#### 3-2-3. XMLHttpRequest 객체의 메서드
+
+![XMLHttpRequest 메서드](https://user-images.githubusercontent.com/67866773/103152402-ebcd5380-47ca-11eb-911c-5fad24e6537d.PNG)
+
+#### 3-2-4. XMLHttpRequest 객체의 정적 프로퍼티
+
+![XMLHttpRequest 정적 프로퍼티](https://user-images.githubusercontent.com/67866773/103152403-ec65ea00-47ca-11eb-91e1-ebe1ec30f8db.PNG)
+
+### 3-3. HTTP 요청 전송
+
+HTTP 요청을 전송하는 경우 다음 순서를 따른다.
+
+1. XMLHttpRequest.prototype.open 메서드로 HTTP 요청을 초기화한다.
+2. 필요에 따라 XMLHttpRequest.prototype.setRequestHeader 메서드로 특정 HTTP 요청의 헤더 값을 설정한다.
+3. XMLHttpRequest.prototype.send 메서드로 HTTP 요청을 전송한다.
+
+```JS
+// XMLHttpRequest 객체 생성
+const xhr = new XMLHttpRequest();
+
+// HTTP 요청 초기화
+xhr.open('GET', '/users');
+
+// HTTP 요청 헤더 설정
+// 클라이언트가 서버로 전송할 데이터의 MIME 타입 지정: json
+xhr.setRequestHeader('content-type', 'application/json');
+
+// HTTP 요청 전송
+xhr.send();
+```
+
+**XMLHttpRequest.prototype.open**
+
+open 메서드는 서버에 전송할 HTTP 요청을 초기화한다.
+
+open 메서드를 호출하는 방법은 다음과 같다.
+
+```JS
+xhr.open(method, url[, async])
+```
+
+![HTTP 호출](https://user-images.githubusercontent.com/67866773/103152472-b07f5480-47cb-11eb-82c7-22dc9d281473.PNG)
+
+HTTP 요청 메서드는 클라이언트가 서버에게 요청의 종류와 목적(리소스에 대한 행위)을 알리는 방법이다.
+
+주로 5가지 요청 메서드(GET, POST, PUT, PATCH, DELETE 등)를 사용하여 CRUD를 구현한다.
+
+![HTTP 요청 메서드](https://user-images.githubusercontent.com/67866773/103152507-048a3900-47cc-11eb-81ae-ee839e0f62aa.PNG)
+
+**XMLHttpRequest.prototype.send**
+
+send 메서드는 open 메서드로 초기화된 HTTP 요청을 서버에 전송한다. 기본적으로 서버로 전송하는 데이터는 GET, POST 요청 메서드에 따라 전송 방식에 차이가 있다.
+
+- GET 요청 메서드의 경우 데이터를 URL의 일부분인 쿼리 문자열(query string)로 서버에 전송한다.
+- POST 요청 메서드의 경우 데이터(페이로드)를 요청 몸체(request body)에 담아 전송한다.
+
+send 메서드에는 요청 몸체에 담아 전송할 데이터(페이로드)를 인수로 전달할 수 있다.
+
+페이로드가 객체인 경우 반드시 JSON.stringfy 메서드를 사용하여 직렬화한 다음 전달해야 한다.
+
+```JS
+xhr.send(JSON.stringfy({ id: 1, content: 'HTML', completed: false }));
+```
+
+HTTP 요청 메서드가 GET인 경우 send 메서드에 페이로드로 전달한 인수는 무시되고 요청 몸체는 null로 설정된다.
+
+**XMLHttpRequest.prototype.setRequestHeader**
+
+setRequestHeader 메서드는 특정 HTTP 요청의 헤더 값을 설정한다.
+
+setRequestHeader 메서드는 반드시 open 메서드를 호출한 이후에 호출해야 한다.
+
+자주 사용하는 HTTP 요청 헤더인 Content-type에 대해 살펴보자.
+
+Content-type은 요청 몸체에 담아 전송할 데이터의 [MIME 타입](https://developer.mozilla.org/ko/docs/Web/HTTP/Basics_of_HTTP/MIME_types)의 정보를 표현한다. 자주 사용되는 MIME 타입은 다음과 같다.
+
+![MIME 타입](https://user-images.githubusercontent.com/67866773/103152580-c17c9580-47cc-11eb-803c-a171ad14c284.PNG)
+
+다음은 요청 몸체에 담아 서버로 전송할 페이로드의 MIME 타입을 지정하는 예다.
+
+```JS
+// XMLHttpRequest 객체 생성
+const xhr = new XMLHttpRequest();
+
+// HTTP 요청 초기화
+xhr.open('POST', '/users');
+
+// HTTP 요청 헤더 설정
+// 클라이언트가 서버로 전송할 데이터의 MIME 타입 지정: json
+xhr.setRequestHeader('content-type', 'application/json');
+
+// HTTP 요청 전송
+xhr.send(JSON.stringify({ id: 1, content: 'HTML', completed: false }));
+```
+
+HTTP 클라이언트가 서버에 요청할 때 서버가 응답할 데이터의 MIME 타입을 Accept로 지정할 수 있다.
+
+다음은 서버가 응답할 데이터의 MIME 타입을 지정하는 예다.
+
+```JS
+// 서버가 응답할 데이터의 MIME 타입 지정: json
+xhr.setRequestHeader('accept', 'application/json');
+```
+
+### 3-4. HTTP 응답 처리
+
+서버가 전송한 응답을 처리하려면 XMLHttpRequest 객체가 발생시키는 이벤트를 캐치해야 한다.
+
+HTTP 요청을 전송하고 응답을 받으려면 서버가 필요하다.
+
+다음 예시에서는 [JSONPlaceholder](https://jsonplaceholder.typicode.com/)에서 제공하는 가상(fake) REST API를 사용한다.
+
+```JS
+// XMLHttpRequest 객체 생성
+const xhr = new XMLHttpRequest();
+
+// HTTP 요청 초기화
+// https://jsonplaceholder.typicode.com은 Fake REST API를 제공하는 서비스다.
+xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos/1');
+
+// HTTP 요청 전송
+xhr.send();
+
+// readystatechange 이벤트는 HTTP 요청의 현재 상태를 나타내는 readyState 프로퍼티가
+// 변경될 때마다 발생한다.
+xhr.onreadystatechange = () => {
+  // readyState 프로퍼티는 HTTP 요청의 현재 상태를 나타낸다.
+  // readyState 프로퍼티 값이 4(XMLHttpRequest.DONE)가 아니면 서버 응답이 완료되지 상태다.
+  // 만약 서버 응답이 아직 완료되지 않았다면 아무런 처리를 하지 않는다.
+  if (xhr.readyState !== XMLHttpRequest.DONE) return;
+
+  // status 프로퍼티는 응답 상태 코드를 나타낸다.
+  // status 프로퍼티 값이 200이면 정상적으로 응답된 상태이고
+  // status 프로퍼티 값이 200이 아니면 에러가 발생한 상태다.
+  // 정상적으로 응답된 상태라면 response 프로퍼티에 서버의 응답 결과가 담겨 있다.
+  if (xhr.status === 200) {
+    console.log(JSON.parse(xhr.response));
+    // {userId: 1, id: 1, title: "delectus aut autem", completed: false}
+  } else {
+    console.error('Error', xhr.status, xhr.statusText);
+  }
+};
+```
+
+send 메서드를 통해 HTTP 요청을 서버에 전송하면 서버는 응답을 반환한다. 하지만 언제 응답이 도달할 지는 readystatechange 이벤트를 통해 HTTP 요청의 현재 상태를 확인해야 한다.
+
+onreadystatechange 이벤트 핸들러는 HTTP 요청의 현재 상태를 나타내는 xhr.readyState 가 XMLHttpRequest.DONE 인지 확인하여 서버의 응답이 완료되었는지 확인한다.
+
+서버의 응답이 완료되었다면 HTTP 요청에 대한 응답 상태([HTTP 상태 코드](https://developer.mozilla.org/ko/docs/Web/HTTP/Status))를 나타내는 xhr.status가 200인지 확인하여 정상 처리와 에러 처리를 구분한다.
