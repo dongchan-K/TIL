@@ -334,6 +334,43 @@ export default App;
 
 ![styled 태그`스타일`](https://user-images.githubusercontent.com/67866773/102793736-aa652e80-43ed-11eb-9037-6a75be7dc6e6.PNG)
 
+### styled-components 에서의 전역 스타일링
+
+styled-components 에서 전역 스타일링을 위해서는 stlyed-components의 `createGlobalStyle`메서드를 이용해야 한다.
+
+`<body></body>` 내부 영역의 margin, padding을 초기화 해보자.
+
+```JSX
+// components/Styled.jsx
+import { createGlobalStyle } from 'styled-componets;
+
+const StyledGlobal = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+  }
+`
+
+export default StyledGlobal;
+```
+
+```JSX
+// App.js
+import StyledGlobal from './components/Styled';
+
+function App() {
+  return (
+    <>
+      <StyledGlobal></StyledGlobal>
+    </>
+  )
+}
+
+export default App;
+```
+
+위와 같이 Fragment 태그를 사용한 후 최상단에 전역 Style 컴포넌트를 위치시킴으로서 전역 스타일링을 적용할 수 있다.
+
 ### 스타일에서 props 조회
 
 styled-components를 사용하면 스타일 쪽에서 컴포넌트에게 전달된 props 값을 참조할 수 있다.
