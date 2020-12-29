@@ -108,4 +108,28 @@ setTimeout(() => {
 
 제어 컴포넌트는 데이터를 변경할 수 있는 모든 방법에 대해 이벤트 핸들러를 작성하고 React 컴포넌트를 통해 모든 상태를 연결해야 하기 때문에 대체 기술인 [비제어 컴포넌트](https://ko.reactjs.org/docs/uncontrolled-components.html)가 있다.
 
+비제어 컴포넌트 사용시
+
+- 클래스 컴포넌트는 `React.createRef()` 함수 사용
+- 함수 컴포넌트는 `useRef()` 함수 사용
+
+클래스 컴포넌트를 예제로 살펴보자.
+
+```JSX
+const Uncontrolled = () => {
+  const inputRef = React.createRef();
+
+  function click() {
+    console.log('최종 결과', inputRef.current.value);
+  }
+
+  return (
+    <div>
+      <input ref={inputRef} />
+      <button onClick={click}>전송</button>
+    </div>
+  );
+};
+```
+
 🎯 출처 : https://ko.reactjs.org/docs/forms.html
