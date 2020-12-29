@@ -60,4 +60,4 @@ process.stdin.on("data", (data) => {
 });
 ```
 
-![level1](https://user-images.githubusercontent.com/67866773/103299687-6d79e700-4a40-11eb-84bc-e56c2c06c8fd.PNG)
+![level1](https://user-images.githubusercontent.com/67866773/103300012-3f48d700-4a41-11eb-8e2c-1e6ae7468bbc.PNG)
