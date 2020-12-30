@@ -398,3 +398,296 @@ const App = () => {
 
 export default App;
 ```
+
+### useMemo
+
+useMemo를 사용하면 함수형 컴포넌트 내부에서 발생하는 연산을 최소화할 수 있다.
+
+useMemo Hook은 렌더링하는 과정에서 특정 값이 바뀌었을 때만 연산을 실행하고, 원하는 값이 바뀌지 않았다면 이전에 연산했던 결과를 다시 사용하는 방식이다.
+
+Average.jsx 파일을 작성해보자
+
+```JSX
+// .src/Average.jsx
+
+import React, { useState } from 'react';
+
+const getAverage = numbers => {
+  console.log('평균값 계산 중..');
+  if (numbers.length === 0) return 0;
+  const sum = numbers.reduce((a, b) => a + b);
+  return sum / numbers.length;
+};
+
+const Average = () => {
+  const [list, setList] = useState([]);
+  const [number, setNumber] = useState('');
+
+  const onChange = e => {
+    setNumber(e.target.value);
+  };
+  const onInsert = e => {
+    const nextList = list.concat(parseInt(number));
+    setList(nextList);
+    setNumber('');
+  };
+
+  return (
+    <div>
+      <input value={number} onChange={onChange} />
+      <button onClick={onInsert}>등록</button>
+      <ul>
+        {list.map((value, index) => (
+          <li key={index}>{value}</li>
+        ))}
+      </ul>
+      <div>
+        <b>평균값:</b> {getAverage(list)}
+      </div>
+    </div>
+  );
+};
+
+export default Average;
+```
+
+위와 같이 코드를 작성하게 되면 숫자를 등록할 때뿐만 아니라 인풋 내용이 수정될 때도 getAverage 함수가 호출된다.
+
+Average 컴포넌트의 코드를 수정해보자.
+
+```JSX
+// .src/Average.jsx
+
+import React, { useState, useMemo } from 'react';
+
+const getAverage = numbers => {
+  console.log('평균값 계산중..');
+  if (numbes.length === 0) return 0;
+  const sum = numbers.reduce((a, b) => a + b);
+  return sum / numbers.length;
+};
+
+const Average = () => {
+  const [list, setList] = useState([]);
+  const [number, setNumber] = useState('');
+
+  const onChange = e => {
+    setNumber(e.target.value);
+  };
+
+  const onInsert = () => {
+    const nextList = list.concat(parseInt(number));
+    setList(nextList);
+    setNumber('');
+  };
+
+  const avg = useMemo(() => getAverage(list), [list]);
+
+  return (
+    <div>
+      <input value={number} onChange={onChange} />
+      <button onClick={onInsert}>등록</button>
+      <ul>
+        {list.map((value, index) => {
+          <li key={index}>{value}</li>
+        })}
+      </ul>
+      <div>
+        <b>평균값:</b> {avg}
+      </div>
+    </div>
+  );
+};
+
+export default Average;
+```
+
+이제 list 배열의 내용이 바뀔 때만 getAverage 함수가 호출된다.
+
+### useCallback
+
+useCallback은 주로 렌더링 성능을 최적화해야 하는 상황에서 사용하며 useCallback 사용 시 만들어두었던 함수를 재사용할 수 있다.
+
+useCallback의 첫 번째 파라미터에는 생성하고 싶은 함수를 넣고, 두 번째 파라미터에는 배열을 넣으면 된다.
+
+이 배열에는 어떤 값이 바뀌었을 때 함수를 새로 생성해야 하는지 명시해야 한다.
+
+함수 내부에서 상태 값에 의존해야 할 때는 그 값을 반드시 두 번째 파라미터에 포함시켜야 한다.
+
+Average 컴포넌트를 수정해보자.
+
+```JSX
+const Average = () => {
+  const [list, setList] = useState([]);
+  const [number, setNumber] = useState('');
+
+  const onChange = useCallback(e => {
+    setNumber(e.target.value);
+  }, []); // 컴포넌트가 처음 렌더링될 때만 함수 생성
+
+  const onInsert = useCallback(() => {
+    const nextList = list.concat(parseInt(number));
+    setList(nextList);
+    setNumber('');
+  }, [number, list]); // number 혹은 list가 변경되었을 때만 함수 생성
+
+  const avg = useMemo(() => getAverage(list), [list]);
+
+  return(...)
+};
+
+export default Average;
+```
+
+### useRef
+
+리액트에서 특정 DOM을 선택해야 할 경우 ref를 사용한다.
+
+useRef는 함수형 컴포넌트에서 ref를 쉽게 사용할 수 있도록 해준다.
+
+useRef를 사용하여 ref를 설정하면 useRef를 통해 만든 객체 안의 current 값이 실제 엘리먼트를 가리킨다.
+
+Average 컴포넌트에서 '등록' 버튼을 눌렀을 때 포커스가 인풋으로 넘어가도록 코드를 작성해보자.
+
+```JSX
+import React, { useState, useMemo, useCallback, useRef } from 'react';
+
+const getAverage = numbers => {
+  console.log('평균값 계산중..');
+  if (numbers.length === 0) return 0;
+  const sum = numbers.reduce((a, b) => a + b);
+  return sum / number.length;
+};
+
+const Average = () => {
+  const [list, setList] = useState([]);
+  const [number, setNumber] = useState('');
+  const inputEl = useRef(null);
+
+  const onChange = useCallback(e => {
+    setNumber(e.target.value);
+  }, []);
+
+  const onInsert = useCallback(() => {
+    const nextList = list.concat(parseInt(number));
+    setList(nextList);
+    setNumber('');
+    inputEl.current.focus();
+  }, [number, list]);
+
+  const avg = useMemo(() => getAverage(list), [list]);
+
+  return (
+    <div>
+      <input value={number} onChange={onChange} ref={inputEl} />
+      <button onClick={onInset}>등록</button>
+      <ul>
+        {list.map((value, index) => (
+          <li key={index}>{value}</li>
+        ))}
+      </ul>
+      <div>
+        <b>평균값:</b> {avg}
+      </div>
+    </div>
+  );
+};
+
+export default Average;
+```
+
+#### 로컬 변수 사용하기
+
+useRef는 컴포넌트 로컬 변수를 사용해야 할 때도 활용할 수 있다.
+
+로컬 변수란 렌더링과 상관없이 바뀔 수 있는 값을 의미한다.
+
+즉 ref 값이 바뀌어도 컴포넌트가 렌더링되지 않는다.
+
+예제로 살펴보자.
+
+```JSX
+import React, { useRef } from 'react';
+
+const RefSample = () => {
+  const id = useRef(1);
+  const setId = (n) => {
+    id.current = n;
+  }
+  const printId = () => {
+    console.log(id.current);
+  }
+
+  return (
+    <div>
+      refsample
+    </div>
+  );
+};
+
+export default RefSample;
+```
+
+## Custom Hooks
+
+여러 컴포넌트에서 비슷한 기능을 공유할 경우, Custom Hook으로 작성하여 로직을 재사용할 수 있다.
+
+기존 Info 컴포넌트에서 여러 개의 인풋을 관리하기 위해 useReducer로 작성했던 로직을 useInputs라는 Hook으로 따로 분리해보자.
+
+```JSX
+// .src/useInputs.js
+
+import { useReducer } from 'react';
+
+function reducer(state, action) {
+  return {
+    ...state,
+    [action.name]: action.value
+  };
+}
+
+export default function useInputs(initialForm) {
+  const [state, dispatch] = useReducer(reducer, initialForm);
+  const onChange = e => {
+    dispatch(e.target);
+  };
+  return [state, onChange];
+}
+```
+
+Info 컴포넌트에서 커스텀 Hook을 사용해보자.
+
+```JSX
+// .src/Info.jsx
+
+import React from 'react';
+import useInputs from './useInputs';
+
+const Info = () => {
+  const [state, onChange] = useInputs({
+    name: '',
+    nickname: '',
+  });
+
+  const { name, nickname } = state;
+
+  return (
+    <div>
+      <div>
+        <input name="name" value={name} onChange={onChange} />
+        <input name="nickname" value={nickname} onChange={onChange} />
+      </div>
+      <div>
+        <div>
+          <b>이름:</b> {name}
+        </div>
+        <div>
+          <b>닉네임:</b> {nickname}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Info;
+```
