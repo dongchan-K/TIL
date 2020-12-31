@@ -54,3 +54,123 @@ export default class RefSample extends Component {
   }
 }
 ```
+
+## 컴포넌트에서 ref 사용
+
+이 방법은 주로 컴포넌트 내부에 있는 DOM을 컴포넌트 외부에서 사용할 때 사용한다.
+
+### 1. 사용법
+
+아래와 같이 컴포넌트에 ref를 props로 지정하면 MyComponent 내부의 메서드 및 멤버 변수에도 접근할 수 있다.
+
+ex) myComponent.handleClick, myComponent.input 등...
+
+```JSX
+<MyComponent ref={(ref) => {this.myComponent=ref}} />
+```
+
+### 2. 컴포넌트 초기 설정
+
+ScrollBox 컴포넌트를 만들어보자.
+
+```JSX
+// .src/ScrollBox.jsx
+import React, { Component } from 'react';
+
+export default class ScrollBox extends Component {
+  render() {
+    const style = {
+      border: '1px solid black',
+      height: '300px',
+      width: '300px',
+      overflow: 'auto',
+      position: 'relative'
+    };
+
+    const innerStyle = {
+      width: '100%',
+      height: '650px',
+      background: 'linear-gradient(white, black)'
+    }
+
+    return (
+      <div style={style} ref={(ref) => {this.box=ref}}>
+        <div style={innerStyle} />
+      </div>
+    );
+  }
+}
+```
+
+App 컴포넌트에서 ScrollBox 컴포넌트를 렌더링 해보자.
+
+```JSX
+// .src/App.js
+
+import React, { Component } from 'react';
+import ScrollBox from './ScrollBox';
+
+class App extends Compoent {
+  render() {
+    return (
+      <div>
+        <ScrollBox />
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+### 3. 컴포넌트에 메서드 생성
+
+ScrollBox 컴포넌트에 스크롤바를 맨 아래로 내리는 메서드를 추가해보자.
+
+```JSX
+// .src/ScrollBox.jsx
+
+import React, { Component } from 'react';
+
+export default class ScrollBox extends Component {
+
+  scrollToBottom = () => {
+    const { scrollHeight, clientHeight } = this.box;
+
+    this.box.scrollTop = scrollHeight - clientHeight;
+  }
+
+  render () {
+    ...
+  }
+}
+```
+
+### 4. 컴포넌트에 ref 달고 내부 메서드 사용
+
+App 컴포넌트에서 ScrollBox 컴포넌트에 ref를 달고 버튼을 만들어보자.
+
+```JSX
+// .src/App.js
+import React, { Component } from 'react';
+import ScrollBox from './ScrollBox';
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <ScrollBox ref={(ref) => this.scrollBox=ref} />
+        <button onClick={() => this.scrollBox.scrollToBottom()}>
+        맨 밑으로
+        </button>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+서로 다른 컴포넌트끼리 데이터를 교류할 때 ref를 사용하는 것이 아니라는 점을 주의하자.
+
+이는 redux 혹은 Context API를 사용하여 효율적으로 데이터를 교류할 수 있다.
