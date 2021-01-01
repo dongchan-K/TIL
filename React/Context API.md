@@ -130,7 +130,9 @@ Context의 value에는 상태 값 뿐만 아니라 함수를 전달해 줄 수 �
 기존에 작성한 ColorContext의 코드를 수정해보자.
 
 ```JSX
-import React from, { createContext, useState } from 'react';
+// .src/contexts/color.js
+
+import React, { createContext, useState } from 'react';
 
 const ColorContext = createContext({
   state: { color: 'black', subcolor: 'red' },
@@ -197,8 +199,8 @@ const ColorBox = () => {
       {({ state }) => (
         <>
           <div
-            stlye={{
-              widht: '64px',
+            style={{
+              width: '64px',
               height: '64px',
               background: state.color
             }}
@@ -210,7 +212,7 @@ const ColorBox = () => {
               background: state.subcolor
             }}
           />
-        </div>
+        </>
       )}
     </ColorConsumer>
   );
@@ -229,7 +231,7 @@ onContextMenu 이벤트는 마우스 오른쪽 클릭 이벤트이다.
 // .src/components/SelectColor.jsx
 
 import React from 'react';
-import { ColorConsumer } from '../contexts/coor';
+import { ColorConsumer } from '../contexts/color';
 
 const colors = ['red', 'orange', 'yellow', 'blue', 'green', 'tomato', 'indigo', 'violet'];
 
@@ -284,6 +286,101 @@ const App = () => {
 };
 
 export default App;
+```
+
+## Consumer 대신 Hook 또는 static contextType 사용하기
+
+### 1. useContext Hook 사용하기
+
+useContext Hook을 사용하면 함수형 컴포넌트에서 Context를 편하게 사용할 수 있다.
+
+ColorBox 컴포넌트를 수정해보자.
+
+```JSX
+// .src/components/ColorBox.jsx
+
+import React, { useContext } from 'react';
+import ColorContext from '../contexts/color';
+
+const ColorBox = () => {
+  const { state } = useContext(colorContext);
+
+  return (
+    <>
+      <div
+        style={{
+          width: '64px',
+          height: '64px',
+          background: state.color
+        }}
+      />
+      <div
+        style={{
+          width: '32px',
+          height: '32px',
+          background: state.subColor
+        }}
+      />
+    </>
+  );
+};
+
+export default ColorBox;
+```
+
+### 2. static contextType 사용하기
+
+static contextType을 정의하면 클래스형 컴포넌트에서 Context를 편하게 사용할 수 있다.
+
+장점 : 클래스 메서드에서도 Context에 넣어 둔 함수를 호출할 수 있다.
+
+단점 : 한 클래스에서 하나의 Context밖에 사용하지 못한다.
+
+SelectColor 컴포넌트를 수정해보자.
+
+```JSX
+// .src/components/SelectColors.jsx
+
+import React, { Component } from 'react';
+import ColorContext from '../context/color';
+
+const colors = ['red', 'orange', 'yellow', 'blue', 'green', 'tomato', 'indigo', 'violet'];
+
+class SelectColors extends Component {
+  static contextType = ColorContext;
+
+  handleSetColor = color => {
+    this.context.actions.setColor(color);
+  };
+  handleSetSubcolor = color => {
+    this.context.actions.setSubColor(subcolor);
+  };
+
+  render () {
+    return (
+      <div>
+        <h2>색상을 선택하세요.</h2>
+        <div style={{ display: flex }}>
+        {colors.map(color => (
+          <div
+            key={color}
+            style={{
+              background: color,
+              width: '24px',
+              height: '24px',
+              cursor: 'pointer'
+            }}
+            onClick={() => this.handleSetColor(color)}
+            onContextMenu={e => {
+              e.preventDefault();
+              this.handleSetSubcolor(color);
+            }}
+          />
+        ))}
+      </div>
+    );
+  }
+}
 ```
 
 🎯 참고 서적 : 리액트를 다루는 기술
