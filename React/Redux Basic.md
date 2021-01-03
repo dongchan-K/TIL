@@ -62,6 +62,10 @@ const changeInput = text => ({
 
 현재 상태와 전달받은 액션 객체를 참고하여 새로운 상태를 만들어 반환한다.
 
+리듀서 함수가 맨 처음 호출될 때는 state 값이 undefined이다.
+
+아래 예시에서처럼 initailState를 기본값으로 설정해 줄 수 있다.
+
 ```JSX
 const initialState = {
   counter: 1
