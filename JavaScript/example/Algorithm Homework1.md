@@ -2,7 +2,15 @@
 
 ### Question1
 
-![Question1](https://user-images.githubusercontent.com/67866773/103299036-00b21d00-4a3f-11eb-8706-b3a5c8238720.PNG)
+**문제 설명**
+
+프로그래머스 모바일은 개인정보 보호를 위해 고지서를 보낼 때 고객들의 전화번호의 일부를 가립니다.
+
+전화번호가 문자열 phone_number로 주어졌을 때, 전화번호의 뒷 4자리를 제외한 나머지 숫자를 전부 \* 으로 가린 문자열을 리턴하는 함수, solution을 완성해주세요.
+
+**제한 조건**
+
+- s는 길이 4 이상, 20 이하인 문자열입니다.
 
 ### 풀이
 
@@ -43,7 +51,30 @@ console.log(solution(phone_number));
 
 ### Question2
 
-![Question2](https://user-images.githubusercontent.com/67866773/103299054-0ad41b80-4a3f-11eb-83b2-45e753fa08f6.PNG)
+**문제 설명**
+
+문제에는 표준 입력으로 두 개의 정수 n과 m이 주어집니다.
+별(\*) 문자를 이용해 가로의 길이가 n, 세로의 길이가 m인 직사각형 형태를 출력해보세요.
+
+**제한 조건**
+
+- n과 m은 각각 1000 이하인 자연수입니다.
+
+**예시**
+
+입력
+
+```JS
+5 3
+```
+
+출력
+
+```JS
+*****
+*****
+*****
+```
 
 ### 풀이
 
@@ -61,3 +92,5 @@ process.stdin.on("data", (data) => {
 ```
 
 ![level1](https://user-images.githubusercontent.com/67866773/103300012-3f48d700-4a41-11eb-8e2c-1e6ae7468bbc.PNG)
+
+출처 : https://programmers.co.kr/skill_checks
