@@ -64,6 +64,8 @@ const changeInput = text => ({
 
 리듀서 함수가 맨 처음 호출될 때는 state 값이 undefined이다.
 
+리듀서에서는 상태의 불변성을 유지하면서 데이터에 변화를 일으켜 주어야 한다. spread 연산자를 사용하면 편리하다.
+
 아래 예시에서처럼 initailState를 기본값으로 설정해 줄 수 있다.
 
 ```JSX
@@ -89,6 +91,18 @@ function reducer(state = initailState, action) {
 
 한 개의 프로젝트는 단 하나의 스토어(단일 스토어)를 갖는다.
 
+스토어를 만들 때는 createStore 함수를 사용한다.
+
+함수의 파라미터에는 리듀서 함수를 넣어 주어야 한다.
+
+**스토어 예시**
+
+```JSX
+import { createStore } from 'redux';
+
+const store = createStore(reducer);
+```
+
 ### 5. 디스패치(dispatch)
 
 디스패치(dispatch)는 스토어의 내장 함수 중 하나이다.
@@ -104,6 +118,12 @@ function reducer(state = initailState, action) {
 구독(subscribe)은 스토어의 내장 함수 중 하나이다.
 
 subscribe 함수 안에 리스너 함수를 파라미터로 넣어서 호출하면, 리스너 함수가 액션이 디스패치되어 상태가 업데이트될 때마다 호출된다.
+
+단일 store를 만들고 subscribe와 getState를 이용하여 변경되는 state를 얻어 props를 아래로 전달하는 것이 react-redux를 사용하지 않을 때 일반적인 방식이다.
+
+subscribe는 componentDidMount의 역할을 한다.
+
+unsubscribe는 componentWillMount의 역할을 한다.
 
 ```JSX
 const litener = () => {
@@ -134,3 +154,5 @@ unsubscribe(); // 추후 구독을 비활성화할 때 함수를 호출
 
 - 리듀서 함수는 이전 상태와 액션 객체를 파라미터로 받는다
 - 파라미터 외의 값에는 의존하면 안된다.
+- 이전 상태는 건드리지 않고, 변화를 준 새로운 상태 객체를 만들어 반환한다.
+- 똑같은 파라미터로 호출한 리듀서 함수는 언제나 같은 결과 값을 반환해야 한다.
