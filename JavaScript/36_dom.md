@@ -5,9 +5,8 @@
 ## 1. 노드
 
 ### 1-1. HTML 요소와 노드 객체
-HTML 요소는 렌더링 엔진에 의해 파싱되어 DOM을 구성하는 요소 노드 객체로 변환된다
 
-<img width="501" alt="HTML 요소와 노드 객체" src="https://user-images.githubusercontent.com/67866773/97250379-2b1e0900-1849-11eb-9d6e-0c9f19bc2ecf.png">
+HTML 요소는 렌더링 엔진에 의해 파싱되어 DOM을 구성하는 요소 노드 객체로 변환된다
 
 HTML 문서는 HTML 요소들의 집합으로 이루어지며, HTML 요소의 콘텐츠 영역(시작 태그와 종료 태그 사이)에는 텍스트뿐만 아니라 다른 HTML 요소도 포함할 수 있다
 
@@ -15,18 +14,13 @@ HTML 문서는 HTML 요소들의 집합으로 이루어지며, HTML 요소의 �
 
 **HTML 요소 간의 부자 관계를 반영하여 HTML 요소를 객체화한 모든 노드 객체들을 트리 자료구조로 구성한다. 이를 DOM 또는 DOM 트리라고 한다**
 
-<img width="414" alt="트리 자료구조" src="https://user-images.githubusercontent.com/67866773/97250686-d4fd9580-1849-11eb-9b31-73f31974828c.png">
-
 이때 parent node는 반드시 element node 이다. text node, attribute node는 항상 leaf node이기 때문
 
 attribute node는 요소 노드에 의해서만 존재 의미가 있다
 
 ### 1-2. 노드 객체의 타입
 
-![DOM](https://user-images.githubusercontent.com/67866773/97256326-13994d00-1856-11eb-9626-e7ef7f21faaa.png)
-
-
-- **문서 노드** 
+- **문서 노드**
 
 **DOM의 최상위 노드인 root node는 문서 노드(document node)** 로서 document 객체를 가리키며 전역 객체 window의 document 프로퍼티에 바인딩되어 있다
 
@@ -60,15 +54,7 @@ DOM을 구성하는 노드 객체는 ECMAScript 사양에 정의된 표준 빌�
 
 노드 객체도 자바스크립트 객체이므로 프로토타입에 의한 상속 구조를 갖는다
 
-![노드 객체의 상속 구조](https://user-images.githubusercontent.com/67866773/97256609-d3869a00-1856-11eb-848f-8243102f9dec.png)
-
-input 요소 노드 객체의 프로토타입 체인을 살펴보면 아래와 같다
-
-![input 요소 노드 객체의 프로토타입 체인](https://user-images.githubusercontent.com/67866773/97256648-f31dc280-1856-11eb-8b04-1df70974cb05.png)
-
 배열이 객체인 동시에 배열인 것처럼 input 요소 노드 객체도 다음과 같이 다양한 특성을 갖는 객체이며 상속을 통해 제공받는다
-
-![input 요소 노드 객체의 특성](https://user-images.githubusercontent.com/67866773/97256727-2bbd9c00-1857-11eb-906d-80094ff259f6.PNG)
 
 **즉 DOM은 HTML 문서의 계층적 구조와 정보를 표현하는 것은 물론 노드 객체의 종류, 즉 노드 타입에 따라 필요한 기능을 프로퍼티와 메서드의 집합인 DOM API(Application Programming Interface)로 제공한다. 이 DOM API를 통해 HTML의 구조나 내용 또는 스타일 등을 동적으로 조작할 수 있다**
 
@@ -114,7 +100,7 @@ NodeList 객체는 유사 배열 객체이면서 이터러블이다
 
 `Element.prototype.matches` 메서드는 인수로 전달한 CSS 선택자를 통해 특정 요소 노드를 취득할 수 있는지 확인하여 불리언 값을 반환한다
 
-### 2-6. HTMLCollection 과 NodeList 
+### 2-6. HTMLCollection 과 NodeList
 
 DOM 컬렉션 객체인 HTMLCollection 과 NodeList 는 DOM API가 여러개의 결과값을 반환하기 위한 객체다
 
@@ -124,13 +110,9 @@ NodeList 객체는 일반적으로 non-live 객체이지만 childNodes 프로퍼
 
 **getElementById를 제외한 getElement 계열 메서드들은 사용을 지양하자**
 
-
-
 **따라서 노드 객체의 상태 변경과 상관없이 안전하게 DOM 컬렉션을 사용하려면 스프레드 문법이나 Array.from 메서드를 통해 배열로 변환하여 사용하는 것이 좋다**
 
 ## 3. 노드 탐색
-
-![트리 노드 탐색 프로퍼티](https://user-images.githubusercontent.com/67866773/97258324-8e189b80-185b-11eb-87b2-b0b6677bb4ca.png)
 
 노드 탐색 프로퍼티는 모두 getter만 존재하는 읽기 전용 접근자 프로퍼티이다
 
@@ -138,13 +120,9 @@ NodeList 객체는 일반적으로 non-live 객체이지만 childNodes 프로퍼
 
 HTML 요소 사이의 스페이스, 탭, 줄바꿈 등의 공백 문자는 공백 텍스트 노드를 생성한다
 
-![공백 텍스트 노드](https://user-images.githubusercontent.com/67866773/97258577-08492000-185c-11eb-9cd8-444a37e8f9aa.png)
-
 ### 3-2. 자식 노드 탐색
 
 자식 노드 탐색을 위해서는 다음과 같은 노드 탐색 프로퍼티를 사용한다
-
-![자식 노드 탐색](https://user-images.githubusercontent.com/67866773/97258665-3d557280-185c-11eb-86fe-469575bf6066.PNG)
 
 ### 3-3. 자식 노드 존재 확인
 
@@ -160,18 +138,13 @@ HTML 요소 사이의 스페이스, 탭, 줄바꿈 등의 공백 문자는 공�
 
 ### 3-6. 형제 노드 탐색
 
-부모 노드가 같은 형제 노드를 탐색하려면 다음과 같은 노드 탐색 프로퍼티를 사용한다
+부모 노드가 같은 형제 노드를 탐색하려면 노드 탐색 프로퍼티를 사용한다
 
 어트리뷰트 노드는 요소 노드의 형제 노드이지만 부모 노드가 같은 형제 노드가 아니기 때문에 반환되지 않는다
 
-![형제 노드 탐색](https://user-images.githubusercontent.com/67866773/97259086-4e52b380-185d-11eb-9b4a-5c8da50e20cc.PNG)
-
 ## 4. 노드 정보 취득
 
-노드 객체에 대한 정보를 취득하려면 다음과 같은 노드 정보 프로퍼티를 사용한다
-
-![노드 정보 취득](https://user-images.githubusercontent.com/67866773/97259209-9671d600-185d-11eb-8304-e15619cc6a80.PNG)
-
+노드 객체에 대한 정보를 취득하려면 노드 정보 프로퍼티를 사용한다
 
 ## 5. 요소 노드의 텍스트 조작
 
@@ -237,11 +210,11 @@ DocumentFragment 노드는 DOM에 추가 시 자신은 제거되고 자식 노�
 
 ### 6-3. 노드 복사
 
-`Node.prototype.cloneNode([deep: true | false])` 메서드는 노드의 사본을 생성하여 반환한다 
+`Node.prototype.cloneNode([deep: true | false])` 메서드는 노드의 사본을 생성하여 반환한다
 
 인수로 true를 전달하면 깊은복사를 하고 false 또는 인수를 생략하면 얕은 복사를 한다
 
-### 6-4. 노드 교체 
+### 6-4. 노드 교체
 
 `Node.prototype.repalceChild(newChild, oldChild)` 메서드는 자신을 호출한 노드의 자식 노드를 다른 노드로 교체한다
 
@@ -258,9 +231,6 @@ DocumentFragment 노드는 DOM에 추가 시 자신은 제거되고 자식 노�
 HTML 요소는 여러 개의 어트리뷰트를 가질 수 있다
 
 어트리뷰트 노드는 NamedNodeMap 객체에 담겨서 요소 노드의 attributes 프로퍼티에 저장된다
-
-![요소 노드의 attributes 프로퍼티](https://user-images.githubusercontent.com/67866773/97262970-4f87de80-1865-11eb-8dae-28916eb9080f.png)
-
 
 모든 어트리뷰트 노드는 요소 노드의 Element.prototype.attributes 프로퍼티로 취득할 수 있다
 
@@ -287,8 +257,6 @@ HTML 어트리뷰트 값을 변경하려면 `Element.prototype.setAttribute(attr
 - **프로퍼티는 상태로서 기본적으로 동적이다**
 
 **요소 노드는 2개의 상태, 즉 초기 상태와 최신 상태를 관리해야 하며 요소 노드의 초기 상태는 어트리뷰트 노드가 관리하며, 요소 노드의 최신 상태는 DOM 프로퍼티가 관리한다**
-
-![HTML 어트리뷰트에 대응하는 요소 노드 프로퍼티](https://user-images.githubusercontent.com/67866773/97263091-970e6a80-1865-11eb-8ddd-f423525d47de.png)
 
 DOM 프로퍼티는 setter와 getter 모두 존재하는 접근자 프로퍼티다
 
@@ -325,23 +293,4 @@ className 프로퍼티는 문자열을 반환하므로 공백으로 구분된 �
 
 className 보다 편리하게 사용할 수 있다
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+출처 : https://poiemaweb.com/

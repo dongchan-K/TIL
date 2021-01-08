@@ -1,4 +1,4 @@
-# 스프레드 문법 
+# 스프레드 문법
 
 - ES6에서 도입된 스프레드 문법`...`은 하나로 뭉쳐 있는 여러 값들의 집합을 펼쳐서 개별적인 값들의 목록으로 만든다
 
@@ -16,7 +16,7 @@
 
 const arr = [1, 2, 3];
 
-const max = Math.max(...arr);  // -> 3
+const max = Math.max(...arr); // -> 3
 ```
 
 ```js
@@ -109,7 +109,7 @@ console.log(sum(1, 2, 3)); // 6
 // ES6
 function sum() {
   // 이터러블이면서 유사 배열 객체인 arguments를 배열로 변환
-  return [...arguments].reduce((pre, cur) => pre + cur , 0);
+  return [...arguments].reduce((pre, cur) => pre + cur, 0);
 
   console.log(sum(1, 2, 3)); // 6
 }
@@ -139,16 +139,18 @@ Array.from(arrayLike); // [1, 2, 3]
 
 ```js
 // 객체 병합. 프로퍼티가 중복되는 경우, 뒤에 위치한 프로퍼티가 우선권을 갖는다
-const merged = {...{x: 1, y: 2}, ...{y: 10, z: 3}};
+const merged = { ...{ x: 1, y: 2 }, ...{ y: 10, z: 3 } };
 console.log(merged); // {x: 1, y: 10, z: 3}
 
 // 특정 프로퍼티 변경
-const changed = {...{x: 1, y: 2}, y: 100};
+const changed = { ...{ x: 1, y: 2 }, y: 100 };
 // changed = {...{x: 1, y: 2}, ...{y: 100}}
 console.log(changed); // {x: 1, y: 100}
 
 // 프로퍼티 추가
-const added = {...{x: 1, y: 2}, z: 0};
+const added = { ...{ x: 1, y: 2 }, z: 0 };
 // added = {...{x: 1, y: 2}, z: 0};
 console.log(added); // {x: 1, y: 2, z: 0}
 ```
+
+출처 : https://poiemaweb.com/

@@ -1,6 +1,6 @@
 # 원시값과 객체의 비교
 
-## 원시값 
+## 원시값
 
 - **원시값은 변경 불가능한 값(immutable value)이다. 원시값 자체를 변경할수 없다는 것이며, 변수 값은 재할당을 통해 변경할 수 있다**
 - **원시값은 불변성의 특성을 갖기 때문에 데이터의 신뢰성을 보장한다**
@@ -8,9 +8,7 @@
 
 **예시**
 
-![원시값](https://user-images.githubusercontent.com/67866773/91258022-50898a80-e7a6-11ea-9b63-7c881b70fa3a.png)
-
-- **아래와 같이 변수에 원시값을 갖는 변수를 할당하면 할당받는 변수(copy)에는 할당되는 변수(score)의 원시값이 복사되어 전달된다. 이를 값에 의한 전달이라 한다** 
+- **아래와 같이 변수에 원시값을 갖는 변수를 할당하면 할당받는 변수(copy)에는 할당되는 변수(score)의 원시값이 복사되어 전달된다. 이를 값에 의한 전달이라 한다**
 
 **예시**
 
@@ -24,8 +22,6 @@ console.log(score, copy); // 80  80
 console.log(score === copy); // true
 ```
 
-![값에 의한 전달](https://user-images.githubusercontent.com/67866773/91259456-8f6d0f80-e7a9-11ea-8a3b-112c997d1251.png)
-
 ## 객체
 
 - **객체는 변경 가능한 값(mutable value)이다**
@@ -37,19 +33,17 @@ console.log(score === copy); // true
 
 ```js
 var person = {
-  name: 'Lee'
+  name: "Lee",
 };
 
 // 프로퍼티 값 갱신
-person.name = 'Kim';
+person.name = "Kim";
 
 // 프로퍼티 동적 생성
-person.address = 'Seoul';
+person.address = "Seoul";
 
 console.log(person); // {name: "Kim", address: "Seoul"}
 ```
-
-![객체 값](https://user-images.githubusercontent.com/67866773/91264581-9eed5800-e7ab-11ea-91ea-666e630b2cbe.png)
 
 - **아래와 같이 변수(person)를 다른 변수(copy)에 할당하면 원본의 참조값이 복사되어 전달된다. 이를 참조에 의한 전달이라 한다**
 
@@ -57,14 +51,12 @@ console.log(person); // {name: "Kim", address: "Seoul"}
 
 ```js
 var person = {
-  name: 'Lee'
+  name: "Lee",
 };
 
 // 참조값을 복사
 var copy = person;
 ```
-
-![참조에 의한 전달](https://user-images.githubusercontent.com/67866773/91267783-0953c780-e7af-11ea-92a6-72a993182250.png)
 
 ### 깊은 복사와 얕은 복사
 
@@ -82,14 +74,13 @@ const c1 = v;
 console.log(c1 === v); // true
 
 const o = {
-  x: 1 
+  x: 1,
 };
 
-// "얕은 복사"라고 부르기도 한다. 
+// "얕은 복사"라고 부르기도 한다.
 const c2 = o;
 console.log(c2 === o); // true -> 하나의 객체를 가리키는 동일한 참조값을 가진다
 ```
-
 
 ## 강의 내용 및 러버덕 요약
 
@@ -106,4 +97,4 @@ console.log(c2 === o); // true -> 하나의 객체를 가리키는 동일한 참
 - 객체의 얕은 복사를 하는 방법으로는 스프레드 문법 `{...}` 또는 `Object.assing` 메서드를 사용할 수 있다 -> 해당 방법으로 얕은 복사를 하게되면 한 단계의 객체는 객체 자체가 다른 메모리 공간에 복사되지만 중첩되어 있는 객체는 참조값이 복사된다
 - 객체의 깊은 복사를 하는 방법으로는 lodash의 라이브러리를 사용하거나 `JSON.parse와 JSON.stringify`를 사용할 수 있다 -> 깊은 복사를 하게 되면 말 그대로 원시값처럼 같은 값을 서로 다른 메모리 공간에 복사할 뿐 객체의 프로퍼티의 변경이 불가능하게 동결하는 것은 아니다
 
-
+출처 : https://poiemaweb.com/

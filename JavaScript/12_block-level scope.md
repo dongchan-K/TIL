@@ -31,7 +31,7 @@ console.log(y); // 30
 ```js
 var x = 1;
 if (true) {
-  // 함수 코드 블록이 아니기 때문에 var x = 10;은 전역 변수다. 
+  // 함수 코드 블록이 아니기 때문에 var x = 10;은 전역 변수다.
   var x = 10;
 }
 // 의도치 않게 x 변수의 값이 변경되었다.
@@ -102,7 +102,7 @@ console.log(bar); // ReferenceError: bar is not defined
 - **let 키워드로 선언한 변수는 초기화 단계 시점(변수 선언문)까지 변수를 참조할 수 없다**
 - **스코프의 시작 지점부터 변수를 참조할 수 없는 구간을 일시적 사각지대(Temporal Dead Zone; TDZ)라 한다**
 
-***TDZ 예시***
+**_TDZ 예시_**
 
 ```js
 // 런타임 이전에 선언 단계가 실행된다. 아직 변수가 초기화되지 않았다.
@@ -115,8 +115,6 @@ console.log(foo); // undefined
 foo = 1; // 할당문에서 할당 단계가 실행된다.
 console.log(foo); // 1
 ```
-
-<img width="474" alt="TDZ" src="https://user-images.githubusercontent.com/67866773/91535936-e3fdbf80-e94e-11ea-9c59-14e6e91162fa.png">
 
 - **let 키워드로 선언한 변수도 호이스팅이 발생하지 않는 것처럼 동작하지만 실제로 자바스크립트는 모든 선언을 호이스팅한다**
 
@@ -159,7 +157,7 @@ foo = 2; // TypeError: Assignment to constant variable.
 
 - **상수는 재할당이 금지된 변수를 의미한다**
 - **const 키워드로 선언된 변수에 원시값을 할당하면 할당된 값 자체를 변경할 수 있는 방법은 없다**
-- **일반적으로 상수의 이름은 대문자로 선언하고 언더스코어(_)로 구분하여 스네이크 케이스로 표현한다**
+- **일반적으로 상수의 이름은 대문자로 선언하고 언더스코어(\_)로 구분하여 스네이크 케이스로 표현한다**
 
 **4. const 키워드와 객체**
 
@@ -181,5 +179,4 @@ foo = 2; // TypeError: Assignment to constant variable.
 - const 키워드로 선언된 변수는 선언과 동시에 초기화 해야한다
 - 가급적이면 const 키워드(상수)의 사용을 지향하는 것이 안정성 측면에서 좋다
 
-
-
+출처 : https://poiemaweb.com/

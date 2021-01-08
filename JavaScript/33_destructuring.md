@@ -26,7 +26,7 @@ console.log(c, d); // 1 undefined
 const [e, f] = [1, 2, 3];
 console.log(e, f); // 1 2
 
-const [g, ,h] = [1, 2, 3];
+const [g, , h] = [1, 2, 3];
 console.log(g, h); // 1 3
 ```
 
@@ -37,7 +37,7 @@ console.log(g, h); // 1 3
 - ES6의 객체 디스트럭처링 할당은 객체의 각 프로퍼티를 객체로부터 추출하여 1개 이상의 변수에 할당한다. 이때 객체 디스트럭처링 할당의 대상(할당문의 우변)은 객체이어야 하며, **할당 기준은 프로퍼티 키다.** 즉, 순서는 의미가 없으며 선언된 변수 이름과 프로퍼티 키가 일치하면 할당된다
 
 ```js
-const user = { firstName: 'Dongchan', lastName: 'Kim' };
+const user = { firstName: "Dongchan", lastName: "Kim" };
 
 const { lastName, firstName } = user;
 
@@ -47,7 +47,7 @@ console.log(firstName, lastName); // Dongchan Kim
 - 객체의 프로퍼티 키와 다른 변수 이름으로 프로퍼티 값을 할당받으려면 다음과 같이 변수를 선언한다
 
 ```js
-const user = { firstName: 'Dongchan', lastName: 'Kim'};
+const user = { firstName: "Dongchan", lastName: "Kim" };
 
 const { lastName: ln, firstName: fn } = user;
 
@@ -58,17 +58,19 @@ console.log(fn, ln); // Dongchan Kim
 
 ```js
 const user = {
-  name: 'Kim',
+  name: "Kim",
   address: {
-    zipCode: '03068',
-    city: 'Seoul'
-  }
+    zipCode: "03068",
+    city: "Seoul",
+  },
 };
 
-const { address: { city } } = user;
+const {
+  address: { city },
+} = user;
 console.log(city); // 'Seoul'
 ```
 
 - 객체 디스트럭처링 할당을 위한 변수에 Rest 파라미터나 Rest 요소와 유사하게 **Rest 프로퍼티** `...` 을 사용할 수 있다. Rest 프로퍼티는 Rest 파라미터나 Rest 요소와 마찬가지로 반드시 마지막에 위치해야 한다
 
-
+출처 : https://poiemaweb.com/

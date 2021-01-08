@@ -23,12 +23,14 @@
 ## 2. 클래스 정의
 
 클래스는 class 키워드를 사용하여 정의하며, 클래스 이름은 파스칼 케이스를 사용하는 것이 일반적이다.
+
 ```JS
 // 클래스 선언문
 class Person {}
 ```
 
 클래스는 표현식으로 정의할 수도 있다.
+
 ```JS
 // 익명 클래스 표현식
 const Person = class {};
@@ -40,6 +42,7 @@ const Person = class MyClass {};
 클래스는 함수이기 때문에 값처럼 사용할 수 있는 [**일급 객체**](https://github.com/dongchan-K/TIL/blob/master/JavaScript/15_first-class%20object.md#1-%EC%9D%BC%EA%B8%89-%EA%B0%9D%EC%B2%B4)이다.
 
 클래스 몸체에는 0개 이상의 메서드만 정의할 수 있다. 클래스 몸체에서 정의할 수 있는 메서드는 constructor(생성자), 프로토타입 메서드, 정적 메서드의 세 가지가 있다.
+
 ```JS
 class Person {
   // 생성자
@@ -70,19 +73,17 @@ me.sayHi(); // Hi! My name is Kim
 Person.sayHello(); // Hello!
 ```
 
-클래스와 생성자 함수의 정의 방식을 비교하면 다음과 같다.
-
-![클래스와 생성자 함수의 정의 방식 비교](https://user-images.githubusercontent.com/67866773/101596319-36fc0e00-3a38-11eb-9654-90d9a632b347.PNG)
-
 ## 3. 클래스 호이스팅
 
 클래스 선언문으로 정의한 클래스는 함수 선언문과 같이 소스코드 평가 과정, 즉 런타임 이전에 먼저 평가되어 함수 객체를 생성한다. 클래스는 constructor 이기 때문에 프로토타입 또한 함수 객체 생성 시점에 더불어 생성된다.
+
 ```JS
 class Person {}
 console.log(typeof Person); // function
 ```
 
 클래스는 정의 이전에 참조할 수 없다.
+
 ```JS
 console.log(Person);
 // ReferenceError: Cannot access 'Person' before initialization
@@ -91,6 +92,7 @@ class Person {}
 ```
 
 클래스 선언문은 일시적 사각지대(Temporal Dead Zone, TDZ)에 빠지기 때문에 호이스팅이 발생하지 않는 것처럼 동작한다.
+
 ```JS
 const Person = '';
 
@@ -106,6 +108,7 @@ const Person = '';
 ## 4. 인스턴스 생성
 
 클래스는 생성자 함수이며 new 연산자와 함께 호출되어 인스턴스를 생성한다.
+
 ```JS
 class Person {}
 
@@ -115,6 +118,7 @@ console.log(me); // Person {}
 ```
 
 클래스 표현식으로 정의된 클래스는 클래스 이름이 아닌 식별자를 사용해 인스턴스를 생성해야 한다.
+
 ```JS
 const Person = class MyClass {};
 
@@ -130,6 +134,7 @@ const you = new MyClass(); // X
 ### 5-1. constructor
 
 constructor는 인스턴스를 생성하고 초기화하기 위한 특수한 메서드다.
+
 ```JS
 class Person {
   constructor(name) {
@@ -143,8 +148,6 @@ class Person {
 
 아래 예시를 살펴보면 프로토타입 객체의 constructor 프로퍼티는 클래스 자신을 가리키는데, 이는 클래스가 인스턴스를 생성하는 생성자 함수라는 것을 의미한다.
 
-![클래스 함수 예시](https://user-images.githubusercontent.com/67866773/101597992-d15d5100-3a3a-11eb-9819-ce077585922b.PNG)
-
 ```JS
 class Person {
   constructor(name) {
@@ -155,11 +158,6 @@ class Person {
 const me = new Person('Lee');
 console.log(me);
 ```
-위 코드를 개발자 도구로 확인하면 다음과 같다.
-
-![Person 클래스로 생성한 인스턴스](https://user-images.githubusercontent.com/67866773/101598181-1b463700-3a3b-11eb-9c21-f803f6a504be.PNG)
-
-Person 클래스의 constructor 내부에서 this에 추가한 프로퍼티가 인스턴스 프로퍼티가 된 것을 확인할 수 있다. 
 
 **constructor 내부의 this는 클래스가 생성한 인스턴스를 가리킨다.**
 
@@ -168,6 +166,7 @@ constructor는 생성자 함수와 유사하지만 몇 가지 차이가 있다.
 1. constructor는 클래스 내에 최대 한 개만 존재할 수 있다.
 2. constructor는 생략할 수 있다.
 3. constructor를 생략하면 빈 constructor가 암묵적으로 정의된다.
+
 ```JS
 class Person {
   constructor() {}
@@ -176,7 +175,9 @@ class Person {
 const me = new Person();
 console.log(me); // Person {}
 ```
+
 4. 프로퍼티가 추가되어 초기화된 인스턴스를 생성하려면 constructor 내부에서 this에 인스턴스 프로퍼티를 추가한다.
+
 ```JS
 class Person {
   constructor() {
@@ -189,7 +190,9 @@ class Person {
 const me = new Person();
 console.log(me); // Person {name: 'Kim', address: 'Seoul'}
 ```
+
 5. 인스턴스를 생성할 때 클래스 외부에서 인스턴스 프로퍼티의 초기값을 전달하려면 constructor에 매개변수를 선언하고 인스턴스를 생성할 때 초기값을 전달한다.
+
 ```JS
 class Person {
   constructor(name, address) {
@@ -207,6 +210,7 @@ constructor는 별도의 반환문을 갖지 않아야 한다. new 연산자와 
 ### 5-2. 프로토타입 메서드
 
 클래스 몸체에서 정의한 메서드는 기본적으로 프로토타입 메서드가 된다.
+
 ```JS
 class Person {
   constructor(name) {
@@ -222,13 +226,10 @@ const me = new Person('Kim');
 me.sayHi(); // Hi! My name is Kim
 ```
 
-위 예제의 프로토타입 체인은 다음과 같다.
-
-![클래스로 생성한 인스턴스의 프로토타입 체인](https://user-images.githubusercontent.com/67866773/101600007-10d96c80-3a3e-11eb-9b79-0f2037bb6881.PNG)
-
 ### 5-3. 정적 메서드
 
 클래스에서는 메서드에 static 키워드를 붙이면 정적 메서드가 된다.
+
 ```JS
 class Person {
   constructor(name) {
@@ -241,12 +242,8 @@ class Person {
 }
 ```
 
-위 예제의 프로토타입 체인은 다음과 같다.
-
-![정적 메서드](https://user-images.githubusercontent.com/67866773/101600009-11720300-3a3e-11eb-99a9-9e68462a696a.PNG)
-
-
 정적 메서드는 클래스로 호출한다.
+
 ```JS
 // 정적 메서드는 클래스로 호출한다
 Person.sayHi();
@@ -259,6 +256,7 @@ Person.sayHi();
 3. 정적 메서드는 인스턴스 프로퍼티를 참조할 수 없지만 프로토타입 메서드는 인스턴스 프로퍼티를 참조할 수 있다.
 
 즉, 메서드 내부에서 인스턴스 프로퍼티를 참조할 필요가 있다면 this를 사용해야 하며, 프로토타입 메서드로 정의해야 한다.
+
 ```JS
 class Square {
   // 정적 메서드
@@ -269,6 +267,7 @@ class Square {
 
 console.log(Square.area(10, 10)); // 100
 ```
+
 ```JS
 class Square {
   constructor(width, height) {
@@ -309,6 +308,7 @@ constructor의 내부 코드가 실행되어 this에 바인딩되어 있는 인�
 **3. 인스턴스 반환**
 
 클래스의 모든 처리가 끝나면 완성된 인스턴스가 바인딩된 this가 암묵적으로 반환된다.
+
 ```JS
 class Person {
   constructor(name) {
@@ -329,6 +329,7 @@ class Person {
 ### 7-1. 인스턴스 프로퍼티
 
 인스턴스 프로퍼티는 constructor 내부에서 정의해야 한다.
+
 ```JS
 class Person {
   constructor(name) {
@@ -344,6 +345,7 @@ console.log(me); // Person {name: 'Kim'}
 ### 7-2. 접근자 프로퍼티
 
 접근자 프로퍼티는 자체적으로 값을 갖지 않고 다른 데이터 프로퍼티의 값을 읽거나 저장할 때 사용하는 접근자 함수, 즉 getter 함수와 setter 함수로 구성되어 있다.
+
 ```JS
 class Person {
   constructor(firstName, lastName) {
@@ -380,6 +382,7 @@ console.log(me.fullName); // Dongchan Lee
 클래스 필드는 클래스 기반 객체지향 언어에서 클래스가 생성할 인스턴스의 프로퍼티를 가리키는 용어이다.
 
 자바스크립트는 클래스 몸체(class body)에는 메서드 만을 선언할 수 있지만 인스턴스 프로퍼티를 클래스 기반 객체지향 언어의 클래스 필드처럼 정의할 수 있는 새로운 표준 사양인 ["Class field declarations"](https://github.com/tc39/proposal-class-fields#field-declarations)가 [TC39 프로세스](https://tc39.es/process-document/)의 [stage3](https://github.com/tc39/proposals/blob/master/README.md)에 제안되어 있다.
+
 ```JS
 class Person {
   // 클래스 필드 정의
@@ -393,6 +396,7 @@ console.log(me); // Person {name: 'Kim'}
 클래스 필드를 정의하는 경우, this에 클래스 필드를 바인딩해서는 안된다. **this는 클래스의 constructor와 메서드 내에서만 유효하다.**
 
 클래스 필드를 참조하는 경우 this를 반드시 사용해야 한다.
+
 ```JS
 class Person {
   name = 'Kim';
@@ -405,6 +409,7 @@ class Person {
 ```
 
 함수는 일급객체이므로 함수를 클래스 필드에 할당할 수 있다. 이 경우 함수는 프로토타입 메서드가 아닌 인스턴스 메서드가 된다
+
 ```JS
 class Person {
   name = 'Kim';
@@ -426,6 +431,7 @@ console.log(me.getName()); // Kim
 [private 필드를 정의할 수 있는 새로운 표준 사양이 제안](https://github.com/tc39/proposal-class-fields#private-fields)되었다.
 
 private 필드의 선두에는 #을 붙여준다. 참조할 때도 #을 붙어주어야 한다.
+
 ```JS
 class Person {
   // private 필드 정의
@@ -451,6 +457,7 @@ private 필드는 반드시 클래스 몸체에 정의해야 한다.
 ### 7-5. static 필드 정의 제안
 
 static public 필드, static private 필드, static private 메서드를 정의할 수 있는 새로운 표준 사양인 ["Static clas features"](https://github.com/tc39/proposal-static-class-features) TC39 프로세스의 stage 3에 제안되어 있다.
+
 ```JS
 class MyMath {
   // static public 필드 정의
@@ -475,11 +482,7 @@ console.log(MyMath.increment()); // 11
 
 **상속에 의한 클래스 확장은 기존 클래스를 상속받아 새로운 클래스를 확장(extends)하여 정의하는 것이다.**
 
-![상속에 의한 클래스 확장](https://user-images.githubusercontent.com/67866773/101606820-269f5f80-3a47-11eb-962c-8f07d53e8469.PNG)
-
 아래 예시와 같이 Bird 클래스와 Lion 클래스는 상속을 통해 Animal 클래스의 속성을 그대로 사용하고 자신의 고유한 속성을 추가하여 확장할 수 있다. 이처럼 상속에 의한 클래스 확장은 코드 재사용 관점에서 매우 유용하다.
-
-![클래스 상속](https://user-images.githubusercontent.com/67866773/101606975-5fd7cf80-3a47-11eb-9ebe-e801e4ca9987.PNG)
 
 ```JS
 class Animal {
@@ -511,8 +514,6 @@ console.log(bird.fly()); // fly
 
 상속에 의해 확장된 클래스 Bird를 통해 생성된 인스턴스의 프로토타입 체인은 다음과 같다.
 
-![상속에 의해 확장된 클래스 Bird에 의해 생성된 인스턴스의 프로토타입 체인](https://user-images.githubusercontent.com/67866773/101607446-f7d5b900-3a47-11eb-93be-cdea03778e76.PNG)
-
 **클래스는 상속을 통해 다른 클래스를 확장할 수 있는 문법인 extends 키워드가 제공된다.**
 
 ### 8-2. extends 키워드
@@ -523,11 +524,10 @@ console.log(bird.fly()); // fly
 
 수퍼클래스와 서브클래스는 인스턴스의 프로토타입 체인 뿐 아니라, 클래스 간의 프로토타입 체인도 생성한다. 이를 통해 프로토타입 메서드, 정적 메서드 모두 상속이 가능하다.
 
-![extends 키워드](https://user-images.githubusercontent.com/67866773/101633246-56ac2a00-3a6a-11eb-8383-560e186fa1d1.PNG)
-
 ### 8-3. 동적 상속
 
 extends 키워드는 클래스 뿐만 아니라 생성자 함수를 상속받아 클래스를 확장할 수도 있다. 단, extends 키워드 앞에는 반드시 클래스가 와야한다.
+
 ```JS
 function Base(a) {
   this.a = a;
@@ -542,6 +542,7 @@ console.log(derived); // Derived {a: 1}
 ### 8-4. 서브클래스의 constructor
 
 서브클래스에서 constructor를 생략하면 클래스에 다음과 같은 constructor가 암묵적으로 정의된다. args는 new 연산자와 함께 클래스를 호출할 때 전달한 인수의 리스트다.
+
 ```JS
 constructor(...args) { super(...args); }
 ```
@@ -551,6 +552,7 @@ super()는 수퍼클래스의 constructor를 호출하여 인스턴스를 생성
 ### 8-5. super 키워드
 
 super 키워드는 함수처럼 호출할 수도 있고 this와 같이 식별자처럼 참조할 수 있는 특수한 키워드다.
+
 - super를 호출하면 수퍼클래스의 constructor를 호출한다
 - super를 참조하면 수퍼클래스의 메서드를 호출할 수 있다
 
@@ -574,6 +576,7 @@ console.log(derived); // Derived {a: 1, b: 2}
 ```
 
 다음과 같이 수퍼클래에서 추가한 프로퍼티와 서브클래스에서 추가한 프로퍼티를 갖는 인스턴스를 생성한다면 서브클래스의 constructor를 생략할 수 없다.
+
 ```JS
 class Base {
   constructor(a, b) {
@@ -594,6 +597,7 @@ console.log(derived); // Derived {a: 1, b: 2, c: 3}
 ```
 
 **1. 서브클래스에서 constructor를 생략하지 않는 경우 서브클래스의 constructor에서는 반드시 super를 호출해야 한다**
+
 ```JS
 class Base{}
 
@@ -608,6 +612,7 @@ const derived = new Derived();
 ```
 
 **2. 서브클래스의 constructor에서 super를 호출하기 전에는 this를 참조할 수 없다**
+
 ```JS
 class Base {}
 
@@ -623,6 +628,7 @@ const derived = new Derived(1);
 ```
 
 **3. super는 반드시 서브클래스의 constructor에서만 호출한다. 서브클래스가 아닌 클래스의 constructor나 함수에서 super를 호출하면 에러가 발생한다**
+
 ```JS
 const Base {
   constructor() {
@@ -640,6 +646,7 @@ function Foo() {
 메서드 내에서 super를 참조하면 수퍼클래스의 메서드를 호출할 수 있다.
 
 **1. 서브클래스의 프로토타입 메서드 내에서 super.sayHi는 수퍼클래스의 프로토타입 메서드 sayHi를 가리킨다**
+
 ```JS
 class Base {
   constructor(name) {
@@ -663,6 +670,7 @@ console.log(derived.sayHi()); // Hi! Lee. how are you doing?
 ```
 
 **2. 서브클래스의 정적 메서드 내에서 super.sayHi 는 수퍼클래스의 정적 메서드 sayHi를 가리킨다**
+
 ```JS
 class Base {
   static sayHi() {
@@ -683,6 +691,7 @@ console.log(Derived.sayHi()); // Hi! how are you doing?
 ### 8-6. 상속 클래스의 인스턴스 생성 과정
 
 직사각형을 추상화한 Rectangle 클래스와 상속을 통해 Rectangle 클래스를 확장한 ColorRectangle 클래스를 정의해보자
+
 ```JS
 // 수퍼클래스
 class Rectangle {
@@ -723,10 +732,6 @@ console.log(colorRectangle.getArea()); // 8
 console.log(colorRectangle.toString()); // width = 2, height = 4, color = red
 ```
 
-ColorRectangle 클래스에 의해 생성된 인스턴스의 프로토타입 체인은 다음과 같다.
-
-![ColorRectangle 클래스에 의해 생성된 인스턴스의 프로토타입 체인](https://user-images.githubusercontent.com/67866773/101635349-316ceb00-3a6d-11eb-964b-440b1b7b0ef5.PNG)
-
 서브클래스 ColorRectangle이 new 연산자와 함께 호출되면 다음 과정을 통해 인스턴스를 생성한다.
 
 **1. 서브클래스의 super 호출**
@@ -758,3 +763,5 @@ super 호출 이후, 서브클래스의 constructor에 기술되어 있는 인�
 **6. 인스턴스 반환**
 
 클래스의 모든 처리가 끝나면 완성된 인스턴스가 바인딩된 this가 암묵적으로 반환된다.
+
+출처 : https://poiemaweb.com/

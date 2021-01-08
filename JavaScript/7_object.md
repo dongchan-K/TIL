@@ -12,15 +12,13 @@
 ```js
 var score = {
   //프로퍼티
-  num : 0, 
+  num: 0,
   //메서드
-  increase : function(){
+  increase: function () {
     this.num++;
-  }
-}
+  },
+};
 ```
-
-![프로퍼티](https://user-images.githubusercontent.com/67866773/91147934-eb755c80-e6f3-11ea-8ab6-2bad4e1e8957.png)
 
 ## 객체 리터럴
 
@@ -46,14 +44,14 @@ var person = {
 
 ```js
 var person = {
-  name: 'Kim'
+  name: "Kim",
 };
 
 // 마침표 표기법 프로퍼티 접근
 console.log(person.name); // Lee
 
 // 대괄호 표기법 프로퍼티 접근
-console.log(person['name']); // Lee
+console.log(person["name"]); // Lee
 ```
 
 ### 프로퍼티 값 갱신
@@ -64,12 +62,12 @@ console.log(person['name']); // Lee
 
 ```js
 var person = {
-  name: 'Lee'
+  name: "Lee",
 };
 // 프로퍼티 값 갱신
-person.name = 'Kim';
+person.name = "Kim";
 
-console.log(person);  // {name: "Kim"}
+console.log(person); // {name: "Kim"}
 ```
 
 ### 프로퍼티 동적 생성
@@ -80,7 +78,7 @@ console.log(person);  // {name: "Kim"}
 
 ```js
 var person = {
-  name: 'Lee'
+  name: "Lee",
 };
 // 프로퍼티 동적 생성
 person.age = 20;
@@ -96,7 +94,7 @@ console.log(person); // {name: "Lee", age: 20}
 
 ```js
 var person = {
-  name: 'Lee'
+  name: "Lee",
 };
 // name 프로퍼티 삭제
 delete person.name;
@@ -108,16 +106,16 @@ delete person.name;
 
 ```html
 <script>
-var guro = {
-  name: '김동찬',
-  age: 28,
-  academy: 'fast-campus',
-  class: 'front-end'
-};
-var x = prompt('기수를 입력하세요.');
-alert(
-  `${guro.name}씨(${guro.age})는${guro.academy}의 ${guro.class}의 ${x}기 입니다`
-);
+  var guro = {
+    name: "김동찬",
+    age: 28,
+    academy: "fast-campus",
+    class: "front-end",
+  };
+  var x = prompt("기수를 입력하세요.");
+  alert(
+    `${guro.name}씨(${guro.age})는${guro.academy}의 ${guro.class}의 ${x}기 입니다`
+  );
 </script>
 ```
 
@@ -131,13 +129,13 @@ alert(
 - 프로퍼티 키는 문자열이며(''는 생략되지만), 문자열이 아니라면 엔진이 암묵적으로 타입변환 한다
 - 프로퍼티 키가 식별자 네이밍을 준수한다면 .(마침표 표기법)과 [](대괄호 표기법) 둘 다 접근 가능하지만, 준수하지 않는다면 [](대괄호 표기법)만 접근 가능하다
 - 프로퍼티 키는 식별자 네이밍을 준수하는 것이 에러를 줄일 수 있다
-- 객체는 유사 배열이다 
+- 객체는 유사 배열이다
 - 유사배열 객체는 프로퍼티 키가 숫자 형식의 문자열을 갖고, length를 갖는다 -> 순회하기 위해 만들어졌다
 - 배열은 순서에 의미가 있다(인덱스로 값을 가져오기 때문) 하지만 객체는 순서에 의미가 없다(프로퍼티 키로 값을 가져오기 때문)
 - 존재하지 않는(선언되지 않은) 프로퍼티에 접근하면 undefined를 반환한다
 - 프로퍼티 삭제는 사용하지 않는다(삭제할 상황을 만드는 것 자체가 잘못되었기 때문)
 - ECMA Script 사양에 등록된 표준은 어떠한 환경이던(브라우저, Node.js 등...) 동일하게 지원한다
-- Web API는 Node.js 환경에서 지원되지 않는다 `alert` 등... 
+- Web API는 Node.js 환경에서 지원되지 않는다 `alert` 등...
 - `console.log` 같은 경우는 표준에 등재되어있지 않지만 Node.js 환경, 브라우저 환경 둘 다 출력되는 이유는 각각 API를 만들어 두었기 때문 -> 때문에 환경별로 출력결과가 다르다
 
-
+출처 : https://poiemaweb.com/

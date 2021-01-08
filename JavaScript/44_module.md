@@ -12,8 +12,6 @@
 
 **모듈 사용자는 모듈이 공개(export)한 자산 중 일부 또는 전체를 선택해 자신의 스코프 내로 불러들여 재사용할 수 있다. 이를 import라 한다.**
 
-![import와 export](https://user-images.githubusercontent.com/67866773/102681137-577b5380-4202-11eb-8a3f-66e23754d836.PNG)
-
 이처럼 모듈은 애플리케이션과 분리되어 존재하다가 필요에 따라 다른 모듈에 의해 재사용된다. 따라서 코드의 단위를 명확히 분리하여 애플리케이션을 구성할 수 있고, 재사용성이 좋아 개발 효율성과 유지보수성을 높일 수 있다.
 
 ## 2. 자바스크립트와 모듈
@@ -202,3 +200,5 @@ import square from './lib.mjs';
 
 console.log(square(3)); // 9
 ```
+
+출처 : https://poiemaweb.com/

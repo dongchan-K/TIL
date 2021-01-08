@@ -20,8 +20,6 @@ XMLHttpRequest는 HTTP 비동기 통신을 위한 메서드와 프로퍼티를 �
 
 Ajax의 등장은 이전의 전통적인 패러다임을 획기적으로 전환했다. **변경할 필요가 있는 부분만 한정적으로 렌더링하는 방식이 가능해졌다.**
 
-![Ajax](https://user-images.githubusercontent.com/67866773/103151869-58455400-47c5-11eb-8ba5-7beda3c81031.PNG)
-
 Ajax는 전통적인 방식과 비교했을 때 다음과 같은 장점이 있다.
 
 1. 변경할 부분을 갱신하는 데 필요한 데이터만 서버로부터 전송받기 때문에 불필요한 데이터 통신이 발생하지 않는다.
@@ -150,19 +148,11 @@ const xhr = new XMLHttpRequest();
 
 #### 3-2-1. XMLHttpRequest 객체의 프로토타입 프로퍼티
 
-![XMLHttpRequest 프로토타입 프로퍼티](https://user-images.githubusercontent.com/67866773/103152398-dbb57400-47ca-11eb-98bc-4458ef013f3a.PNG)
-
 #### 3-2-2. XMLHttpRequest 객체의 이벤트 핸들러 프로퍼티
-
-![XMLHttpRequest 이벤트 핸들러](https://user-images.githubusercontent.com/67866773/103152401-ea9c2680-47ca-11eb-82fd-61be15524c7e.PNG)
 
 #### 3-2-3. XMLHttpRequest 객체의 메서드
 
-![XMLHttpRequest 메서드](https://user-images.githubusercontent.com/67866773/103152402-ebcd5380-47ca-11eb-911c-5fad24e6537d.PNG)
-
 #### 3-2-4. XMLHttpRequest 객체의 정적 프로퍼티
-
-![XMLHttpRequest 정적 프로퍼티](https://user-images.githubusercontent.com/67866773/103152403-ec65ea00-47ca-11eb-91e1-ebe1ec30f8db.PNG)
 
 ### 3-3. HTTP 요청 전송
 
@@ -197,13 +187,9 @@ open 메서드를 호출하는 방법은 다음과 같다.
 xhr.open(method, url[, async])
 ```
 
-![HTTP 호출](https://user-images.githubusercontent.com/67866773/103152472-b07f5480-47cb-11eb-82c7-22dc9d281473.PNG)
-
 HTTP 요청 메서드는 클라이언트가 서버에게 요청의 종류와 목적(리소스에 대한 행위)을 알리는 방법이다.
 
 주로 5가지 요청 메서드(GET, POST, PUT, PATCH, DELETE 등)를 사용하여 CRUD를 구현한다.
-
-![HTTP 요청 메서드](https://user-images.githubusercontent.com/67866773/103152507-048a3900-47cc-11eb-81ae-ee839e0f62aa.PNG)
 
 **XMLHttpRequest.prototype.send**
 
@@ -231,8 +217,6 @@ setRequestHeader 메서드는 반드시 open 메서드를 호출한 이후에 �
 자주 사용하는 HTTP 요청 헤더인 Content-type에 대해 살펴보자.
 
 Content-type은 요청 몸체에 담아 전송할 데이터의 [MIME 타입](https://developer.mozilla.org/ko/docs/Web/HTTP/Basics_of_HTTP/MIME_types)의 정보를 표현한다. 자주 사용되는 MIME 타입은 다음과 같다.
-
-![MIME 타입](https://user-images.githubusercontent.com/67866773/103152580-c17c9580-47cc-11eb-803c-a171ad14c284.PNG)
 
 다음은 요청 몸체에 담아 서버로 전송할 페이로드의 MIME 타입을 지정하는 예다.
 
@@ -305,3 +289,5 @@ send 메서드를 통해 HTTP 요청을 서버에 전송하면 서버는 응답�
 onreadystatechange 이벤트 핸들러는 HTTP 요청의 현재 상태를 나타내는 xhr.readyState 가 XMLHttpRequest.DONE 인지 확인하여 서버의 응답이 완료되었는지 확인한다.
 
 서버의 응답이 완료되었다면 HTTP 요청에 대한 응답 상태([HTTP 상태 코드](https://developer.mozilla.org/ko/docs/Web/HTTP/Status))를 나타내는 xhr.status가 200인지 확인하여 정상 처리와 에러 처리를 구분한다.
+
+출처 : https://poiemaweb.com/

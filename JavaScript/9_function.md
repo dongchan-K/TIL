@@ -7,11 +7,6 @@
 - **함수 이름은 함수 몸체 내에서만 참조할 수 있는 식별자다**
 - **함수는 아래와 같이 구성된다. 함수 내부로 입력을 전달받는 변수를 매개변수(parameter), 입력을 인수(argument), 출력을 반환값(return value)이라 하며, 함수 몸체는 함수 호출(함수 이름이 아닌 암묵적으로 생성된 함수 객체를 가리키는 식별자를 호출)에 의해 실행되고 특정 함수를 구분하기 위해 식별자인 함수 이름을 사용할 수 있다**
 
-
-![함수의 구성 요소](https://user-images.githubusercontent.com/67866773/91276130-10350700-e7bc-11ea-89ab-6195e7c73674.png)
-
-- **함수 리터럴은 아래와 같이 구성된다. 함수 이름은 생략 가능하다**
-
 -> 함수 이름이 있는 함수를 기명 함수, 이름이 없는 함수를 익명 함수라 한다
 
 ```js
@@ -36,7 +31,7 @@ var add = function (x, y) {
   return x + y;
 };
 // function 생성자 함수
-var add = new Function('x', 'y', 'return x + y');
+var add = new Function("x", "y", "return x + y");
 // 화살표 함수(ES6)
 var add = (x, y) => x + y;
 ```
@@ -45,7 +40,7 @@ var add = (x, y) => x + y;
 
 - **함수 선언문은 함수 리터럴과 동일한 형태를 가지지만 선언문은 함수 이름을 생략할 수 없다**
 - **함수 선언문은 표현식이 아니기 때문에 변수에 할당할 수 없지만 자바스크립트 엔진이 함수 이름이 있는 함수 리터럴 표현식으로 해석해 변수에 할당할 수 있는 것처럼 보인다**
-- **자바스크립트 엔진은 생성된 함수를 호출하기 위해 함수 이름과 동일한 이름의 함수 객체를 가리키는 식별자를 암묵적으로 생성한다** 
+- **자바스크립트 엔진은 생성된 함수를 호출하기 위해 함수 이름과 동일한 이름의 함수 객체를 가리키는 식별자를 암묵적으로 생성한다**
 
 -> 이와 같이 자바스크립트 엔진이 해석하는 방식, 암묵적인 동작을 예측하고 이해하는 것이 중요하다
 
@@ -53,7 +48,7 @@ var add = (x, y) => x + y;
 
 ```js
 // 함수 선언문 이지만 동시에 이름이 있는 함수 리터럴 표현식으로 해석될 수 있다 때문에 값으로 평가될 수 있기 때문에 변수에 할당이 가능하다
-var add = function add(x,y){
+var add = function add(x, y) {
   return x + y;
 };
 
@@ -98,11 +93,9 @@ var sub = function (x, y) {
 **생성자 함수 예시**
 
 ```js
-var add = new Function('x', 'y', 'return x + y');
+var add = new Function("x", "y", "return x + y");
 console.log(add(2, 5)); // 7
 ```
-
-
 
 **4. 화살표 함수**
 
@@ -126,8 +119,6 @@ console.log(add(2, 5)); // 7
 
 **아래 예시를 통해 전달 과정을 자세히 살펴볼 수 있다**
 
-![매개변수와 인수](https://user-images.githubusercontent.com/67866773/91322161-5d37ce00-e7fa-11ea-801e-8544901e0f89.png)
-
 **2. 인수 확인**
 
 - **i. 함수는 매개변수와 인수의 개수가 일치하는지 확인하지 않는다.** 때문에 인수의 개수가 부족하면 undefined, 인수의 개수가 많으면 arguments 객체에 저장되어 있다
@@ -138,16 +129,16 @@ console.log(add(2, 5)); // 7
 
 ```js
 function add(x, y) {
-  if (typeof x !== 'number' || typeof y !== 'number') {
+  if (typeof x !== "number" || typeof y !== "number") {
     // 매개변수를 통해 전달된 인수의 타입이 부적절한 경우 에러를 발생시킨다.
-    throw new TypeError('인수는 모두 숫자 값이어야 합니다.');
+    throw new TypeError("인수는 모두 숫자 값이어야 합니다.");
   }
   return x + y;
 }
 // x의 인수는 2 , y의 인수는 undefined(true) 이므로 if문을 실행
 console.log(add(2)); // TypeError: 인수는 모두 숫자 값이어야 합니다.
 // x의 인수는 'a'(true) , y의 인수는 'b'(true) 이므로 if문을 실행
-console.log(add('a', 'b')); // TypeError: 인수는 모두 숫자 값이어야 합니다.
+console.log(add("a", "b")); // TypeError: 인수는 모두 숫자 값이어야 합니다.
 ```
 
 **3. 매개변수의 최대 개수**
@@ -186,12 +177,12 @@ console.log(result); // 3
 // 매개변수 primitive는 원시값을 전달받고, 매개변수 obj는 객체를 전달받는다.
 function changeVal(primitive, obj) {
   primitive += 100;
-  obj.name = 'Kim';
+  obj.name = "Kim";
 }
 
 // 외부 상태
 var num = 100;
-var person = { name: 'Lee' };
+var person = { name: "Lee" };
 
 console.log(num); // 100
 console.log(person); // {name: "Lee"}
@@ -205,8 +196,6 @@ console.log(num); // 100
 // 객체는 원본이 훼손된다.
 console.log(person); // {name: "Kim"}
 ```
-
-![값에 의한 호출과 참조에 의한 호출](https://user-images.githubusercontent.com/67866773/91329867-a5a7b980-e803-11ea-8876-a9309e15c142.png)
 
 - **결론적으로 매개변수를 통해 전달받은 인수의 타입이 원시타입일 경우 원본값을 그대로 받기 때문에 변경 불가능한 값이지만, 인수의 타입이 객체일 경우 참조값을 받기 때문에 변경이 가능해져 부작용을 일으킬 수 있으므로 항상 주의해야 한다**
 
@@ -238,14 +227,14 @@ var res = (function () {
   var a = 3;
   var b = 5;
   return a * b;
-}());
+})();
 
 console.log(res); // 15
 
 // 즉시 실행 함수에도 일반 함수처럼 인수를 전달할 수 있다.
 res = (function (a, b) {
   return a * b;
-}(3, 5));
+})(3, 5);
 
 console.log(res); // 15
 ```
@@ -365,7 +354,7 @@ console.log(count); // 2
 
 ## 강의 내용 요약
 
-- 함수는 밖에서 안으로 값(입력)을 받아 다시 안에서 밖으로 내보내는(출력) 일련의 과정이다 
+- 함수는 밖에서 안으로 값(입력)을 받아 다시 안에서 밖으로 내보내는(출력) 일련의 과정이다
 - 함수 밖에서 함수 안으로 들어올 때 매개역할을 하는 것이 매개변수(인자, parameter)이다. 매개변수는 함수 밖에 있는 값(인수, argument)을 함수 안으로 받아들인다
 - 매개변수를 몇 개 선언해야 할 지 모를경우 선언하지 않는다
 - 매개변수는 최소0개 이상을 갖는다. 매개변수는 적을수록 에러를 줄일 수 있다
@@ -375,18 +364,18 @@ console.log(count); // 2
 - 인수가 할당되지 않은 매개변수는 undefined를 갖는다
 - 인수는 함수 안에서 일련의 과정을 수행하기 위한 재료? 라고 볼 수 있다
 - 함수 이름은 함수 몸체에서만 참조할 수 있는 식별자이다
-- 함수 리터럴은 함수 이름을 생략 가능하지만, 함수 선언문은 함수 이름을 생략할 수 없다 
+- 함수 리터럴은 함수 이름을 생략 가능하지만, 함수 선언문은 함수 이름을 생략할 수 없다
 - 함수 정의
   - 함수 선언문 : 표현식이 아닌 문, 함수 호이스팅이 발생, 함수는 런타임 이전에 생성, 함수 정의 이전에 호출 가능
   ```js
   function add(x, y) {
-  return x + y;
+    return x + y;
   }
   ```
   - 함수 표현식 : 표현식인 문, 변수 호이스팅이 발생, 함수는 런타임에 생성, 함수 정의 이후에 호출 가능
   ```js
   var add = function (x, y) {
-  return x + y;
+    return x + y;
   };
   ```
 - 함수 표현식은 함수 이름을 쓸 필요가 없다(스코프 체인에 의해서 식별자 이름으로 함수 몸체에서 호출 가능하기 때문)
@@ -404,20 +393,4 @@ console.log(count); // 2
 - 순수 함수는 외부 상태에 영향을 받거나 주지 않고, 비순수 함수는 외부 상태에 영향을 받거나 주는 함수이다
 - 부수 효과(side effect)를 일으키지 않는 순수 함수를 지향할 것
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+출처 : https://poiemaweb.com/

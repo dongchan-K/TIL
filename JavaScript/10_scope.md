@@ -5,10 +5,10 @@
 **함수 스코프(유효범위) 예시**
 
 ```js
-var x = 'global';
+var x = "global";
 
 function foo() {
-  var x = 'local';
+  var x = "local";
   console.log(x); // -> 'local'을 출력한다. 전역 변수인 'global'을 참조하지만 함수 몸체 내부에서 'local'이 재선언 되었기 때문
 }
 
@@ -35,7 +35,7 @@ function bar() {
   let x = 1;
   // let이나 const 키워드로 선언된 변수는 같은 스코프 내에서 중복 선언을 허용하지 않는다.
   const y = 4;
-  let x = 2; 
+  let x = 2;
   // SyntaxError: Identifier 'x', 'y' has already been declared
 }
 bar(); // 함수 호출
@@ -46,10 +46,6 @@ bar(); // 함수 호출
 - **스코프는 코드의 가장 바깥 영역에 위치한 전역 스코프와 함수 몸체 내부에 위치한 지역 스코프로 구분한다 (함수 레벨 스코프의 경우)**
 - **전역 스코프를 갖는 전역 변수는 어디서든 참조 가능하다**
 - **지역 스코프를 갖는 지역 변수는 자신의 지역 스코프와 하위 지역 스코프에서만 참조 가능하다**
-
-**전역 스코프와 지역 스코프 예시 이미지**
-
-<img width="596" alt="전역 스코프와 지역 스코프" src="https://user-images.githubusercontent.com/67866773/91412601-fa3f4900-e884-11ea-8946-16f263e746c3.png">
 
 ## 스코프 체인
 
@@ -70,7 +66,7 @@ function foo() {
 
     function campus() {
       var z = 3;
-      console.log(x); // 1 
+      console.log(x); // 1
       console.log(y); // 2
     }
     campus();
@@ -88,16 +84,16 @@ foo();
 
 ```js
 var x = 1;
-if(true){
+if (true) {
   x = 2; // 블록 레벨 지역 스코프로 변수가 선언되었기 때문에 재할당이 이루어진다
 }
 console.log(x); // 2
 
 var x = 2;
-function foo(){
+function foo() {
   var x = 5; // 함수 레벨 지역 스코프로 변수가 선언되었기 때문에 전역에서 참조되지 않는다
 }
-foo()
+foo();
 console.log(x); // 2
 ```
 
@@ -118,7 +114,7 @@ function bar() {
 }
 
 foo(); // 1 -> 전역 변수인 var x = 1 만 참조 가능 bar() 가 호출된 위치는 foo 함수 내부이지만 정의된 위치는 전역이기 때문에 var x = 10 을 참조할 수 없다
-bar(); // 1 -> 전역 변수인 var x = 1 만 참조 가능 
+bar(); // 1 -> 전역 변수인 var x = 1 만 참조 가능
 ```
 
 ## 강의 내용 요약
@@ -132,4 +128,4 @@ bar(); // 1 -> 전역 변수인 var x = 1 만 참조 가능
 - 함수 스코프는 함수 호출에 의해 생성되고 함수가 종료되면 가비지 컬렉터에 의해 메모리 해제 된다
 - 전역 코드는 자바스크립트 코드가 로드 되어지자마자 실행된다(전역 스코프에 등록된다)
 
-
+출처 : https://poiemaweb.com/

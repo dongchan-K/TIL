@@ -15,32 +15,39 @@
 이벤트 타입(event type)은 이벤트의 종류를 나타내는 문자열이다
 
 - 마우스 이벤트
+
   - click : 마우스 버튼을 클릭했을 때 이벤트 발생
   - mousedown : 마우스 버튼을 눌렀을 때 이벤트 발생
   - mouseup : 누르고 있던 마우스 버튼을 놓았을 때 이벤트 발생
   - mousemove : 마우스 커서를 움직였을 때 이벤트 발생
 
 - 키보드 이벤트
+
   - keydown : 모든 키를 눌렀을 때 이벤트 발생
   - keypress : 문자 키를 눌렀을 때 연속적으로 이벤트 발생
   - keyup : 누르고 있던 키를 놓았을 때 한 번만 이벤트 발생
 
 - 포커스 이벤트
+
   - focus : HTML 요소가 포커스를 받았을 때 이벤트 발생
   - blur : HTML 요소가 포커스를 잃었을 때 이벤트 발생
 
 - 폼 이벤트
+
   - submit : form 요소 내의 submit 버튼을 클릭했을 때 이벤트 발생
   - reset : form 요소 내의 reset 버튼을 클릭했을 때 이벤트 발생
 
 - 값 변경 이벤트
+
   - input : input, select, textarea 요소의 값이 입력되었을 때 이벤트 발생
-  - change : input, select, textarea 요소의 입력이 종료되어 값이 변경되면  이벤트 발생
+  - change : input, select, textarea 요소의 입력이 종료되어 값이 변경되면 이벤트 발생
 
 - DOM 뮤테이션 이벤트
+
   - DOMContentLoaded : HTML 문서의 로드와 파싱이 완료되어 DOM 생성이 완료되었을 때 이벤트 발생
 
 - 뷰 이벤트
+
   - resize : 브라우저 윈도우(window)의 크기를 리사이즈 할 때 연속적으로 이벤트 발생
   - scroll : 웹페이지(document) 또는 HTML 요소를 스크롤 할 때 연속적으로 이벤트 발생
 
@@ -79,37 +86,34 @@ window 객체와 Document, HTMLElement 타입의 DOM 노드 객체는 이벤트�
 
 **이벤트 핸들러(event handler) : 이벤트가 발생했을 때 호출될 함수**
 
-![이벤트 핸들러 프로퍼티 방식](https://user-images.githubusercontent.com/67866773/97290745-5413bd80-188c-11eb-8842-004ca583c3af.png)
-
 이벤트 핸들러 프로퍼티 방식은 하나의 이벤트에 하나의 이벤트 핸들러만 바인딩 할 수 있다는 단점이 있다
 
 **사용 예시**
+
 ```html
 <!DOCTYPE html>
 <html>
-<body>
-  <button>Click me!</button>
-  <script>
-    const $button = document.querySelector('button');
+  <body>
+    <button>Click me!</button>
+    <script>
+      const $button = document.querySelector("button");
 
-    // 이벤트 핸들러 프로퍼티 방식은 하나의 이벤트에 하나의 이벤트 핸들러만 바인딩할 수 있다.
-    // 첫 번째로 바인딩된 이벤트 핸들러는 두 번째 바인딩된 이벤트 핸들러에 의해 재할당되어 실행되지 않는다.
-    $button.onclick = function () {
-      console.log('Button clicked 1');
-    };
+      // 이벤트 핸들러 프로퍼티 방식은 하나의 이벤트에 하나의 이벤트 핸들러만 바인딩할 수 있다.
+      // 첫 번째로 바인딩된 이벤트 핸들러는 두 번째 바인딩된 이벤트 핸들러에 의해 재할당되어 실행되지 않는다.
+      $button.onclick = function () {
+        console.log("Button clicked 1");
+      };
 
-    // 두 번째로 바인딩된 이벤트 핸들러
-    $button.onclick = function () {
-      console.log('Button clicked 2');
-    };
-  </script>
-</body>
+      // 두 번째로 바인딩된 이벤트 핸들러
+      $button.onclick = function () {
+        console.log("Button clicked 2");
+      };
+    </script>
+  </body>
 </html>
 ```
 
 ### 3-3. addEventListener 메서드 방식
-
-<img width="880" alt="addEventListner 메서드 방식" src="https://user-images.githubusercontent.com/67866773/97291776-b3be9880-188d-11eb-9b30-82b573c665fc.png">
 
 첫 번째 매개변수에 이벤트의 종류를 나타내는 문자열인 이벤트 타입을 전달할 때 on 접두사를 붙이지 않는다
 
@@ -120,19 +124,20 @@ addEventListener 메서드는 하나 이상의 이벤트 핸들러를 등록할 
 단, 참조가 동일한 이벤트 핸들러를 중복 등록하면 하나의 이벤트 핸들러만 등록된다
 
 **사용 예시**
+
 ```html
 <!DOCTYPE html>
 <html>
-<body>
-  <button>Click me!</button>
-  <script>
-    const $button = document.querySelector('button');
+  <body>
+    <button>Click me!</button>
+    <script>
+      const $button = document.querySelector("button");
 
-    $button.addEventListener('click', function () {
-      console.log('button click');
-    });
-  </script>
-</body>
+      $button.addEventListener("click", function () {
+        console.log("button click");
+      });
+    </script>
+  </body>
 </html>
 ```
 
@@ -153,23 +158,24 @@ addEventListener 메서드로 등록한 이벤트 핸들러를 제거하려면 E
 **이벤트가 발생하면 이벤트에 관련한 정보를 담고 있는 이벤트 객체가 동적으로 생성되고 생성된 이벤트 객체는 이벤트 핸들러의 첫 번째 인수로 전달된다**
 
 **예시**
+
 ```html
 <!DOCTYPE html>
 <html>
-<body>
-  <p>클릭하세요. 클릭한 곳의 좌표가 표시됩니다.</p>
-  <em class="message"></em>
-  <script>
-    const $msg = document.querySelector('.message');
+  <body>
+    <p>클릭하세요. 클릭한 곳의 좌표가 표시됩니다.</p>
+    <em class="message"></em>
+    <script>
+      const $msg = document.querySelector(".message");
 
-    // 클릭 이벤트에 의해 생성된 이벤트 객체는 이벤트 핸들러의 첫 번째 인수로 전달된다.
-    function showCoords(e) {
-      $msg.textContent = `clientX: ${e.clientX}, clientY: ${e.clientY}`;
-    }
+      // 클릭 이벤트에 의해 생성된 이벤트 객체는 이벤트 핸들러의 첫 번째 인수로 전달된다.
+      function showCoords(e) {
+        $msg.textContent = `clientX: ${e.clientX}, clientY: ${e.clientY}`;
+      }
 
-    document.onclick = showCoords;
-  </script>
-</body>
+      document.onclick = showCoords;
+    </script>
+  </body>
 </html>
 ```
 
@@ -177,16 +183,10 @@ addEventListener 메서드로 등록한 이벤트 핸들러를 제거하려면 E
 
 ### 5-1. 이벤트 객체의 상속 구조
 
-이벤트 객체는 다음과 같은 상속 구조를 갖는다
-
-![이벤트 객체의 상속 구조](https://user-images.githubusercontent.com/67866773/97294314-2b41f700-1891-11eb-8f12-ea24de826b69.png)
-
 위 이미지의 Event, UIEvent, MouseEvent 등 모두는 생성자 함수이기 떄문에 생성자 함수를 호출하여 이벤트 객체를 생성할 수 있다
 
 예를 들어, click 이벤트가 발생하면 암묵적으로 생성되는 MouseEvent 타입의 이벤트 객체는 다음과 같은 프로토타입 체인의 일원이 된다
 
-![click 이벤트에 의해 생성된 이벤트 객체의 프로토타입 체인](https://user-images.githubusercontent.com/67866773/97294686-ac998980-1891-11eb-865c-73f8d40e0aad.png)
-
 이벤트 객체의 프로퍼티는 발생한 이벤트의 타입에 따라 달라진다
 
-
+출처 : https://poiemaweb.com/

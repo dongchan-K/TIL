@@ -61,9 +61,7 @@ function() {}
 /[A-Z]+/g
 ```
 
-![리터럴과 값](https://user-images.githubusercontent.com/67866773/91010267-2b1d4500-e61d-11ea-978a-bb32faf3bf99.png)
-
-- 위와 같이 자바스크립트 엔진은 코드가 실행되는 시점인 런타임(runtime)에 리터럴을 평가해 값을 생성한다
+- 자바스크립트 엔진은 코드가 실행되는 시점인 런타임(runtime)에 리터럴을 평가해 값을 생성한다
 
 ## 표현식
 
@@ -71,22 +69,22 @@ function() {}
 
 ```js
 // 리터럴 표현식
-10
-'Hello'
+10;
+("Hello");
 
 // 식별자 표현식(선언이 이미 존재한다고 가정)
-sum
-person.name
-arr[1]
+sum;
+person.name;
+arr[1];
 
 // 연산자 표현식
-10 + 20
-sum = 10
-sum !== 10
+10 + 20;
+sum = 10;
+sum !== 10;
 
 // 함수/메서드 호출 표현식(선언이 이미 존재한다고 가정)
-square()
-person.getName()
+square();
+person.getName();
 ```
 
 - 표현식은 값으로 평가된다. 따라서 표현식은 값처럼 사용할 수 있다. 이것은 문법적으로 값이 위치할 수 있는 자리에는 표현식도 위치할 수 있다는 것을 의미한다
@@ -99,8 +97,6 @@ person.getName()
 
   - **토큰(token)** : 문법적인 의미를 가지며, 문법적으로 더 이상 나눌 수 없는 코드의 기본 요소를 의미한다
 
-![문과 토큰](https://user-images.githubusercontent.com/67866773/91011387-31142580-e61f-11ea-8794-8255c4abe324.png)
-
 ```js
 // 변수 선언문
 var x;
@@ -109,13 +105,17 @@ var x;
 x = 5;
 
 // 함수 선언문
-function foo () {}
+function foo() {}
 
 // 조건문
-if (x > 1) { console.log(x); }
+if (x > 1) {
+  console.log(x);
+}
 
 // 반복문
-for (var i = 0; i < 2; i++) { console.log(i); }
+for (var i = 0; i < 2; i++) {
+  console.log(i);
+}
 ```
 
 ## 표현식인 문과 표현식이 아닌 문
@@ -146,7 +146,7 @@ x = 100;
 
 ```js
 // 표현식인 문은 값처럼 사용할 수 있다
-var foo = x = 100;
+var foo = (x = 100);
 console.log(foo); // 100
 ```
 
@@ -154,8 +154,9 @@ console.log(foo); // 100
 
 **완료 값** : 개발자 도구에서 표현식이 아닌 문을 실행하면 언제나 `undefined`를 출력한다. 이를 완료 값이라 한다
 
-![완료 값](https://user-images.githubusercontent.com/67866773/91011962-3887fe80-e620-11ea-8ee0-959f555a9411.png)
-
 ## 요약
+
 - 메모리 공간에는 '값'만 저장할 수 있다
 - ';(세미콜론)'은 문(실행 가능한 최소 단위)의 끝맺음을 컴퓨터에게 알려줌으로써 런타임 시점의 실행 단위를 구분하게 한다
+
+출처 : https://poiemaweb.com/

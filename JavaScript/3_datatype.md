@@ -6,7 +6,7 @@
 
 ## 원시 타입
 
-**1. 숫자(number)타입** :  정수와 실수 구분 없이 하나의 숫자 타입만 존재
+**1. 숫자(number)타입** : 정수와 실수 구분 없이 하나의 숫자 타입만 존재
 
 ```js
 var integer = 10; //정수
@@ -14,24 +14,26 @@ var double = 10.12; // 실수
 var negative = -20; // 음수
 ```
 
-  - 숫자 타입은 추가적으로 세 가지 특별한 값도 표현할 수 있다
+- 숫자 타입은 추가적으로 세 가지 특별한 값도 표현할 수 있다
 
-    - Infinity : 양의 무한대
-    - -Infinity : 음의 무한대
-    - NaN : 산술 연산 불가
+  - Infinity : 양의 무한대
+  - -Infinity : 음의 무한대
+  - NaN : 산술 연산 불가
 
 **2. 문자열(string)타입** : 문자열
-  -  문자열은 ''(작은 따옴표), ""(큰 따옴표), ``(백틱)으로 텍스트를 감싼다
+
+- 문자열은 ''(작은 따옴표), ""(큰 따옴표), ``(백틱)으로 텍스트를 감싼다
 
 ```js
 var string;
-string = '문자열'; // 작은 따옴표
+string = "문자열"; // 작은 따옴표
 string = "문자열"; // 큰 따옴표
 string = `문자열`; // 백틱 (ES6)
 ```
 
 **3. 불리언(boolean)타입** : 논리적 참(true)과 거짓(false)
-  - 불리언 타입의 값은 true, false 뿐이며, 조건문에서 자주 사용한다
+
+- 불리언 타입의 값은 true, false 뿐이며, 조건문에서 자주 사용한다
 
 ```js
 var foo = true;
@@ -42,8 +44,9 @@ console.log(foo); // false
 ```
 
 **4. undefined 타입** : `var` 키워드로 선언된 변수에 암묵적으로 할당되는 값
-  - undefined 타입의 값은 undefined가 유일하다
-  - undefined 값은 개발자가 의도적으로 할당하기 위한 값이 아니라 자바스크립트 엔진이 변수를 초기화할때 사용하는 값이다
+
+- undefined 타입의 값은 undefined가 유일하다
+- undefined 값은 개발자가 의도적으로 할당하기 위한 값이 아니라 자바스크립트 엔진이 변수를 초기화할때 사용하는 값이다
 
 ```js
 var foo;
@@ -51,15 +54,17 @@ console.log(foo); //undefined
 ```
 
 **5. null 타입** : 값이 없다는 것을 의도적으로 명시할 때 사용하는 값
-  - null 타입의 값은 null이 유일하다
-  - 변수에 값이 없다는 것을 명시하고 싶을 때 할당 가능하다
+
+- null 타입의 값은 null이 유일하다
+- 변수에 값이 없다는 것을 명시하고 싶을 때 할당 가능하다
 
 **6. symbol 타입** : ES6에 추가된 7번째 타입
-  - 심벌 값은 다른 값과 중복되지 않는 유일무이한 값이다. 따라서 주로 이름이 충돌할 위험이 없는 객체의 유일한 프로퍼티 키를 만들기 위해 사용한다
-  - 심벌 이외의 원시값은 리터럴을 통해 생성하지만 심벌은 `Symbol()`함수를 호출해 생성한다
+
+- 심벌 값은 다른 값과 중복되지 않는 유일무이한 값이다. 따라서 주로 이름이 충돌할 위험이 없는 객체의 유일한 프로퍼티 키를 만들기 위해 사용한다
+- 심벌 이외의 원시값은 리터럴을 통해 생성하지만 심벌은 `Symbol()`함수를 호출해 생성한다
 
 ```js
-var key = Symbol('key');
+var key = Symbol("key");
 console.log(typeof key); // symbol
 ```
 
@@ -74,14 +79,14 @@ console.log(typeof key); // symbol
 - ### 멀티라인 문자열
 
   - 일반적인 문자열 내에서는 줄바꿈(개행)이 허용되지 않는다. 따라서 일반 문자열 내에서 줄바꿈 등의 공백을 표현하려면 |(백슬래시)로 시작하는 이스케이프 시퀀스(escape sequence)를 사용해야 한다
-  
+
   - 템플릿 리터럴 내에서는 이스케이프 시퀀스를 사용하지 않고도 줄바꿈이 허용되며, 모든 공백도 있는 그대로 적용된다
 
   **예시**
 
   ```js
   var str = 'Hello
-  world.'; 
+  world.';
   // 개행 불가 SyntaxError : Invalid or unexpected token
 
   var templet = `Hello
@@ -96,10 +101,10 @@ console.log(typeof key); // symbol
   **예시**
 
   ```js
-  var first = 'Dong-chan';
-  var last = 'Kim';
+  var first = "Dong-chan";
+  var last = "Kim";
   // ES5 : 문자열 연결
-  console.log('My name is' + first + ' ' + last + '.');
+  console.log("My name is" + first + " " + last + ".");
   // My name is Dong-chan Kim.
 
   // ES6 : 표현식 삽입
@@ -115,7 +120,7 @@ console.log(typeof key); // symbol
 
   ```js
   console.log(`1 + 2 = ${1 + 2}`); // 1 + 2 = 3
-  console.log('1 + 2 = ${1 + 2}'); // 1 + 2 = ${1 + 2}
+  console.log("1 + 2 = ${1 + 2}"); // 1 + 2 = ${1 + 2}
   ```
 
 ## 데이터 타입의 필요성
@@ -141,12 +146,9 @@ console.log(typeof key); // symbol
   - 변수 이름은 목적이나 의미를 파악할 수 있도록 네이밍할 것
 
 ## 요약
+
 - 원시 타입은 불변성의 특성을 갖는다
 - 데이터 타입은 값을 저장할 때 확보할 메모리 공간의 크기를 정하기 위해, 값을 참조할 때 읽어 들여야 할 메모리 공간의 크기를 정하기 위해, 메모리에서 읽어 들인 2진수를 어떻게 해석할지 결정하기 위해 필요하다
 - 동적 타입 언어는 타입 선언 측면에서 배우기 쉽지만 타입 변경에 유의해야 하며, 런타임 시점에 타입이 결정되기 때문에 메모리 관점에서 정적 타입 언어보다 불리하다
 
-
-
-
-
-
+출처 : https://poiemaweb.com/

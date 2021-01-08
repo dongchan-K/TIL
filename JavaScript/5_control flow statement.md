@@ -20,96 +20,96 @@
 
 **조건문(conditional statement)** 은 주어진 조건식의 평가 결과에 따라 코드 블록(블록문)을 실행을 결정한다. 조건식은 불리언 값으로 평가될 수 있는 표현식이다
 
-  ### if...else문
+### if...else문
 
-  - `if..else` 문은 조건식의 평가 결과가 true일 경우 `if` 문을 실행하고 false일 경우 `else` 문을 실행한다
-  - `else if` 문은 여러번 사용할 수 있다
-  - `else if` 문과 `else` 문은 사용 여부를 선택할 수 있다
-  - 대부분의 `if..else` 문은 삼항 조건 연산자로 바꿔 쓸 수 있다
+- `if..else` 문은 조건식의 평가 결과가 true일 경우 `if` 문을 실행하고 false일 경우 `else` 문을 실행한다
+- `else if` 문은 여러번 사용할 수 있다
+- `else if` 문과 `else` 문은 사용 여부를 선택할 수 있다
+- 대부분의 `if..else` 문은 삼항 조건 연산자로 바꿔 쓸 수 있다
 
-  **사용 예시**
+**사용 예시**
 
-  ```js
-  if(조건식1){
-    // 조건식1이 참이면 이 코드 블록이 실행된다
-  }else if(조건식2){
-    // 조건식2가 참이면 이 코드 블록이 실행된다
-  }else{
-    // 조건식1과 조건식2가 모두 거짓이면 이 코드 블록이 실행된다
-  }
-  ```
+```js
+if (조건식1) {
+  // 조건식1이 참이면 이 코드 블록이 실행된다
+} else if (조건식2) {
+  // 조건식2가 참이면 이 코드 블록이 실행된다
+} else {
+  // 조건식1과 조건식2가 모두 거짓이면 이 코드 블록이 실행된다
+}
+```
 
-  ### switch 문
+### switch 문
 
-  - `switch` 문은 표현식을 평가하여 일치하는 표현식을 갖는 `case` 문으로 실행 흐름을 옮긴다
-  - `switch` 문의 표현식과 일치하는 `case` 문이 없다면 실행 순서는 default 문으로 이동한다
-  - `default` 문은 사용 여부를 선택할 수 있고 `break` 문을 생략 가능하다
-  - **폴스루(fall through)** : `break`문을 생략해서 `switch` 문의 표현식과 일치하는 `case` 문의 표현식이 있어도 이후의 모든 `case` 문과 `default` 문을 실행하는 현상
-  - 폴스루를 활용해 여러 개의 `case` 문을 하나의 조건으로 사용도 가능하다
+- `switch` 문은 표현식을 평가하여 일치하는 표현식을 갖는 `case` 문으로 실행 흐름을 옮긴다
+- `switch` 문의 표현식과 일치하는 `case` 문이 없다면 실행 순서는 default 문으로 이동한다
+- `default` 문은 사용 여부를 선택할 수 있고 `break` 문을 생략 가능하다
+- **폴스루(fall through)** : `break`문을 생략해서 `switch` 문의 표현식과 일치하는 `case` 문의 표현식이 있어도 이후의 모든 `case` 문과 `default` 문을 실행하는 현상
+- 폴스루를 활용해 여러 개의 `case` 문을 하나의 조건으로 사용도 가능하다
 
-  **사용 예시**
+**사용 예시**
 
-  ```js
-  switch(표현식){
-    case 표현식1:
-      switch 문의 표현식과 표현식1이 일치하면 실행될 문;
-      break; // 표현식1이 일치하면 코드블록에서 탈출
-    case 표현식2:
-      switch 문의 표현식과 표현식2가 일치하면 실행될 문;
-      break; // 표현식2가 일치하면 코드블록에서 탈출
-    default:
-      switch 문의 표현식과 일치하는 case 문이 없을 때 실행될 문;
-  }
-  ```
+```js
+switch(표현식){
+  case 표현식1:
+    switch 문의 표현식과 표현식1이 일치하면 실행될 문;
+    break; // 표현식1이 일치하면 코드블록에서 탈출
+  case 표현식2:
+    switch 문의 표현식과 표현식2가 일치하면 실행될 문;
+    break; // 표현식2가 일치하면 코드블록에서 탈출
+  default:
+    switch 문의 표현식과 일치하는 case 문이 없을 때 실행될 문;
+}
+```
 
 ## 3. 반복문
 
 **반복문(loop statement)** 은 조건식의 평가 결과가 참인 경우 코드 블록을 실행하고 조건식이 거짓일때까지 반복된다
 
-  ### for 문
+### for 문
 
-  - `for` 문은 조건식이 거짓일때까지 코드 블록을 반복한다
-  - `for` 문에 어떤 식도 선언하지 않으면 무한루프가 된다 `for(;;) {...}`
+- `for` 문은 조건식이 거짓일때까지 코드 블록을 반복한다
+- `for` 문에 어떤 식도 선언하지 않으면 무한루프가 된다 `for(;;) {...}`
 
-  **사용 예시**
+**사용 예시**
 
-  ```js
-  for (변수 선언문 또는 할당문; 조건식; 증감식){
-    조건식이 참인 경우 반복 실행될 문;
-  }
-  ```
+```js
+for (변수 선언문 또는 할당문; 조건식; 증감식){
+  조건식이 참인 경우 반복 실행될 문;
+}
+```
 
-  ### while 문
+### while 문
 
-  - `while` 문은 조건식이 거짓일때까지 코드 블록을 반복한다
-  - 조건식의 결과가 언제나 참이면 무한루프가 된다 `while(true) {...}`
-  - 무한루프를 빠져나오기 위해서는 `if` 문으로 조건을 만들고 `break` 문으로 코드 블록을 탈출할 것
+- `while` 문은 조건식이 거짓일때까지 코드 블록을 반복한다
+- 조건식의 결과가 언제나 참이면 무한루프가 된다 `while(true) {...}`
+- 무한루프를 빠져나오기 위해서는 `if` 문으로 조건을 만들고 `break` 문으로 코드 블록을 탈출할 것
 
-  **사용 예시**
+**사용 예시**
 
-  ```js
-  var score = 1;
+```js
+var score = 1;
 
-  while(score < 5){
-    console.log(score); // 1 2 3 4
-    score++;
-  }
-  ```
+while (score < 5) {
+  console.log(score); // 1 2 3 4
+  score++;
+}
+```
 
-  ### do...while 문
+### do...while 문
 
-  - `do...while` 문은 코드 블록을 먼저 실행하고 조건식을 평가한다
+- `do...while` 문은 코드 블록을 먼저 실행하고 조건식을 평가한다
 
-  **사용 예시**
+**사용 예시**
 
-  ```js
-  var score = 1;
+```js
+var score = 1;
 
-  do{
-    console.log(score);
-    score++;
-  }while(score < 5);
-  ```
+do {
+  console.log(score);
+  score++;
+} while (score < 5);
+```
 
 ## 4. break 문
 
@@ -125,15 +125,15 @@
 
 ```html
 <script>
-  var value = prompt('점수를 입력해주세요') // 사용자가 텍스트를 입력할 수 있는 대화 상자를 띄우는 메서드
-  if(value >= 90){
-    alert('A학점'); // 확인 버튼을 가지며 메시지를 지정할 수 있는 경고 대화 상자를 띄우는 메서드
-  }else if(value >= 80){
-    alert('B학점');
-  }else if(value >= 70){
-    alert('C학점');
-  }else{
-    alert('F학점');
+  var value = prompt("점수를 입력해주세요"); // 사용자가 텍스트를 입력할 수 있는 대화 상자를 띄우는 메서드
+  if (value >= 90) {
+    alert("A학점"); // 확인 버튼을 가지며 메시지를 지정할 수 있는 경고 대화 상자를 띄우는 메서드
+  } else if (value >= 80) {
+    alert("B학점");
+  } else if (value >= 70) {
+    alert("C학점");
+  } else {
+    alert("F학점");
   }
   value = parseInt(value); // 문자를 숫자로 변환 해주는 함수
 </script>
@@ -144,12 +144,12 @@
 ```html
 <script>
   while (true) {
-    var password = prompt('비밀번호를 입력하세요.');
+    var password = prompt("비밀번호를 입력하세요.");
     if (password == 1234) {
-      alert('환영합니다.');
+      alert("환영합니다.");
       break;
-    } else{
-      alert('패스워드를 잘못 입력했습니다. 다시 입력해주세요.');
+    } else {
+      alert("패스워드를 잘못 입력했습니다. 다시 입력해주세요.");
     }
   }
 </script>
@@ -164,41 +164,41 @@
 ```html
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>구구단 - for문</title>
-  <style>
-    div {
-      display: inline-block;
-      padding: 0 20px 30px 20px;
-      margin: 15px;
-      border: 1px solid #ccc;
-      line-height: 2;
-    }
-    div h3 {
-      text-align: center;
-      font-weight: bold;
-    }
-  </style>
-</head>
-<body>
-  <h1>구구단</h1>
-  <script>
-    var i;
-    var j;
-    for (i = 1; i < 10; i++) {
-      document.write(`<div>`); // 열린 문서에 텍스트 스트링을 적는 메서드
-      document.write(`<h3>${i}단</h3>`);
-      for (j = 1; j < 10; j++) {
-        var z = i * j;
-        document.write(`${i} X ${j} = ${z}</br>`);
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>구구단 - for문</title>
+    <style>
+      div {
+        display: inline-block;
+        padding: 0 20px 30px 20px;
+        margin: 15px;
+        border: 1px solid #ccc;
+        line-height: 2;
       }
-      document.write(`</div>`);
-    }
-  </script>
-</body>
+      div h3 {
+        text-align: center;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>구구단</h1>
+    <script>
+      var i;
+      var j;
+      for (i = 1; i < 10; i++) {
+        document.write(`<div>`); // 열린 문서에 텍스트 스트링을 적는 메서드
+        document.write(`<h3>${i}단</h3>`);
+        for (j = 1; j < 10; j++) {
+          var z = i * j;
+          document.write(`${i} X ${j} = ${z}</br>`);
+        }
+        document.write(`</div>`);
+      }
+    </script>
+  </body>
 </html>
 ```
 
@@ -222,5 +222,8 @@ console.log(output);
 ```
 
 ## 요약
+
 - 선언문, 제어문은 실행 흐름을 벗어난다
 - If...else 문은 표현식이 아니지만 삼항조건연산자는 표현식이기 때문에 변수에 할당 가능하다
+
+출처 : https://poiemaweb.com/
