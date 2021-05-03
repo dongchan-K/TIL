@@ -1,7 +1,7 @@
 function solution(day, arr) {
   let answer = 0;
 
-  for (x of arr) {
+  for (const x of arr) {
     if (day === x % 10) answer++;
   }
 
