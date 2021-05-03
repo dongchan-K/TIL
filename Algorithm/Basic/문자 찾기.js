@@ -3,6 +3,9 @@ function solution(s, t) {
   for (const x of s) {
     if (x === t) answer++;
   }
+
+  // split 메서드를 사용하여도 풀이 가능
+  // let answer = s.split(t).length - 1;
   return answer;
 }
 
