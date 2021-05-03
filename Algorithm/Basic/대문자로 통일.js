@@ -1,5 +1,6 @@
 function solution(s) {
   let answer = '';
+
   for (const x of s) {
     if (x === x.toUpperCase()) {
       answer += x;
