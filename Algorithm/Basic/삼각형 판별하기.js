@@ -3,12 +3,18 @@ function solution(a, b, c) {
   let answer = 'YES';
   let maxValue;
 
-  if (a < b) maxValue = b;
-  else maxValue = a;
+  if (a < b) {
+    maxValue = b;
+  } else {
+    maxValue = a;
+  }
 
-  if (c > maxValue) maxValue = c;
-  if (totalValue - maxValue > maxValue) answer = 'No';
-
+  if (c > maxValue) {
+    maxValue = c;
+  }
+  if (totalValue - maxValue > maxValue) {
+    answer = 'No';
+  }
   return answer;
 }
 
