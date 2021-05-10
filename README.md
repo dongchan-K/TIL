@@ -135,7 +135,3 @@
 - [HTTP](https://github.com/dongchan-K/TIL/blob/master/Web/HTTP.md)
 
 - [쿠키와 세션(Cookie and Session)](https://github.com/dongchan-K/TIL/blob/master/Web/%EC%BF%A0%ED%82%A4%EC%99%80%20%EC%84%B8%EC%85%98.md)
-
-## Algorithm
-
-- [알고리즘 연습문제(Algorithm Example)](https://github.com/dongchan-K/TIL/blob/master/JavaScript/example/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98%20%EC%97%B0%EC%8A%B5%EB%AC%B8%EC%A0%9C.md)
